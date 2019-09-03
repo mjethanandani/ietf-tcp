@@ -1,0 +1,48 @@
+module ietf-tcp {
+  yang-version "1.1";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-tcp";
+  prefix "tcp";
+
+  import ietf-tcp-client {
+    prefix "tcpc";
+  }
+  import ietf-tcp-server {
+    prefix "tcps";
+  }
+  import ietf-tcp-common {
+    prefix "tcpcmn";
+  }
+  
+  organization
+    "IETF TCPM Working Group";
+
+  contact
+    "WG Web:   <http://tools.ietf.org/wg/tcpm>
+     WG List:  <tcpm@ietf.org>
+
+     Authors: Michael Scharf (michael.scharf at hs-esslingen dot de)
+              Vishal Murgai (vmurgai at cisco dot com)
+              Mahesh Jethanandani (mjethanandani at gmail dot com)";
+
+  description
+    "This module focuses on fundamental and standard TCP functions
+     that widely implemented. The model can be augmented  to address
+     more advanced or implementation specific TCP features.";
+
+  revision "YYYY-MM-DD" {
+    description
+      "Initial Version";
+    reference 
+      "RFC XXX, TCP Configuration.";
+  }
+
+  // augment statements
+
+  container tcp {
+    presencce "The container for TCP configuration.":
+
+  }
+}
+  
+
+
