@@ -178,7 +178,6 @@ module ietf-tcp {
     container connections {
       list connection {
 	key "local-address remote-address local-port remote-port";
-	config false;
 	
 	leaf local-address {
 	  type inet:ip-address;
@@ -207,15 +206,15 @@ module ietf-tcp {
 	container common {
 	  uses tcpcmn:tcp-common-grouping;
 	  uses ao;
-      
 	  description
-	    "Common definitions of TCP configuration.";
+	    "Common definitions of TCP configuration. This includes
+             parameters such as keepalives and idle time, that can
+             be part of either the client or server.";
 	}
 
 	container server {
 	  if-feature server;
 	  uses tcps:tcp-server-grouping;
-
 	  description
 	    "Definitions of TCP server configuration.";
 	}
@@ -223,7 +222,6 @@ module ietf-tcp {
 	container client {
 	  if-feature client;
 	  uses tcpc:tcp-client-grouping;
-
 	  description
 	    "Definitions of TCP client configuration.";
 	}
@@ -231,7 +229,7 @@ module ietf-tcp {
 	  "Connection related parameters.";
       }
       description
-	"A list of all TCP connections.";
+	"A container of all TCP connections.";
     }
   }
 }
