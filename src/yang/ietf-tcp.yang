@@ -89,13 +89,19 @@ module ietf-tcp {
     leaf key-id {
       type uint8;
       description
-	"TBD";
+	"An unsigned 1-byte field indicating the Master Key Tuple
+         (MKT) used to generate the traffic keys that were used to
+         generate the MAC that authenticates this segment.";
+      reference
+	"RFC 5925: The TCP Authentication Option.";
     }
 
     leaf rnext-key-id {
       type uint8;
       description
-	"TBD";
+	"An unsigned 1-byte field indicating the MKT that is
+         ready at the sender to be used to authenticate received
+         segments, i.e., the desired 'receive next' key ID.";
     }
     description
       "A Master Key Tuple (MKT) describes TCP-AO properties to be
@@ -103,7 +109,7 @@ module ietf-tcp {
   }
 
   grouping ao {
-    leaf enable {
+    leaf enable-ao {
       type boolean;
       default "false";
       description
@@ -122,7 +128,7 @@ module ietf-tcp {
          given time on a particular connection.
 
          Every TCP connection in a non-IDLE state MUST have at most
-         one current_key specified.";
+         one current-key specified.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
@@ -165,6 +171,21 @@ module ietf-tcp {
       "Authentication Option (AO) for TCP.";
     reference
       "RFC 5925: The TCP Authentication Option.";
+  }
+
+  grouping md5 {
+    description
+      "Grouping for use in authenticating TCP sessions using MD5.";
+    reference
+      "RFC 2385: Protection of BGP Sessions via the TCP MD5
+       Signature.";
+
+    leaf enable-md5 {
+      type boolean;
+      default "false";
+      description
+        "Enable support of MD5 to authenticate a TCP session.";
+    }
   }
   
   // augment statements

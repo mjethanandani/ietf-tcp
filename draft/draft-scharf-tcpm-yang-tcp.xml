@@ -84,11 +84,12 @@
 
     <abstract>
       <t>This document specifies a YANG model for TCP on devices that are
-      configured by network management protocols. The YANG model defines
-      groupings for fundamental parameters that can be modified in many TCP
-      implementations. The model includes definitions from YANG Groupings for
-      TCP Client and TCP Servers (I-D.ietf-netconf-tcp-client-server). The
-      model is NMDA (RFC 8342) complaint.</t>
+      configured by network management protocols. The YANG model defines a
+      container for all TCP connections and groupings of fundamental
+      parameters that can be imported and used in many TCP implementations.
+      The model includes definitions from YANG Groupings for TCP Client and
+      TCP Servers (I-D.ietf-netconf-tcp-client-server). The model is NMDA (RFC
+      8342) complaint.</t>
     </abstract>
   </front>
 
@@ -103,7 +104,8 @@
       target="RFC7950">YANG</xref> 1.1 model for configuring TCP on network
       elements that support YANG data models, and is <xref
       target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>
-      compliant. This document includes definitions from <xref
+      compliant. This module defines a container for TCP connection, and
+      includes definitions from <xref
       target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
       Clients and TCP Servers</xref>. The model focuses on fundamental and
       standard TCP functions that are widely implemented. The model can be
@@ -117,8 +119,8 @@
       <xref target="RFC6241">NETCONF</xref> or <xref
       target="RFC8040">RESTCONF</xref> and they do not use YANG data models.
       Yet, such TCP implementations often also have means to configure the
-      parameters listed in this document. All parameters defined in this
-      document are optional.</t>
+      parameters listed in this document. All parameters defined in groupings
+      are optional.</t>
 
       <t>This specification is orthogonal to <xref target="RFC4022">Management
       Information Base (MIB) for the Transmission Control Protocol
@@ -217,7 +219,7 @@
             <t>TCP connection table: Access to status information for all TCP
             connections</t>
 
-            <t>TCP listener table: Tnformation about all TCP listening
+            <t>TCP listener table: Information about all TCP listening
             endpoints</t>
           </list></t>
 
@@ -228,12 +230,11 @@
 
         <t>The YANG model defined in this document includes definitions from
         the <xref target="I-D.ietf-netconf-tcp-client-server">YANG Groupings
-        for TCP Clients and TCP Servers</xref>. Similar to the base model,
-        this specification only defines YANG groupings. This allows reuse of
-        these groupings in different YANG data models. It is intended that
-        these groupings will be used either standalone or for TCP-based
-        protocols as part of a stack of protocol-specific configuration
-        models.</t>
+        for TCP Clients and TCP Servers</xref>. Similar to that model, this
+        specification defines YANG groupings. This allows reuse of these
+        groupings in different YANG data models. It is intended that these
+        groupings will be used either standalone or for TCP-based protocols as
+        part of a stack of protocol-specific configuration models.</t>
       </section>
 
       <section title="Basic TCP Configuration Parameters">
@@ -322,10 +323,15 @@
       <section title="Model Design">
         <t>[[Editor's node: This section requires further work.]]</t>
 
-        <t>This document extends the YANG model "ietf-tcp-common" defined in
-        <xref target="I-D.ietf-netconf-tcp-client-server"/>. The exact
-        modeling is TBD. The intention is to define YANG groupings for all
-        parameters so that they can be used in different YANG models.</t>
+        <t>This model defines a container for all TCP connections on the
+        system. It extends the YANG model "ietf-tcp-common" defined in <xref
+        target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
+        Clients and TCP Servers </xref> and adds more groupings for the
+        fundamental parameters identified above. The intention is to define a
+        core set of attributes in this model, and provide YANG groupings for
+        all other parameters so that they can be used in different YANG
+        models. The core set of attributes include information related to a
+        TCP connection, and a way to reference them from other models.</t>
 
         <t>As an example, enabling the support of Selective Acknowledgements
         (SACK) can be modelled as follows:</t>
@@ -346,21 +352,33 @@
 ]]></artwork>
         </figure>
 
+        <t/>
+
         <t>A YANG model could then, for instance, import the YANG model
-        "ietf-tcp-common" as well as the model defined in this document as
+        "ietf-tcp-common" as well as the groupings defined in this document as
         follows:</t>
 
         <figure>
           <artwork align="left"><![CDATA[
-  ...
-  grouping example-tcp-config {
+module example-tcp {
+  namespace "http://example.com/tcp";
+  prefix tcp;
+
+  import ietf-tcp {
+    prefix tcp;
+  }
+
+  import ietf-tcp-common {
+    prefix tcpcmn;
+  }
+
+  container example-tcp-config {
     description "Example TCP stack configuration";
 
-    uses tcp-common-grouping;
-    uses tcp-sack-grouping;
+    uses tcpcmn:tcp-common-grouping;
+    uses tcp:tcp-sack-grouping;
   }
-  ...
-]]></artwork>
+}]]></artwork>
         </figure>
       </section>
 
@@ -407,7 +425,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
         <t><figure>
             <artwork><![CDATA[
-   URI: urn:ietf:params:xml:ns:yang:ietf-tcp-system
+   URI: urn:ietf:params:xml:ns:yang:ietf-tcp
    Registrant Contact: The TCPM WG of the IETF.
    XML: N/A, the requested URI is an XML namespace.
 ]]></artwork>
@@ -423,9 +441,9 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
         <t><figure>
             <artwork><![CDATA[
-   name:         ietf-tcp-system
-   namespace:    urn:ietf:params:xml:ns:yang:ietf-tcp-system
-   prefix:       tcpsys
+   name:         ietf-tcp
+   namespace:    urn:ietf:params:xml:ns:yang:ietf-tcp
+   prefix:       tcp
    reference:    RFC XXXX
 ]]></artwork>
           </figure></t>
@@ -497,7 +515,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.RFC.8446'?>
 
-      <?rfc include='reference.I-D.ietf-netconf-client-server'?>
+      <?rfc include='reference.I-D.ietf-netconf-tcp-client-server'?>
     </references>
 
     <references title="Informative References">
