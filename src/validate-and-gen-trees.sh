@@ -47,7 +47,7 @@ echo "Validating examples"
 
 for i in yang/example-tcp-configuration-*.xml
 do
-    name=$(echo $i | cut -f 1-3 -d '.')
+    name=$(echo $i | cut -f 1-4 -d '.')
     echo "Validating $name"
     response=`yanglint -s -i -t auto -p dependencies yang/ietf-tcp\@$(date +%Y-%m-%d).yang $name`
     if [ $? -ne 0 ]; then
