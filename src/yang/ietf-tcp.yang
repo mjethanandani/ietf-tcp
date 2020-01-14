@@ -50,19 +50,7 @@ module ietf-tcp {
       "TCP Client configuration supported.";
   }
 
-  // Groupings
-  grouping sack {
-    leaf enable {
-      type boolean;
-      default "true";
-
-      description
-	"Enable support of Selective ACKnowledgement (SACK).";
-    }
-    description
-      "Grouping that defines configuration for Selective 
-       ACKnowledgement (SACK).";
-  }
+  // TCP-AO Groupings
 
   grouping mkt {
     leaf options {
@@ -166,6 +154,81 @@ module ietf-tcp {
     reference
       "RFC 5925: The TCP Authentication Option.";
   }
+
+  // TCP general configuration groupings
+
+  grouping tcp-mss-grouping {
+    description "Maximum Segment Size (MSS) parameters";
+
+    leaf tcp-mss {
+      type uint16;
+      description
+        "Sets the max segment size for TCP connections.";
+    }
+  } // grouping tcp-mss-grouping
+
+  grouping tcp-mtu-grouping {
+    description "Maximum Transfer Unit (MTU) discovery parameters";
+
+    leaf tcp-mtu-discovery {
+      type boolean;
+      default false;
+      description
+        "Turns path mtu discovery for TCP connections on (true) or
+         off (false)";
+    }
+  } // grouping tcp-mtu-grouping
+
+  grouping tcp-sack-grouping {
+    description "Selective Acknowledgements (SACK) parameters";
+
+    leaf sack-enable {
+      type boolean;
+
+      description
+        "Enable support of Selective Acknowledgements (SACK)";
+    }
+  } // grouping tcp-sack-grouping
+
+  grouping tcp-timestamps-grouping {
+    description "Timestamp parameters";
+
+    leaf timestamps-enable {
+      type boolean;
+
+      description
+        "Enable support of timestamps";
+    }
+  } // grouping tcp-timestamps-grouping
+
+  grouping tcp-fin-timeout-grouping {
+    description "TIME WAIT timeout parameters";
+
+    leaf fin-timeout {
+      type uint16;
+      units "seconds";
+      description
+        "When a connection is closed actively, it must linger in
+         TIME-WAIT state for a time 2xMSL (Maximum Segment Lifetime).
+         This parameter sets the TIME-WAIT timeout duration in
+         seconds.";
+    }
+  } // grouping tcp-fin-timeout-grouping
+
+  grouping tcp-ecn-grouping {
+    description "Explicit Congestion Notification (ECN) parameters";
+
+    leaf ecn-enable {
+      type enumeration {
+        enum disable;
+        enum passive;
+        enum active;
+      }
+      description
+        "Enabling of ECN.";
+    }
+  } // grouping tcp-ecn-grouping
+
   
   // augment statements
 
