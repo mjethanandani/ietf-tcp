@@ -3,6 +3,11 @@ module ietf-tcp {
   namespace "urn:ietf:params:xml:ns:yang:ietf-tcp";
   prefix "tcp";
 
+  import ietf-yang-types {
+    prefix "yang";
+    reference
+      "RFC 6991: Common YANG Data Types.";
+  }
   import ietf-tcp-client {
     prefix "tcpc";
   }
@@ -48,6 +53,11 @@ module ietf-tcp {
   feature client {
     description
       "TCP Client configuration supported.";
+  }
+
+  feature statistics {
+    description
+      "This implementation supports statistics reporting.";
   }
 
   // TCP-AO Groupings
@@ -314,8 +324,108 @@ module ietf-tcp {
       description
 	"A container of all TCP connections.";
     }
+
+    container statistics {
+      if-feature statistics;
+      config false;
+
+      leaf active-opens {
+        type yang:counter32;
+        description
+          "The number of times that TCP connections have made a direct
+           transition to the SYN-SENT state from the CLOSED state.";
+      }
+
+      leaf passive-opens {
+        type yang:counter32;
+        description
+          "The number of times TCP connections have made a direct
+           transition to the SYN-RCVD state from the LISTEN state.";
+      }
+
+      leaf attempt-fails {
+        type yang:counter32;
+        description
+          "The number of times that TCP connections have made a direct
+           transition to the CLOSED state from either the SYN-SENT
+           state or the SYN-RCVD state, plus the number of times that
+           TCP connections have made a direct transition to the
+           LISTEN state from the SYN-RCVD state.";
+      }
+
+      leaf establish-resets {
+        type yang:counter32;
+        description
+          "The number of times that TCP connections have made a direct
+           transition to the CLOSED state from either the ESTABLISHED
+           state or the CLOSE-WAIT state.";
+      }
+
+      leaf currently-established {
+        type yang:gauge32;
+        description
+          "The number of TCP connections for which the current state
+           is either ESTABLISHED or CLOSE-WAIT.";
+      }
+
+      leaf in-segments {
+        type yang:counter32;
+        description
+          "The total number of segments received, including those
+           received in error.  This count includes segments received
+           on currently established connections.";
+      }
+
+      leaf out-segments {
+        type yang:counter32;
+        description
+          "The total number of segments sent, including those on
+           current connections but excluding those containing only
+           retransmitted octets.";
+      }
+
+      leaf retransmitted-segments {
+        type yang:counter32;
+        description
+          "The total number of segments retransmitted; that is, the
+           number of TCP segments transmitted containing one or more
+           previously transmitted octets.";
+      }
+
+      leaf in-errors {
+        type yang:counter32;
+        description
+          "The total number of segments received in error (e.g., bad
+           TCP checksums).";
+      }
+
+      leaf out-resets {
+        type yang:counter32;
+        description
+          "The number of TCP segments sent containing the RST flag.";
+      }
+
+      action reset {
+	description
+	  "Reset statistics action command.";
+	input {
+	  leaf reset-at {
+	    type yang:date-and-time;
+	    description
+	      "Time when the reset action needs to be
+               executed.";
+	  }
+	}
+	output {
+	  leaf reset-finished-at {
+	    type yang:date-and-time;
+	    description
+	      "Time when the reset action command completed.";
+	  }
+	}
+      }
+      description
+	"Statistics across all connections.";
+    }
   }
 }
-  
-
-
