@@ -406,26 +406,26 @@ module ietf-tcp {
       }
 
       action reset {
-	description
-	  "Reset statistics action command.";
-	input {
-	  leaf reset-at {
-	    type yang:date-and-time;
-	    description
-	      "Time when the reset action needs to be
+        description
+          "Reset statistics action command.";
+        input {
+          leaf reset-at {
+            type yang:date-and-time;
+            description
+              "Time when the reset action needs to be
                executed.";
-	  }
-	}
-	output {
-	  leaf reset-finished-at {
-	    type yang:date-and-time;
-	    description
-	      "Time when the reset action command completed.";
-	  }
-	}
+          }
+        }
+        output {
+          leaf reset-finished-at {
+            type yang:date-and-time;
+            description
+              "Time when the reset action command completed.";
+          }
+        }
       }
       description
-	"Statistics across all connections.";
+        "Statistics across all connections.";
     }
   }
 }
