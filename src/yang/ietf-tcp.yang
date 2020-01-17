@@ -105,7 +105,9 @@ module ietf-tcp {
     }
 
     leaf current-key {
-      type binary;
+      type leafref {
+	path "../mkt";
+      }
       description
         "The Master Key Tuple (MKT) currently used to authenticate
          outgoing segments, whose SendID is inserted in outgoing
@@ -122,7 +124,9 @@ module ietf-tcp {
     }
 
     leaf rnext-key {
-      type binary;
+      type leafref {
+	path "../mkt";
+      }
       description
 	"The MKT currently preferred for incoming (received)
          segments, whose RecvID is inserted in outgoing segments as
