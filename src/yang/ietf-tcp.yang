@@ -323,6 +323,11 @@ module ietf-tcp {
             description
               "Choice of how to secure the TCP connection.";
           }
+          leaf tcp-nodelay {
+            type boolean;
+            description
+              "Disable the 'Nagle algorithm'.";
+          }
           description
             "Common definitions of TCP configuration. This includes
              parameters such as how to secure the connection,
