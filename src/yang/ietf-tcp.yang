@@ -298,7 +298,7 @@ module ietf-tcp {
 
 	container common {
 	  uses tcpcmn:tcp-common-grouping;
-          choice secure {
+          choice authentication {
             case ao {
               uses ao;
               description
