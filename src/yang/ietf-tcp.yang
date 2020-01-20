@@ -184,6 +184,16 @@ module ietf-tcp {
       description
         "Enable support of MD5 to authenticate a TCP session.";
     }
+
+    leaf key {
+      type binary;
+      must "../enable-md5 = 'true'";
+      mandatory true;
+      description
+        "The key to be used to generate the MD5 digest either to
+         insert in an outgoing segment or for validating a received
+         segment.";
+    }
   }
 
   // TCP general configuration groupings
@@ -298,11 +308,26 @@ module ietf-tcp {
 
 	container common {
 	  uses tcpcmn:tcp-common-grouping;
-	  uses ao;
-	  description
-	    "Common definitions of TCP configuration. This includes
-             parameters such as keepalives and idle time, that can
-             be part of either the client or server.";
+          choice authentication {
+            case ao {
+              uses ao;
+              description
+                "Use TCP-AO to secure the connection.";
+            }
+
+            case md5 {
+              uses md5;
+              description
+                "Use TCP-MD5 to secure the connection.";
+            }
+            description
+              "Choice of how to secure the TCP connection.";
+          }
+          description
+            "Common definitions of TCP configuration. This includes
+             parameters such as how to secure the connection,
+             keepalives and idle time, that can be part of either
+             the client or server.";
 	}
 
 	container server {
