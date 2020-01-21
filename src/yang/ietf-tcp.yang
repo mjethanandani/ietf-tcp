@@ -270,6 +270,58 @@ module ietf-tcp {
     }
   } // grouping tcp-ecn-grouping
 
+  // congestion control
+
+  identity congestion-control-algorithm {
+    description
+      "Base identity from which all congestion control algorithms
+       are derived.";
+  }
+
+  identity Reno {
+    base congestion-control-algorithm;
+    description
+      "Standard TCP congestion control (RFC 5681) referred to as
+       'Reno algorithm'.";
+  }
+
+  identity NewReno {
+    base congestion-control-algorithm;
+    description
+      "NewReno modification to TCP's fast recovery algorithm
+       (RFC 6582)'.";
+  }
+
+  identity LEDBAT {
+    base congestion-control-algorithm;
+    description
+      "Low Extra Delay Background Transport (RFC 6817).";
+  }
+
+  identity DCTCP {
+    base congestion-control-algorithm;
+    description
+      "TCP Congestion Control for Data Centers (RFC 8257).";
+  }
+
+  identity CUBIC {
+    base congestion-control-algorithm;
+    description
+      "CUBIC for fast long-distance networks (RFC 8312).";
+  }
+
+  grouping tcp-congestion-control-grouping {
+    description "Congestion control parameters";
+
+    leaf tcp-congestion-control {
+      type identityref {
+        base congestion-control-algorithm;
+      }
+      description
+        "Type of the congestion control algorithm.";
+    }
+  } // grouping tcp-congestion-control-grouping
+
   // augment statements
 
   container tcp {
@@ -308,6 +360,7 @@ module ietf-tcp {
 
 	container common {
 	  uses tcpcmn:tcp-common-grouping;
+          uses tcp-congestion-control-grouping;
           choice authentication {
             case ao {
               uses ao;
