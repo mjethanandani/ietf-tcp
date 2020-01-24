@@ -196,81 +196,7 @@ module ietf-tcp {
     }
   }
 
-  // TCP general configuration groupings
-
-  grouping tcp-mss-grouping {
-    description "Maximum Segment Size (MSS) parameters";
-
-    leaf tcp-mss {
-      type uint16;
-      description
-        "Sets the max segment size for TCP connections.";
-    }
-  } // grouping tcp-mss-grouping
-
-  grouping tcp-mtu-grouping {
-    description "Maximum Transfer Unit (MTU) discovery parameters";
-
-    leaf tcp-mtu-discovery {
-      type boolean;
-      default false;
-      description
-        "Turns path mtu discovery for TCP connections on (true) or
-         off (false)";
-    }
-  } // grouping tcp-mtu-grouping
-
-  grouping tcp-sack-grouping {
-    description "Selective Acknowledgements (SACK) parameters";
-
-    leaf sack-enable {
-      type boolean;
-
-      description
-        "Enable support of Selective Acknowledgements (SACK)";
-    }
-  } // grouping tcp-sack-grouping
-
-  grouping tcp-timestamps-grouping {
-    description "Timestamp parameters";
-
-    leaf timestamps-enable {
-      type boolean;
-
-      description
-        "Enable support of timestamps";
-    }
-  } // grouping tcp-timestamps-grouping
-
-  grouping tcp-fin-timeout-grouping {
-    description "TIME WAIT timeout parameters";
-
-    leaf fin-timeout {
-      type uint16;
-      units "seconds";
-      description
-        "When a connection is closed actively, it must linger in
-         TIME-WAIT state for a time 2xMSL (Maximum Segment Lifetime).
-         This parameter sets the TIME-WAIT timeout duration in
-         seconds.";
-    }
-  } // grouping tcp-fin-timeout-grouping
-
-  grouping tcp-ecn-grouping {
-    description "Explicit Congestion Notification (ECN) parameters";
-
-    leaf ecn-enable {
-      type enumeration {
-        enum disable;
-        enum passive;
-        enum active;
-      }
-      description
-        "Enabling of ECN.";
-    }
-  } // grouping tcp-ecn-grouping
-
-  // congestion control
+  // Congestion control
 
   identity congestion-control-algorithm {
     description
@@ -319,6 +245,78 @@ module ietf-tcp {
     reference "RFC 8312: CUBIC for Fast Long-Distance Networks";
   }
 
+  // Important global TCP stack parameters
+
+  grouping global {
+    leaf tcp-mss {
+      type uint16;
+      description
+        "Sets the max segment size for TCP connections.";
+    }
+
+    leaf tcp-mtu-discovery {
+      type boolean;
+      default false;
+      description
+        "Turns path mtu discovery for TCP connections on (true) or
+         off (false)";
+    }
+
+    leaf sack-enable {
+      type boolean;
+
+      description
+        "Enable negotiation of Selective Acknowledgements (SACK)";
+    }
+
+    leaf timestamps-enable {
+      type boolean;
+
+      description
+        "Enable negotiation of timestamps";
+    }
+
+    leaf window-scale-enable {
+      type boolean;
+
+      description
+        "Enable negotiation of receive window scaling";
+    }
+
+    leaf ecn-enable {
+      type enumeration {
+        enum disable;
+        enum passive;
+        enum active;
+      }
+      description
+        "Enabling of Explicit Congestion Notification (ECN).";
+    }
+
+    leaf fin-timeout {
+      type uint16;
+      units "seconds";
+      description
+        "When a connection is closed actively, it must linger in
+         TIME-WAIT state for a time 2xMSL (Maximum Segment Lifetime).
+         This parameter sets the TIME-WAIT timeout duration in
+         seconds.";
+    }
+
+    leaf congestion-control-default {
+      type identityref {
+        base congestion-control-algorithm;
+      }
+      description
+        "This parameter selects the congestion control algorithm that is
+         used by default for new TCP connections. The default may be overridden
+         per connection by means outside the scope of this model (e.g., 
+         via the Sockets API).";
+    }
+  }
+
+  // TCP configuration
+
   container tcp {
     presence "The container for TCP configuration.";
 
@@ -356,13 +354,15 @@ module ietf-tcp {
 	container common {
 	  uses tcpcmn:tcp-common-grouping;
 
-          leaf tcp-congestion-control {
+          leaf congestion-control {
             type identityref {
               base congestion-control-algorithm;
             }
             config false;
             description
-              "Type of the congestion control algorithm.";
+              "Type of the actually used TCP congestion control algorithm.
+               It may be different to the default algorithm, for instance,
+               it an application has explicitly selected an algorithm.";
           }
 
           choice authentication {
@@ -410,6 +410,12 @@ module ietf-tcp {
       }
       description
 	"A container of all TCP connections.";
+    }
+
+    container global {
+      uses global;
+      description
+        "Parameters affecting all TCP connections";
     }
 
     container statistics {
