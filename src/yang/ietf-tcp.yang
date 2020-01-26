@@ -382,8 +382,9 @@ module ietf-tcp {
           }
           leaf tcp-nodelay {
             type boolean;
+            config false;
             description
-              "Disable the 'Nagle algorithm'.";
+              "Disabling of the 'Nagle algorithm'.";
           }
           description
             "Common definitions of TCP configuration. This includes
