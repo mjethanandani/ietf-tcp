@@ -209,24 +209,26 @@ module ietf-tcp {
     description
       "Standard TCP congestion control referred to as
        'Reno algorithm'";
-    reference "RFC 5681: TCP Congestion Control";
+    reference
+      "RFC 5681: TCP Congestion Control";
   }
 
   identity new-reno {
     base congestion-control-algorithm;
     description
       "NewReno modification to TCP's fast recovery algorithm";
-    reference "RFC 6582: The NewReno Modification to TCP's
-       Fast Recovery Algorithm";
+    reference
+      "RFC 6582: The NewReno Modification to TCP's Fast Recovery
+       Algorithm";
   }
 
   identity ledbat {
     base congestion-control-algorithm;
     description
       "Low Extra Delay Background Transport (LEDBAT) 
-       congestion control"
-   reference "RFC 6817: Low Extra Delay Background Transport
-       (LEDBAT)";
+       congestion control";
+   reference
+      "RFC 6817: Low Extra Delay Background Transport (LEDBAT)";
   }
 
   identity dctcp {
@@ -234,7 +236,8 @@ module ietf-tcp {
     description
       "TCP Congestion Control for Data Centers (DCTCP)
        congestion control";
-    reference "RFC 8257: Data Center TCP (DCTCP): TCP Congestion
+    reference
+      "RFC 8257: Data Center TCP (DCTCP): TCP Congestion
        Control for Data Centers";
   }
 
@@ -242,18 +245,20 @@ module ietf-tcp {
     base congestion-control-algorithm;
     description
       "CUBIC congestion control";
-    reference "RFC 8312: CUBIC for Fast Long-Distance Networks";
+    reference
+      "RFC 8312: CUBIC for Fast Long-Distance Networks";
   }
 
-  // Important global TCP stack parameters
-
   grouping tcp-global {
+    description
+      "Important global TCP stack parameters.";
     leaf mss-max {
       type uint16;
       description
         "Sets the max segment size for TCP connections.";
-      reference "RFC 1122: Requirements for Internet Hosts -- Communication
-        Layers";
+      reference
+         "RFC 1122: Requirements for Internet Hosts -- Communication
+          Layers";
     }
 
     leaf mtu-discovery-enable {
@@ -261,28 +266,32 @@ module ietf-tcp {
       description
         "Turns path mtu discovery for TCP connections on (true) or
          off (false)";
-      reference "RFC 4821: Packetization Layer Path MTU Discovery";
+      reference
+        "RFC 4821: Packetization Layer Path MTU Discovery";
     }
 
     leaf sack-enable {
       type boolean;
       description
         "Enable negotiation of Selective Acknowledgements (SACK)";
-      reference "RFC 2018: TCP Selective Acknowledgment Options";
+      reference
+        "RFC 2018: TCP Selective Acknowledgment Options";
     }
 
     leaf timestamps-enable {
       type boolean;
       description
         "Enable negotiation of timestamps";
-      reference "RFC 7323: TCP Extensions for High Performance";
+      reference
+        "RFC 7323: TCP Extensions for High Performance";
     }
 
     leaf window-scale-enable {
       type boolean;
       description
         "Enable negotiation of receive window scaling";
-      reference "RFC 7323: TCP Extensions for High Performance";
+      reference
+        "RFC 7323: TCP Extensions for High Performance";
     }
 
     leaf ecn-enable {
@@ -293,8 +302,9 @@ module ietf-tcp {
       }
       description
         "Enabling of Explicit Congestion Notification (ECN).";
-      reference "RFC 3168: The Addition of Explicit Congestion
-        Notification (ECN) to IP";
+      reference
+        "RFC 3168: The Addition of Explicit Congestion
+         Notification (ECN) to IP";
     }
 
     leaf fin-timeout {
@@ -305,7 +315,8 @@ module ietf-tcp {
          TIME-WAIT state for a time 2xMSL (Maximum Segment Lifetime).
          This parameter sets the TIME-WAIT timeout duration in
          seconds.";
-      reference "RFC 793: Transmission Control Protocol";
+      reference
+         "RFC 793: Transmission Control Protocol";
     }
 
     leaf congestion-control-default {
@@ -313,11 +324,12 @@ module ietf-tcp {
         base congestion-control-algorithm;
       }
       description
-        "This parameter selects the congestion control algorithm that is
-         used by default for new TCP connections. The default may be overridden
-         per connection by means outside the scope of this model (e.g., 
-         via the Sockets API).";
-       reference "RFC 2914: Congestion Control Principles";
+        "This parameter selects the congestion control algorithm that
+         is used by default for new TCP connections. The default may
+         be overridden per connection by means outside the scope of
+         this model (e.g., via the Sockets API).";
+       reference
+         "RFC 2914: Congestion Control Principles";
     }
   }
 
@@ -366,9 +378,10 @@ module ietf-tcp {
             }
             config false;
             description
-              "Type of the actually used TCP congestion control algorithm.
-               It may be different to the default algorithm, for instance,
-               it an application has explicitly selected an algorithm.";
+              "Type of the actually used TCP congestion control
+               algorithm. It may be different from the default
+               algorithm, for instance, if an application has
+               explicitly selected an algorithm.";
             reference "RFC 2914: Congestion Control Principles";
           }
 
