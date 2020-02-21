@@ -257,8 +257,8 @@ module ietf-tcp {
       description
         "Sets the max segment size for TCP connections.";
       reference
-         "RFC 1122: Requirements for Internet Hosts -- Communication
-          Layers";
+        "RFC 1122: Requirements for Internet Hosts -- Communication
+         Layers";
     }
 
     leaf mtu-discovery-enable {
