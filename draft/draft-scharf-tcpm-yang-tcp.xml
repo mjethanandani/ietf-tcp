@@ -112,47 +112,24 @@
       augmented to address more advanced or implementation-specific TCP
       features.</t>
 
-      <t>Many protocol stacks on internet hosts use other methods to configure
+      <t>Many protocol stacks on Internet hosts use other methods to configure
       TCP, such as operating system configuration or policies. Many TCP/IP
       stacks cannot be configured by network management protocols such as
       <xref target="RFC6241">NETCONF</xref> or <xref
-      target="RFC8040">RESTCONF</xref> and they do not use YANG data models.
-      Yet, such TCP implementations often also have means to configure the
-      parameters listed in this document. All parameters defined in groupings
-      are optional.</t>
+      target="RFC8040">RESTCONF</xref>. Moreover, many existing TCP/IP stacks 
+      do not use YANG data models. Such TCP implementations often have
+      other means to configure the parameters listed in this document, which
+      are outside the scope of this document.</t>
 
       <t>This specification is orthogonal to <xref target="RFC4022">Management
       Information Base (MIB) for the Transmission Control Protocol
       (TCP)</xref>. The <xref target="RFC4898">TCP Extended Statistics
-      MIB</xref> is also available, and there are MIBs for UDP <xref
-      target="RFC4113">Management Information Base for the User Datagram
-      Protocol (UDP)</xref> and <xref target="RFC3873">Stream Control
-      Transmission Protocol (SCTP) Management Information Base (MIB)</xref>.
-      It is possible to translate a MIB into a YANG model, for instance using
-      <xref target="RFC6643">Translation of Structure of Management
+      MIB</xref> is also available. It is possible to translate a MIB into a
+      YANG model, for instance using <xref target="RFC6643">Translation of
+      Structure of Management
       Information Version 2 (SMIv2) MIB Modules to YANG Modules</xref>.
       However, this approach is not used in this document, as such a
       translated model would not be up-to-date.</t>
-
-      <t>There are also other related YANG models. Examples are:</t>
-
-      <t><list style="symbols">
-          <t>Application protocol models may include TCP parameters, for
-          example in case of <xref target="I-D.ietf-idr-bgp-model">BGP YANG
-          Model for Service Provider Networks </xref>.</t>
-
-          <t>TCP header attributes are modeled in other models, such as <xref
-          target="RFC8519">YANG Data Model for Network Access Control Lists
-          (ACLs) </xref> and <xref
-          target="I-D.ietf-dots-data-channel">Distributed Denial-of-Service
-          Open Thread Signaling (DOTS) Data Channel Specification</xref>.</t>
-
-          <t>TCP-related configuration of a NAT (e.g., NAT44, NAT64,
-          Destination NAT, ...) is defined in <xref target="RFC8512">A YANG
-          Module for Network Address Translation (NAT) and Network Prefix
-          Translation (NPT) </xref> and <xref target="RFC8513">A YANG Data
-          Model for Dual-Stack Lite (DS-Lite) </xref>.</t>
-        </list></t>
     </section>
 
     <section title="Requirements Language">
@@ -200,20 +177,37 @@
             Interface to Transport Services</xref>.</t>
           </list></t>
 
-        <t>There is no ground truth for setting certain TCP parameters, and
-        traditionally different implementation have used different modeling
-        approaches. For instance, one implementation may define a given
-        configuration parameter globally, while another one uses per-interface
-        settings, and both approaches work well for the corresponding use
-        cases. Also, different systems may use different default values.</t>
+        <t>As a result, there is no ground truth for setting certain TCP
+        parameters, and traditionally different TCP implementation have used
+        different modeling approaches. For instance, one implementation may
+        define a given configuration parameter globally, while another one
+        uses per-interface settings, and both approaches work well for the
+        corresponding use cases. Also, different systems may use different
+        default values.</t>
 
-        <t>The YANG model defined in this document includes definitions from
-        the <xref target="I-D.ietf-netconf-tcp-client-server">YANG Groupings
-        for TCP Clients and TCP Servers</xref>. Similar to the base model,
-        this specification defines YANG groupings. This allows reuse of these
-        groupings in different YANG data models. It is intended that these
-        groupings will be used either standalone or for TCP-based protocols as
-        part of a stack of protocol-specific configuration models.</t>
+        <t>In addition, TCP can be implemented in different ways and design
+        choices by the protocol engine often affect configuration options. In
+        a number of areas there are known differences between different TCP
+        stack architectures. This includes amongst others:</t>
+
+        <t><list style="symbols">
+            <t>Window size: TCP stacks can either store window state variables
+            (such as the congestion window) in segments or in bytes.</t>
+
+            <t>Buffer sizes: The memory management depends on the operating
+            system. As the size of buffers can vary over several orders of
+            magnitude, very different implementations exist. This typically
+            influences TCP flow control.</t>
+
+            <t>Timers: Timer implementation is another area in which TCP
+            stacks may differ.</t>
+          </list></t>
+
+        <t>Nonetheless, there are a number of basic system parameters that
+        are configurable on many TCP implementations, even if not all TCP
+        implementations may indeed have all these settings, and even if there
+        are differences regarding syntax and semantics. This document focuses
+        on modeling such basic parameters directly following from standards.</t>
 
         <t>In addition to configuration of the TCP protocol engine, a TCP
         implementation typically also offers access to operational state and
@@ -230,41 +224,22 @@
             <t>TCP listener table: Information about all TCP listening
             endpoints</t>
           </list></t>
+      </section>
 
-        <t>Similar to the <xref target="RFC4022">TCP MIB</xref>, this document
-        also specifies a TCP connection table.</t>
+      <section title="Model Design">
+        <t>This document models fundamental system parameters that are
+        configurable on many TCP implementations, and for which the
+        configuration is reasonably similar. Similar to the
+        <xref target="RFC4022">TCP MIB</xref>, this document
+        also specifies a TCP connection table. This enables both
+        global and connection-specific TCP configuration.</t>
 
-        <t>TODO: A future version of this document may include statistics
-        equivalent to the <xref target="RFC4022">TCP MIB</xref>:</t>
-
-        <t><list style="symbols">
-            <t>active-opens</t>
-
-            <t>passive-opens</t>
-
-            <t>attempt-fails</t>
-
-            <t>establish-resets</t>
-
-            <t>currently-established</t>
-
-            <t>in-segments</t>
-
-            <t>out-segments</t>
-
-            <t>retransmitted-segments</t>
-
-            <t>in-errors</t>
-
-            <t>out-resets</t>
-          </list></t>
-
-        <!--
-        <t>This document focuses solely on modeling basic TCP configuration
-        state. Operational state (see <xref target="RFC8342">Network
-        Management Datastore Architecture (NMDA) </xref>) is outside the scope
-        of this specification.</t>
-        -->
+        <t>An important use case is the TCP configuration on network elements
+        such as routers, which often use YANG data models. The model therefore
+        specifies TCP parameters that are important on such TCP stacks. A
+        typical example is the support of <xref target="RFC5925">TCP-AO</xref>.
+        TCP-AO is increasingly supported on routers and it requires
+        configuration.</t>
 
         <t>The YANG model defined in this document includes definitions from
         the <xref target="I-D.ietf-netconf-tcp-client-server">YANG Groupings
@@ -272,148 +247,26 @@
         specification defines YANG groupings. This allows reuse of these
         groupings in different YANG data models. It is intended that these
         groupings will be used either standalone or for TCP-based protocols as
-        part of a stack of protocol-specific configuration models.</t>
-      </section>
+        part of a stack of protocol-specific configuration models. An
+        example could be the <xref target="I-D.ietf-idr-bgp-model">BGP YANG
+        Model for Service Provider Networks </xref>.</t>
 
-      <section title="Basic TCP Configuration Parameters">
-        <t>There are a number of basic system parameters that are configurable
-        on many TCP implementations, even if not all TCP implementations may
-        indeed have exactly all these settings. Also, the syntax, semantics
-        and scope (e.g., global or interface-specific) can be different in
-        different system architectures.</t>
-
-        <t>The following list of fundamental parameters considers both TCP
-        implementations on hosts and on routers:</t>
+        <t>There are also other existing TCP-related YANG models, which are
+        othogonal to this specification. Examples are:</t>
 
         <t><list style="symbols">
-            <t>Keepalives (see also <xref
-            target="I-D.ietf-netconf-tcp-client-server"/>) <list
-                style="symbols">
-                <t>Idle-time (in seconds): integer</t>
+          <t>TCP header attributes are modeled in other models, such as <xref
+          target="RFC8519">YANG Data Model for Network Access Control Lists
+          (ACLs) </xref> and <xref
+          target="I-D.ietf-dots-data-channel">Distributed Denial-of-Service
+          Open Thread Signaling (DOTS) Data Channel Specification</xref>.</t>
 
-                <t>Probe-interval (in seconds): integer</t>
-
-                <t>Max-probes: integer</t>
-              </list></t>
-
-            <t>Maximum MSS (in byte): integer</t>
-
-            <t>FIN timeout (in seconds): integer</t>
-
-            <t>SACK (disable/enable): boolean</t>
-
-            <t>Timestamps (disable/enable): boolean</t>
-
-            <t>Path MTU Discovery (disable/enable): boolean</t>
-
-            <t>ECN <list style="symbols">
-                <t>Enabling (disable/passive/active): enumeration</t>
-              </list></t>
-          </list></t>
-
-        <t>TCP-AO is increasingly supported on routers and also requires
-        configuration.</t>
-
-        <t>Some other parameters are also common but not ubiquitously
-        supported, or modeled in very different ways:</t>
-
-        <t><list style="symbols">
-            <t>Delayed ACK timeout (in ms)</t>
-
-            <t>Initial RTO value (in ms)</t>
-
-            <t>Maximum number of retransmissions</t>
-
-            <t>Window scaling</t>
-
-            <t>Maximum number of connections</t>
-          </list></t>
-
-        <t>TCP can be implemented in different ways and design choices by the
-        protocol engine often affect configuration options. In a number of
-        areas there are major differences between different software
-        architectures. As a result, there are not many commonalities in the
-        corresponding configuration parameters:</t>
-
-        <t><list style="symbols">
-            <t>Window size: TCP stacks can either store window state variables
-            (such as the congestion window) in segments or in bytes.</t>
-
-            <t>Buffer sizes: The memory management depends on the operating
-            system. As the size of buffers can vary over several orders of
-            magnitude, very different implementations exist. This typically
-            influences TCP flow control.</t>
-
-            <t>Timers: Timer implementation is another area in which TCP
-            stacks may differ.</t>
-
-            <t>Congestion control algorithms: Many congestion control
-            algorithms have configuration parameters, but except for
-            fundamental properties they often tie into the specific
-            implementation.</t>
-          </list></t>
-
-        <t>This document only models fundamental system parameters that are
-        configurable on many TCP implementations, and for which the
-        configuration is reasonably similar.</t>
-      </section>
-
-      <section title="Model Design">
-        <t>[[Editor's node: This section requires further work.]]</t>
-
-        <t>This model defines a container for all TCP connections on the
-        system. It extends the YANG model "ietf-tcp-common" defined in <xref
-        target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
-        Clients and TCP Servers </xref> and adds more groupings for the
-        fundamental parameters identified above. The intention is to define a
-        core set of attributes in this model, and provide YANG groupings for
-        all other parameters so that they can be used in different YANG
-        models. The core set of attributes include information related to a
-        TCP connection, and a way to reference them from other models.</t>
-
-        <t>As an example for the configuration of SACK, a YANG model could
-        import the YANG model "ietf-tcp-common" as well as the model defined
-        in this document as follows:</t>
-
-        <figure>
-          <artwork align="left"><![CDATA[
-module example-tcp {
-  namespace "http://example.com/tcp";
-  prefix tcp;
-
-  import ietf-tcp {
-    prefix tcp;
-  }
-
-        <t/>
-
-        <t>A YANG model could then, for instance, import the YANG model
-        "ietf-tcp-common" as well as the groupings defined in this
-         document as follows:</t>
-
-        <figure>
-          <artwork align="left"><![CDATA[
-module example-tcp {
-  namespace "http://example.com/tcp";
-  prefix tcp;
-
-  import ietf-tcp {
-    prefix tcp;
-  }
-
-  import ietf-tcp-common {
-    prefix tcpcmn;
-  }
-
-  container example-tcp-config {
-    description "Example TCP stack configuration";
-
-    uses tcpcmn:tcp-common-grouping;
-    uses tcp:tcp-sack-grouping;
-  }
-
-}]]></artwork>
-        </figure>
+          <t>TCP-related configuration of a NAT (e.g., NAT44, NAT64,
+          Destination NAT, ...) is defined in <xref target="RFC8512">A YANG
+          Module for Network Address Translation (NAT) and Network Prefix
+          Translation (NPT) </xref> and <xref target="RFC8513">A YANG Data
+          Model for Dual-Stack Lite (DS-Lite) </xref>.</t>
+        </list></t>
       </section>
 
       <section title="Tree Diagram">
@@ -426,13 +279,6 @@ module example-tcp {
 INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD-abridged-tree.txt)
 ]]></artwork>
         </figure>
-      </section>
-
-      <section title="Example Usage">
-        <t>[[Editor's note: This section is TBD.]]</t>
-
-        <!--<figure><artwork align="center"><![CDATA[
-]]></artwork></figure>-->
       </section>
     </section>
 
@@ -553,13 +399,11 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
     </references>
 
     <references title="Informative References">
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.3873.xml"?>
-
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4022.xml"?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4113.xml"?>
-
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4898.xml"?>
+
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5925.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.6643.xml"?>
 
