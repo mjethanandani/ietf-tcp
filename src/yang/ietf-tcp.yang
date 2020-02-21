@@ -114,56 +114,42 @@ module ietf-tcp {
         "Enable support of TCP-Authentication Option (TCP-AO).";
     }
 
-    leaf current-key {
-      type binary;
+    leaf send-id {
+      type uint8 {
+        range "0..255";
+      }
+      must "../enable-ao = 'true'";
       description
-        "The Master Key Tuple (MKT) currently used to authenticate
-         outgoing segments, whose SendID is inserted in outgoing
-         segments as KeyID. Incoming segments are authenticated
-         using the MKT corresponding to the segment and its TCP-AO
-         KeyID as matched against the MKT TCP connection identifier
-         and the MKT RecvID. There is only one current-key at any
-         given time on a particular connection.
-
-         Every TCP connection in a non-IDLE state MUST have at most
-         one current-key specified.";
+        "The SendID is inserted as the KeyID of the TCP-AO option
+         of outgoing segments.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
 
-    leaf rnext-key {
-      type binary;
+    leaf recv-id {
+      type uint8 {
+        range "0..255";
+      }
+      must "../enable-ao = 'true'";
       description
-	"The MKT currently preferred for incoming (received)
-         segments, whose RecvID is inserted in outgoing segments as
-         RNextKeyID.
-
-         Each TCP connection in a non-IDLE state MUST have at most
-         one rnext_key specified.";
+        "The RecvID is matched against the TCP-AO KeyID of incoming
+         segments.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
 
-    leaf-list sne {
-      type uint32;
-      min-elements 1;
-      max-elements 2;
+    leaf include-tcp-options {
+      type boolean;
+      must "../enable-ao = 'true'";
       description
-	"A pair of Sequence Number Extensions (SNEs). SNEs are used
-         to prevent replay attacks. Each SNE is initialized to zero
-         upon connection establishment.";
-      reference
-        "RFC 5925: The TCP Authentication Option.";
+        "Include TCP options in HMAC calculation.";
     }
 
-    leaf-list mkt {
-      type binary;
-      min-elements 1;
+    leaf accept-ao-mismatch {
+      type boolean;
+      must "../enable-ao = 'true'";
       description
-	"One or more MKTs. These are the MKTs that match this
-         connection's socket pair.";
-      reference
-        "RFC 5925: The TCP Authentication Option.";
+        "Accept packets with HMAC mismatch.";
     }
     description
       "Authentication Option (AO) for TCP.";
@@ -183,16 +169,6 @@ module ietf-tcp {
       default "false";
       description
         "Enable support of MD5 to authenticate a TCP session.";
-    }
-
-    leaf key {
-      type binary;
-      must "../enable-md5 = 'true'";
-      mandatory true;
-      description
-        "The key to be used to generate the MD5 digest either to
-         insert in an outgoing segment or for validating a received
-         segment.";
     }
   }
 
