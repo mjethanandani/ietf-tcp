@@ -116,10 +116,10 @@
       TCP, such as operating system configuration or policies. Many TCP/IP
       stacks cannot be configured by network management protocols such as
       <xref target="RFC6241">NETCONF</xref> or <xref
-      target="RFC8040">RESTCONF</xref> and they do not use YANG data models.
-      Such TCP implementations often also have means to configure the
-      parameters listed in this document, which are outside the scope of
-      this document.</t>
+      target="RFC8040">RESTCONF</xref>. Moreover, many existing TCP/IP stacks 
+      do not use YANG data models. Such TCP implementations often have
+      other means to configure the parameters listed in this document, which
+      are outside the scope of this document.</t>
 
       <t>This specification is orthogonal to <xref target="RFC4022">Management
       Information Base (MIB) for the Transmission Control Protocol
@@ -236,7 +236,7 @@
 
         <t>An important use case is the TCP configuration on network elements
         such as routers, which often use YANG data models. The model therefore
-        specifies TCP parameters that are important  on such TCP stacks. A
+        specifies TCP parameters that are important on such TCP stacks. A
         typical example is the support of <xref target="RFC5925">TCP-AO</xref>.
         TCP-AO is increasingly supported on routers and it requires
         configuration.</t>
