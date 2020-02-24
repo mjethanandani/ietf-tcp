@@ -3,6 +3,11 @@ module ietf-tcp {
   namespace "urn:ietf:params:xml:ns:yang:ietf-tcp";
   prefix "tcp";
 
+  import ietf-yang-types {
+    prefix "yang";
+    reference
+      "RFC 6991: Common YANG Data Types.";
+  }
   import ietf-tcp-client {
     prefix "tcpc";
   }
@@ -50,6 +55,11 @@ module ietf-tcp {
       "TCP Client configuration supported.";
   }
 
+  feature statistics {
+    description
+      "This implementation supports statistics reporting.";
+  }
+
   // TCP-AO Groupings
 
   grouping mkt {
@@ -77,13 +87,19 @@ module ietf-tcp {
     leaf key-id {
       type uint8;
       description
-	"TBD";
+	"An unsigned 1-byte field indicating the Master Key Tuple
+         (MKT) used to generate the traffic keys that were used to
+         generate the MAC that authenticates this segment.";
+      reference
+	"RFC 5925: The TCP Authentication Option.";
     }
 
     leaf rnext-key-id {
       type uint8;
       description
-	"TBD";
+	"An unsigned 1-byte field indicating the MKT that is
+         ready at the sender to be used to authenticate received
+         segments, i.e., the desired 'receive next' key ID.";
     }
     description
       "A Master Key Tuple (MKT) describes TCP-AO properties to be
@@ -91,63 +107,49 @@ module ietf-tcp {
   }
 
   grouping ao {
-    leaf enable {
+    leaf enable-ao {
       type boolean;
       default "false";
       description
         "Enable support of TCP-Authentication Option (TCP-AO).";
     }
 
-    leaf current-key {
-      type binary;
+    leaf send-id {
+      type uint8 {
+        range "0..255";
+      }
+      must "../enable-ao = 'true'";
       description
-        "The Master Key Tuple (MKT) currently used to authenticate
-         outgoing segments, whose SendID is inserted in outgoing
-         segments as KeyID. Incoming segments are authenticated
-         using the MKT corresponding to the segment and its TCP-AO
-         KeyID as matched against the MKT TCP connection identifier
-         and the MKT RecvID. There is only one current-key at any
-         given time on a particular connection.
-
-         Every TCP connection in a non-IDLE state MUST have at most
-         one current_key specified.";
+        "The SendID is inserted as the KeyID of the TCP-AO option
+         of outgoing segments.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
 
-    leaf rnext-key {
-      type binary;
+    leaf recv-id {
+      type uint8 {
+        range "0..255";
+      }
+      must "../enable-ao = 'true'";
       description
-	"The MKT currently preferred for incoming (received)
-         segments, whose RecvID is inserted in outgoing segments as
-         RNextKeyID.
-
-         Each TCP connection in a non-IDLE state MUST have at most
-         one rnext_key specified.";
+        "The RecvID is matched against the TCP-AO KeyID of incoming
+         segments.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
 
-    leaf-list sne {
-      type uint32;
-      min-elements 1;
-      max-elements 2;
+    leaf include-tcp-options {
+      type boolean;
+      must "../enable-ao = 'true'";
       description
-	"A pair of Sequence Number Extensions (SNEs). SNEs are used
-         to prevent replay attacks. Each SNE is initialized to zero
-         upon connection establishment.";
-      reference
-        "RFC 5925: The TCP Authentication Option.";
+        "Include TCP options in HMAC calculation.";
     }
 
-    leaf-list mkt {
-      type binary;
-      min-elements 1;
+    leaf accept-ao-mismatch {
+      type boolean;
+      must "../enable-ao = 'true'";
       description
-	"One or more MKTs. These are the MKTs that match this
-         connection's socket pair.";
-      reference
-        "RFC 5925: The TCP Authentication Option.";
+        "Accept packets with HMAC mismatch.";
     }
     description
       "Authentication Option (AO) for TCP.";
@@ -155,54 +157,131 @@ module ietf-tcp {
       "RFC 5925: The TCP Authentication Option.";
   }
 
-  // TCP general configuration groupings
+  grouping md5 {
+    description
+      "Grouping for use in authenticating TCP sessions using MD5.";
+    reference
+      "RFC 2385: Protection of BGP Sessions via the TCP MD5
+       Signature.";
 
-  grouping tcp-mss-grouping {
-    description "Maximum Segment Size (MSS) parameters";
+    leaf enable-md5 {
+      type boolean;
+      default "false";
+      description
+        "Enable support of MD5 to authenticate a TCP session.";
+    }
+  }
 
-    leaf tcp-mss {
+  // Congestion control
+
+  identity congestion-control-algorithm {
+    description
+      "Base identity from which all congestion control 
+       algorithms are derived.";
+  }
+
+  identity reno {
+    base congestion-control-algorithm;
+    description
+      "Standard TCP congestion control referred to as
+       'Reno algorithm'";
+    reference
+      "RFC 5681: TCP Congestion Control";
+  }
+
+  identity new-reno {
+    base congestion-control-algorithm;
+    description
+      "NewReno modification to TCP's fast recovery algorithm";
+    reference
+      "RFC 6582: The NewReno Modification to TCP's Fast Recovery
+       Algorithm";
+  }
+
+  identity ledbat {
+    base congestion-control-algorithm;
+    description
+      "Low Extra Delay Background Transport (LEDBAT) 
+       congestion control";
+   reference
+      "RFC 6817: Low Extra Delay Background Transport (LEDBAT)";
+  }
+
+  identity dctcp {
+    base congestion-control-algorithm;
+    description
+      "TCP Congestion Control for Data Centers (DCTCP)
+       congestion control";
+    reference
+      "RFC 8257: Data Center TCP (DCTCP): TCP Congestion
+       Control for Data Centers";
+  }
+
+  identity cubic {
+    base congestion-control-algorithm;
+    description
+      "CUBIC congestion control";
+    reference
+      "RFC 8312: CUBIC for Fast Long-Distance Networks";
+  }
+
+  grouping tcp-global {
+    description
+      "Important global TCP stack parameters.";
+    leaf mss-max {
       type uint16;
       description
         "Sets the max segment size for TCP connections.";
+      reference
+        "RFC 1122: Requirements for Internet Hosts -- Communication
+         Layers";
     }
-  } // grouping tcp-mss-grouping
 
-  grouping tcp-mtu-grouping {
-    description "Maximum Transfer Unit (MTU) discovery parameters";
-
-    leaf tcp-mtu-discovery {
+    leaf mtu-discovery-enable {
       type boolean;
-      default false;
       description
         "Turns path mtu discovery for TCP connections on (true) or
          off (false)";
+      reference
+        "RFC 4821: Packetization Layer Path MTU Discovery";
     }
-  } // grouping tcp-mtu-grouping
-
-  grouping tcp-sack-grouping {
-    description "Selective Acknowledgements (SACK) parameters";
 
     leaf sack-enable {
       type boolean;
-
       description
-        "Enable support of Selective Acknowledgements (SACK)";
+        "Enable negotiation of Selective Acknowledgements (SACK)";
+      reference
+        "RFC 2018: TCP Selective Acknowledgment Options";
     }
-  } // grouping tcp-sack-grouping
-
-  grouping tcp-timestamps-grouping {
-    description "Timestamp parameters";
 
     leaf timestamps-enable {
       type boolean;
-
       description
-        "Enable support of timestamps";
+        "Enable negotiation of timestamps";
+      reference
+        "RFC 7323: TCP Extensions for High Performance";
     }
-  } // grouping tcp-timestamps-grouping
 
-  grouping tcp-fin-timeout-grouping {
-    description "TIME WAIT timeout parameters";
+    leaf window-scale-enable {
+      type boolean;
+      description
+        "Enable negotiation of receive window scaling";
+      reference
+        "RFC 7323: TCP Extensions for High Performance";
+    }
+
+    leaf ecn-enable {
+      type enumeration {
+        enum disable;
+        enum passive;
+        enum active;
+      }
+      description
+        "Enabling of Explicit Congestion Notification (ECN).";
+      reference
+        "RFC 3168: The Addition of Explicit Congestion
+         Notification (ECN) to IP";
+    }
 
     leaf fin-timeout {
       type uint16;
@@ -212,25 +291,25 @@ module ietf-tcp {
          TIME-WAIT state for a time 2xMSL (Maximum Segment Lifetime).
          This parameter sets the TIME-WAIT timeout duration in
          seconds.";
+      reference
+         "RFC 793: Transmission Control Protocol";
     }
-  } // grouping tcp-fin-timeout-grouping
 
-  grouping tcp-ecn-grouping {
-    description "Explicit Congestion Notification (ECN) parameters";
-
-    leaf ecn-enable {
-      type enumeration {
-        enum disable;
-        enum passive;
-        enum active;
+    leaf congestion-control-default {
+      type identityref {
+        base congestion-control-algorithm;
       }
       description
-        "Enabling of ECN.";
+        "This parameter selects the congestion control algorithm that
+         is used by default for new TCP connections. The default may
+         be overridden per connection by means outside the scope of
+         this model (e.g., via the Sockets API).";
+       reference
+         "RFC 2914: Congestion Control Principles";
     }
-  } // grouping tcp-ecn-grouping
+  }
 
-  
-  // augment statements
+  // TCP configuration
 
   container tcp {
     presence "The container for TCP configuration.";
@@ -268,11 +347,46 @@ module ietf-tcp {
 
 	container common {
 	  uses tcpcmn:tcp-common-grouping;
-	  uses ao;
-	  description
-	    "Common definitions of TCP configuration. This includes
-             parameters such as keepalives and idle time, that can
-             be part of either the client or server.";
+
+          leaf congestion-control {
+            type identityref {
+              base congestion-control-algorithm;
+            }
+            config false;
+            description
+              "Type of the actually used TCP congestion control
+               algorithm. It may be different from the default
+               algorithm, for instance, if an application has
+               explicitly selected an algorithm.";
+            reference "RFC 2914: Congestion Control Principles";
+          }
+
+          choice authentication {
+            case ao {
+              uses ao;
+              description
+                "Use TCP-AO to secure the connection.";
+            }
+
+            case md5 {
+              uses md5;
+              description
+                "Use TCP-MD5 to secure the connection.";
+            }
+            description
+              "Choice of how to secure the TCP connection.";
+          }
+          leaf tcp-nodelay {
+            type boolean;
+            config false;
+            description
+              "Disabling of the 'Nagle algorithm'.";
+          }
+          description
+            "Common definitions of TCP configuration. This includes
+             parameters such as how to secure the connection,
+             keepalives and idle time, that can be part of either
+             the client or server.";
 	}
 
 	container server {
@@ -294,8 +408,114 @@ module ietf-tcp {
       description
 	"A container of all TCP connections.";
     }
+
+    container global {
+      uses tcp-global;
+      description
+        "Parameters affecting all TCP connections";
+    }
+
+    container statistics {
+      if-feature statistics;
+      config false;
+
+      leaf active-opens {
+        type yang:counter32;
+        description
+          "The number of times that TCP connections have made a direct
+           transition to the SYN-SENT state from the CLOSED state.";
+      }
+
+      leaf passive-opens {
+        type yang:counter32;
+        description
+          "The number of times TCP connections have made a direct
+           transition to the SYN-RCVD state from the LISTEN state.";
+      }
+
+      leaf attempt-fails {
+        type yang:counter32;
+        description
+          "The number of times that TCP connections have made a direct
+           transition to the CLOSED state from either the SYN-SENT
+           state or the SYN-RCVD state, plus the number of times that
+           TCP connections have made a direct transition to the
+           LISTEN state from the SYN-RCVD state.";
+      }
+
+      leaf establish-resets {
+        type yang:counter32;
+        description
+          "The number of times that TCP connections have made a direct
+           transition to the CLOSED state from either the ESTABLISHED
+           state or the CLOSE-WAIT state.";
+      }
+
+      leaf currently-established {
+        type yang:gauge32;
+        description
+          "The number of TCP connections for which the current state
+           is either ESTABLISHED or CLOSE-WAIT.";
+      }
+
+      leaf in-segments {
+        type yang:counter32;
+        description
+          "The total number of segments received, including those
+           received in error.  This count includes segments received
+           on currently established connections.";
+      }
+
+      leaf out-segments {
+        type yang:counter32;
+        description
+          "The total number of segments sent, including those on
+           current connections but excluding those containing only
+           retransmitted octets.";
+      }
+
+      leaf retransmitted-segments {
+        type yang:counter32;
+        description
+          "The total number of segments retransmitted; that is, the
+           number of TCP segments transmitted containing one or more
+           previously transmitted octets.";
+      }
+
+      leaf in-errors {
+        type yang:counter32;
+        description
+          "The total number of segments received in error (e.g., bad
+           TCP checksums).";
+      }
+
+      leaf out-resets {
+        type yang:counter32;
+        description
+          "The number of TCP segments sent containing the RST flag.";
+      }
+
+      action reset {
+        description
+          "Reset statistics action command.";
+        input {
+          leaf reset-at {
+            type yang:date-and-time;
+            description
+              "Time when the reset action needs to be
+               executed.";
+          }
+        }
+        output {
+          leaf reset-finished-at {
+            type yang:date-and-time;
+            description
+              "Time when the reset action command completed.";
+          }
+        }
+      }
+      description
+        "Statistics across all connections.";
+    }
   }
 }
-  
-
-
