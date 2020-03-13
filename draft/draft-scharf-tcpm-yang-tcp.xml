@@ -8,7 +8,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" docName="draft-scharf-tcpm-yang-tcp-04" ipr="trust200902">
+<rfc category="std" docName="draft-scharf-tcpm-yang-tcp-05" ipr="trust200902">
   <front>
     <title abbrev="TCP Configuration">YANG Model for Transmission Control
     Protocol (TCP) Configuration</title>
@@ -459,6 +459,32 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       <t><list style="symbols">
           <t>Editorial improvements</t>
         </list></t>
+    </section>
+
+    <section title="Examples">
+      <t/>
+
+      <section title="Keepalive Configuration">
+        <t>This particular example demonstrates how both a particular
+        connection can be configured for keepalives.</t>
+
+        <t><figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.xml)
+]]></artwork>
+          </figure></t>
+      </section>
+
+      <section title="Global Configuration">
+        <t>This particular example demonstrates how the server can be
+        configured globally for its parameters.</t>
+
+        <figure>
+          <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.2.xml)
+]]></artwork>
+        </figure>
+      </section>
     </section>
   </back>
 </rfc>
