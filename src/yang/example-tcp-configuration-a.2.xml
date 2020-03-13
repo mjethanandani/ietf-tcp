@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <tcp
+      xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
+    <global>
+      <mss-max>1432</mss-max>
+      <mtu-discovery-enable>true</mtu-discovery-enable>
+      <sack-enable>true</sack-enable>
+      <timestamps-enable>true</timestamps-enable>
+      <window-scale-enable>true</window-scale-enable>
+      <ecn-enable>active</ecn-enable>
+      <fin-timeout>60</fin-timeout>
+      <congestion-control-default>reno</congestion-control-default>
+    </global>
+  </tcp>
+</config>
