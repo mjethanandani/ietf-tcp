@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This example sets all the global configuraiton parameters.
+-->
 <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <tcp
       xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
+    <!--
+     It is not clear why a server and client configuraiton is
+     needed here even as it under a feature statement. Adding it so
+     that yanglint allows this validation to run.
+    -->
+    <server>
+      <local-address>192.168.1.1</local-address>
+    </server>
+    <client>
+      <remote-address>192.168.1.2</remote-address>
+    </client>
     <global>
       <mss-max>1432</mss-max>
       <mtu-discovery-enable>true</mtu-discovery-enable>
