@@ -37,39 +37,18 @@
     </author>
 
     <author fullname="Vishal Murgai" initials="V." surname="Murgai">
-      <organization abbrev="Cisco Systems Inc">Cisco Systems
-      Inc</organization>
+      <organization/>
 
       <address>
-        <!--<postal>
-        <street></street>
-        <code></code>
-        <city></city>
-        <region></region>
-        <country></country>
-      </postal>-->
-
-        <!--<phone></phone>-->
-
-        <email>vmurgai@cisco.com</email>
+        <email>vmurgai@gmail.com</email>
       </address>
     </author>
 
     <author fullname="Mahesh Jethanandani" initials="M."
             surname="Jethanandani">
-      <organization abbrev="VMware">VMware</organization>
+      <organization>Kloud Services</organization>
 
       <address>
-        <!--<postal>
-        <street></street>
-        <code></code>
-        <city></city>
-        <region></region>
-        <country></country>
-      </postal>-->
-
-        <!--<phone></phone>-->
-
         <email>mjethanandani@gmail.com</email>
       </address>
     </author>
