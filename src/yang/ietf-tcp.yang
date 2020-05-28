@@ -272,9 +272,18 @@ module ietf-tcp {
 
     leaf ecn-enable {
       type enumeration {
-        enum disable;
-        enum passive;
-        enum active;
+        enum disable {
+          description
+	    "Disable the notification of ECN.";
+	}
+        enum passive {
+	  description
+            "Only advertise ECN support when asked for.";
+	}
+        enum active {
+	  description
+	  "Use ECN.";
+	}
       }
       description
         "Enabling of Explicit Congestion Notification (ECN).";
@@ -387,26 +396,26 @@ module ietf-tcp {
              parameters such as how to secure the connection,
              keepalives and idle time, that can be part of either
              the client or server.";
-	}
-
-	container server {
-	  if-feature server;
-	  uses tcps:tcp-server-grouping;
-	  description
-	    "Definitions of TCP server configuration.";
-	}
-
-	container client {
-	  if-feature client;
-	  uses tcpc:tcp-client-grouping;
-	  description
-	    "Definitions of TCP client configuration.";
-	}
-	description
-	  "Connection related parameters.";
+        }
+        description
+          "Connection related parameters.";
       }
       description
-	"A container of all TCP connections.";
+        "A container of all TCP connections.";
+    }
+
+    container server {
+      if-feature server;
+      uses tcps:tcp-server-grouping;
+      description
+        "Definitions of TCP server configuration.";
+    }
+
+    container client {
+      if-feature client;
+      uses tcpc:tcp-client-grouping;
+      description
+        "Definitions of TCP client configuration.";
     }
 
     container global {

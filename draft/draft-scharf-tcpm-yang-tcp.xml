@@ -74,7 +74,7 @@
       </address>
     </author>
 
-    <date day="24" month="February" year="2020"/>
+    <date day="24" month="May" year="2020"/>
 
     <area>Transport</area>
 
@@ -470,7 +470,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
         <t><figure>
             <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.xml)
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml)
 ]]></artwork>
           </figure></t>
       </section>
@@ -481,7 +481,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.xml)
 
         <figure>
           <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.2.xml)
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.2.xml)
 ]]></artwork>
         </figure>
       </section>
