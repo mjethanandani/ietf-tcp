@@ -23,7 +23,7 @@
       </connection>
     </connections>
     <!--
-     It is not clear why a server and client configuraiton is
+     It is not clear why a server and client configuration is
      needed here even as they under a feature statement and therefore
      are required only if the feature is declared. Adding it so
      that yanglint allows this validation to run.

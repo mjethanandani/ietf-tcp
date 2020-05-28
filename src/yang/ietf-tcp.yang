@@ -62,50 +62,6 @@ module ietf-tcp {
 
   // TCP-AO Groupings
 
-  grouping mkt {
-    leaf options {
-      type binary;
-      description
-	"This flag indicates whether TCP options other than TCP-AO
-         are included in the MAC calculation. When options are
-         included, the content of all options, in the order present,
-         is included in the MAC, with TCP-AO's MAC field zeroed out.
-         When the options are not included, all options other than
-         TCP-AO are excluded from all MAC calculations (skipped over,
-         not zeroed).
-
-         Note that TCP-AO, with its MAC field zeroed out, is always
-         included in the MAC calculation, regardless of the setting
-         of this flag; this protects the indication of the MAC length
-         as well as the key ID fields (KeyID, RNextKeyID). The option
-         flag applies to TCP options in both directions
-         (incoming and outgoing segments).";
-      reference
-        "RFC 5925: The TCP Authentication Option.";
-    }
-
-    leaf key-id {
-      type uint8;
-      description
-	"An unsigned 1-byte field indicating the Master Key Tuple
-         (MKT) used to generate the traffic keys that were used to
-         generate the MAC that authenticates this segment.";
-      reference
-	"RFC 5925: The TCP Authentication Option.";
-    }
-
-    leaf rnext-key-id {
-      type uint8;
-      description
-	"An unsigned 1-byte field indicating the MKT that is
-         ready at the sender to be used to authenticate received
-         segments, i.e., the desired 'receive next' key ID.";
-    }
-    description
-      "A Master Key Tuple (MKT) describes TCP-AO properties to be
-       associated with one or more connections.";
-  }
-
   grouping ao {
     leaf enable-ao {
       type boolean;
@@ -157,6 +113,8 @@ module ietf-tcp {
       "RFC 5925: The TCP Authentication Option.";
   }
 
+  // MD5 grouping
+
   grouping md5 {
     description
       "Grouping for use in authenticating TCP sessions using MD5.";
@@ -169,152 +127,6 @@ module ietf-tcp {
       default "false";
       description
         "Enable support of MD5 to authenticate a TCP session.";
-    }
-  }
-
-  // Congestion control
-
-  identity congestion-control-algorithm {
-    description
-      "Base identity from which all congestion control 
-       algorithms are derived.";
-  }
-
-  identity reno {
-    base congestion-control-algorithm;
-    description
-      "Standard TCP congestion control referred to as
-       'Reno algorithm'";
-    reference
-      "RFC 5681: TCP Congestion Control";
-  }
-
-  identity new-reno {
-    base congestion-control-algorithm;
-    description
-      "NewReno modification to TCP's fast recovery algorithm";
-    reference
-      "RFC 6582: The NewReno Modification to TCP's Fast Recovery
-       Algorithm";
-  }
-
-  identity ledbat {
-    base congestion-control-algorithm;
-    description
-      "Low Extra Delay Background Transport (LEDBAT) 
-       congestion control";
-   reference
-      "RFC 6817: Low Extra Delay Background Transport (LEDBAT)";
-  }
-
-  identity dctcp {
-    base congestion-control-algorithm;
-    description
-      "TCP Congestion Control for Data Centers (DCTCP)
-       congestion control";
-    reference
-      "RFC 8257: Data Center TCP (DCTCP): TCP Congestion
-       Control for Data Centers";
-  }
-
-  identity cubic {
-    base congestion-control-algorithm;
-    description
-      "CUBIC congestion control";
-    reference
-      "RFC 8312: CUBIC for Fast Long-Distance Networks";
-  }
-
-  grouping tcp-global {
-    description
-      "Important global TCP stack parameters.";
-    leaf mss-max {
-      type uint16;
-      description
-        "Sets the max segment size for TCP connections.";
-      reference
-        "RFC 1122: Requirements for Internet Hosts -- Communication
-         Layers";
-    }
-
-    leaf mtu-discovery-enable {
-      type boolean;
-      description
-        "Turns path mtu discovery for TCP connections on (true) or
-         off (false)";
-      reference
-        "RFC 4821: Packetization Layer Path MTU Discovery";
-    }
-
-    leaf sack-enable {
-      type boolean;
-      description
-        "Enable negotiation of Selective Acknowledgements (SACK)";
-      reference
-        "RFC 2018: TCP Selective Acknowledgment Options";
-    }
-
-    leaf timestamps-enable {
-      type boolean;
-      description
-        "Enable negotiation of timestamps";
-      reference
-        "RFC 7323: TCP Extensions for High Performance";
-    }
-
-    leaf window-scale-enable {
-      type boolean;
-      description
-        "Enable negotiation of receive window scaling";
-      reference
-        "RFC 7323: TCP Extensions for High Performance";
-    }
-
-    leaf ecn-enable {
-      type enumeration {
-        enum disable {
-          description
-	    "Disable the notification of ECN.";
-	}
-        enum passive {
-	  description
-            "Only advertise ECN support when asked for.";
-	}
-        enum active {
-	  description
-	  "Use ECN.";
-	}
-      }
-      description
-        "Enabling of Explicit Congestion Notification (ECN).";
-      reference
-        "RFC 3168: The Addition of Explicit Congestion
-         Notification (ECN) to IP";
-    }
-
-    leaf fin-timeout {
-      type uint16;
-      units "seconds";
-      description
-        "When a connection is closed actively, it must linger in
-         TIME-WAIT state for a time 2xMSL (Maximum Segment Lifetime).
-         This parameter sets the TIME-WAIT timeout duration in
-         seconds.";
-      reference
-         "RFC 793: Transmission Control Protocol";
-    }
-
-    leaf congestion-control-default {
-      type identityref {
-        base congestion-control-algorithm;
-      }
-      description
-        "This parameter selects the congestion control algorithm that
-         is used by default for new TCP connections. The default may
-         be overridden per connection by means outside the scope of
-         this model (e.g., via the Sockets API).";
-       reference
-         "RFC 2914: Congestion Control Principles";
     }
   }
 
@@ -357,19 +169,6 @@ module ietf-tcp {
 	container common {
 	  uses tcpcmn:tcp-common-grouping;
 
-          leaf congestion-control {
-            type identityref {
-              base congestion-control-algorithm;
-            }
-            config false;
-            description
-              "Type of the actually used TCP congestion control
-               algorithm. It may be different from the default
-               algorithm, for instance, if an application has
-               explicitly selected an algorithm.";
-            reference "RFC 2914: Congestion Control Principles";
-          }
-
           choice authentication {
             case ao {
               uses ao;
@@ -385,17 +184,10 @@ module ietf-tcp {
             description
               "Choice of how to secure the TCP connection.";
           }
-          leaf tcp-nodelay {
-            type boolean;
-            config false;
-            description
-              "Disabling of the 'Nagle algorithm'.";
-          }
           description
             "Common definitions of TCP configuration. This includes
              parameters such as how to secure the connection,
-             keepalives and idle time, that can be part of either
-             the client or server.";
+             that can be part of either the client or server.";
         }
         description
           "Connection related parameters.";
@@ -416,12 +208,6 @@ module ietf-tcp {
       uses tcpc:tcp-client-grouping;
       description
         "Definitions of TCP client configuration.";
-    }
-
-    container global {
-      uses tcp-global;
-      description
-        "Parameters affecting all TCP connections";
     }
 
     container statistics {
