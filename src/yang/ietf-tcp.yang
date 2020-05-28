@@ -459,7 +459,7 @@ module ietf-tcp {
       }
 
       leaf in-segments {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The total number of segments received, including those
            received in error.  This count includes segments received
@@ -467,7 +467,7 @@ module ietf-tcp {
       }
 
       leaf out-segments {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The total number of segments sent, including those on
            current connections but excluding those containing only
