@@ -40,7 +40,7 @@
       <organization/>
 
       <address>
-        <email>vmurgai@gmail.com</email>
+        <email>vmurgai at gmail dot com</email>
       </address>
     </author>
 
@@ -53,7 +53,7 @@
       </address>
     </author>
 
-    <date day="1" month="June" year="2020"/>
+    <date day="10" month="June" year="2020"/>
 
     <area>Transport</area>
 
@@ -120,10 +120,10 @@
       <section title="Note to  RFC Editor">
         <t>This document uses several placeholder values throughout the
         document. Please replace them as follows and remove this note before
-        publication. </t>
+        publication.</t>
 
         <t>RFC XXXX, where XXXX is the number assigned to this document at the
-        time of publication. </t>
+        time of publication.</t>
 
         <t>YYYY-MM-DD with the actual date of the publication of this
         document.</t>
