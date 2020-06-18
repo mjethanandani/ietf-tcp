@@ -53,7 +53,7 @@
       </address>
     </author>
 
-    <date day="10" month="June" year="2020"/>
+    <date day="20" month="June" year="2020"/>
 
     <area>Transport</area>
 
@@ -419,6 +419,20 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
     <section anchor="app_changes"
              title="Changes compared to previous versions">
+      <t>Changes compared to draft-scharf-tcpm-yang-tcp-04</t>
+
+      <t><list style="symbols">
+          <t>Removed congestion control</t>
+
+          <t>Removed global stack parameters</t>
+        </list>Changes compared to draft-scharf-tcpm-yang-tcp-03</t>
+
+      <t><list style="symbols">
+          <t>Updated TCP-AO grouping</t>
+
+          <t>Added congestion control</t>
+        </list></t>
+
       <t>Changes compared to draft-scharf-tcpm-yang-tcp-02</t>
 
       <t><list style="symbols">
