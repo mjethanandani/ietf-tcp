@@ -29,7 +29,7 @@ module ietf-tcp {
      WG List:  <tcpm@ietf.org>
 
      Authors: Michael Scharf (michael.scharf at hs-esslingen dot de)
-              Vishal Murgai (vmurgai at cisco dot com)
+              Vishal Murgai (vmurgai at gmail dot com)
               Mahesh Jethanandani (mjethanandani at gmail dot com)";
 
   description
