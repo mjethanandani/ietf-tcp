@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- This example sets all the global configuraiton parameters.
+ This example sets all the global configuration parameters.
 -->
 <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <tcp

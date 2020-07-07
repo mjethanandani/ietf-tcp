@@ -37,44 +37,23 @@
     </author>
 
     <author fullname="Vishal Murgai" initials="V." surname="Murgai">
-      <organization abbrev="Cisco Systems Inc">Cisco Systems
-      Inc</organization>
+      <organization/>
 
       <address>
-        <!--<postal>
-        <street></street>
-        <code></code>
-        <city></city>
-        <region></region>
-        <country></country>
-      </postal>-->
-
-        <!--<phone></phone>-->
-
-        <email>vmurgai@cisco.com</email>
+        <email>vmurgai at gmail dot com</email>
       </address>
     </author>
 
     <author fullname="Mahesh Jethanandani" initials="M."
             surname="Jethanandani">
-      <organization abbrev="VMware">VMware</organization>
+      <organization>Kloud Services</organization>
 
       <address>
-        <!--<postal>
-        <street></street>
-        <code></code>
-        <city></city>
-        <region></region>
-        <country></country>
-      </postal>-->
-
-        <!--<phone></phone>-->
-
         <email>mjethanandani@gmail.com</email>
       </address>
     </author>
 
-    <date day="24" month="May" year="2020"/>
+    <date day="20" month="June" year="2020"/>
 
     <area>Transport</area>
 
@@ -137,6 +116,18 @@
       "OPTIONAL" in this document are to be interpreted as described in BCP 14
       <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when,
       they appear in all capitals, as shown here.</t>
+
+      <section title="Note to  RFC Editor">
+        <t>This document uses several placeholder values throughout the
+        document. Please replace them as follows and remove this note before
+        publication.</t>
+
+        <t>RFC XXXX, where XXXX is the number assigned to this document at the
+        time of publication.</t>
+
+        <t>YYYY-MM-DD with the actual date of the publication of this
+        document.</t>
+      </section>
     </section>
 
     <section title="Model Overview">
@@ -283,10 +274,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD-abridged-tree.txt)
       </section>
     </section>
 
-    <section title="TCP Configuration YANG Model">
-      <t>Editor's note: How to use ietf-tcp-common as basis? For instance, is
-      the tcp-system-grouping therein needed?</t>
-
+    <section title="TCP YANG Model">
       <t><figure>
           <artwork><![CDATA[
 <CODE BEGINS> file "ietf-tcp@YYYY-MM-DD.yang"
@@ -400,25 +388,25 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
     </references>
 
     <references title="Informative References">
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4022.xml"?>
+      <?rfc include='reference.RFC.4022'?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4898.xml"?>
+      <?rfc include='reference.RFC.4898'?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5925.xml"?>
+      <?rfc include='reference.RFC.5925'?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.6643.xml"?>
+      <?rfc include='reference.RFC.6643'?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.8512.xml"?>
+      <?rfc include='reference.RFC.8512'?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.8513.xml"?>
+      <?rfc include='reference.RFC.8513'?>
 
-      <?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.8519.xml"?>
+      <?rfc include='reference.RFC.8519'?>
 
-      <?rfc include="reference.I-D.ietf-dots-data-channel.xml"?>
+      <?rfc include='reference.I-D.ietf-dots-data-channel'?>
 
-      <?rfc include="reference.I-D.ietf-idr-bgp-model.xml"?>
+      <?rfc include='reference.I-D.ietf-idr-bgp-model'?>
 
-      <?rfc include="reference.I-D.ietf-taps-interface.xml"?>
+      <?rfc include='reference.I-D.ietf-taps-interface'?>
     </references>
 
     <section anchor="app_ack" title="Acknowledgements">
@@ -431,6 +419,20 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
     <section anchor="app_changes"
              title="Changes compared to previous versions">
+      <t>Changes compared to draft-scharf-tcpm-yang-tcp-04</t>
+
+      <t><list style="symbols">
+          <t>Removed congestion control</t>
+
+          <t>Removed global stack parameters</t>
+        </list>Changes compared to draft-scharf-tcpm-yang-tcp-03</t>
+
+      <t><list style="symbols">
+          <t>Updated TCP-AO grouping</t>
+
+          <t>Added congestion control</t>
+        </list></t>
+
       <t>Changes compared to draft-scharf-tcpm-yang-tcp-02</t>
 
       <t><list style="symbols">
@@ -473,17 +475,6 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml)
 ]]></artwork>
           </figure></t>
-      </section>
-
-      <section title="Global Configuration">
-        <t>This particular example demonstrates how the server can be
-        configured globally for its parameters.</t>
-
-        <figure>
-          <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.2.xml)
-]]></artwork>
-        </figure>
       </section>
     </section>
   </back>
