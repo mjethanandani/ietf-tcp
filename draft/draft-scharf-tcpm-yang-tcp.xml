@@ -40,7 +40,7 @@
       <organization/>
 
       <address>
-        <email>vmurgai at gmail dot com</email>
+        <email>vmurgai@gmail.com</email>
       </address>
     </author>
 
@@ -53,7 +53,7 @@
       </address>
     </author>
 
-    <date day="20" month="June" year="2020"/>
+    <date day="7" month="July" year="2020"/>
 
     <area>Transport</area>
 
@@ -64,21 +64,22 @@
     <abstract>
       <t>This document specifies a YANG model for TCP on devices that are
       configured by network management protocols. The YANG model defines a
-      container for all TCP connections and groupings of fundamental
-      parameters that can be imported and used in many TCP implementations.
-      The model includes definitions from YANG Groupings for TCP Client and
-      TCP Servers (I-D.ietf-netconf-tcp-client-server). The model is NMDA (RFC
-      8342) compliant.</t>
+      container for all TCP connections and groupings of some of the
+      parameters that can be imported and used in TCP implementations or by
+      other models that need to configure TCP parameters. The model includes
+      definitions from YANG Groupings for TCP Client and TCP Servers
+      (I-D.ietf-netconf-tcp-client-server). The model is NMDA (RFC 8342)
+      compliant.</t>
     </abstract>
   </front>
 
   <middle>
     <section title="Introduction">
-      <t>The Transmission Control Protocol (TCP) <xref target="RFC0793"/> is
-      used by many applications in the Internet, including control and
-      management protocols. Therefore, TCP is implemented on network elements
-      that can be configured via network management protocols such as <xref
-      target="RFC6241">NETCONF</xref> or <xref
+      <t>The <xref target="RFC0793">Transmission Control Protocol (TCP)
+      </xref> is used by many applications in the Internet, including control
+      and management protocols. Therefore, TCP is implemented on network
+      elements that can be configured via network management protocols such as
+      <xref target="RFC6241">NETCONF</xref> or <xref
       target="RFC8040">RESTCONF</xref>. This document specifies a <xref
       target="RFC7950">YANG</xref> 1.1 model for configuring TCP on network
       elements that support YANG data models, and is <xref
@@ -88,8 +89,8 @@
       target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
       Clients and TCP Servers</xref>. The model focuses on fundamental and
       standard TCP functions that are widely implemented. The model can be
-      augmented to address more advanced or implementation-specific TCP
-      features.</t>
+      augmented or updated to address more advanced or implementation-specific
+      TCP features in the future.</t>
 
       <t>Many protocol stacks on Internet hosts use other methods to configure
       TCP, such as operating system configuration or policies. Many TCP/IP
@@ -322,15 +323,15 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
     <section anchor="Security" title="Security Considerations">
       <t>The YANG module specified in this document defines a schema for data
       that is designed to be accessed via network management protocols such as
-      NETCONF <xref target="RFC6241"/> or RESTCONF <xref target="RFC8040"/>.
-      The lowest NETCONF layer is the secure transport layer, and the
-      mandatory-to-implement secure transport is Secure Shell (SSH) <xref
-      target="RFC6242"/>. The lowest RESTCONF layer is HTTPS, and the
-      mandatory-to-implement secure transport is TLS <xref
-      target="RFC8446"/>.</t>
+      <xref target="RFC6241">NETCONF</xref> or <xref target="RFC8040">RESTCONF
+      </xref>. The lowest NETCONF layer is the secure transport layer, and the
+      mandatory-to-implement secure transport is Secure Shell (SSH) described
+      in <xref target="RFC6242">Using the NETCONF protocol over SSH </xref>.
+      The lowest RESTCONF layer is HTTPS, and the mandatory-to-implement
+      secure transport is <xref target="RFC8446">TLS </xref>.</t>
 
-      <t>The Network Configuration Access Control Model (NACM) <xref
-      target="RFC8341"/> provides the means to restrict access for particular
+      <t>The <xref target="RFC8341">Network Configuration Access Control Model
+      (NACM) </xref> provides the means to restrict access for particular
       NETCONF or RESTCONF users to a preconfigured subset of all available
       NETCONF or RESTCONF protocol operations and content.</t>
 
@@ -464,8 +465,6 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
     </section>
 
     <section title="Examples">
-      <t/>
-
       <section title="Keepalive Configuration">
         <t>This particular example demonstrates how both a particular
         connection can be configured for keepalives.</t>
