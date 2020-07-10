@@ -101,10 +101,10 @@
       means to configure the parameters listed in this document, which are
       outside the scope of this document.</t>
 
-      <t>This specification does not deprecate the <xref target="RFC4022">Management
+      <t>This specification is orthogonal to the <xref target="RFC4022">Management
       Information Base (MIB) for the Transmission Control Protocol
       (TCP)</xref>. The basic statistics defined in this document follow
-      the model of the TCP MIN. An <xref target="RFC4898">TCP Extended Statistics
+      the model of the TCP MIB. An <xref target="RFC4898">TCP Extended Statistics
       MIB</xref> is also available, but this document does not cover such extended
       statistics. It is possible also to translate a MIB into a
       YANG model, for instance using <xref target="RFC6643">Translation of
@@ -208,7 +208,8 @@
         specifies TCP parameters that are important on such TCP stacks. A
         typical example is the support of <xref
         target="RFC5925">TCP-AO</xref>. TCP-AO is increasingly supported on
-        routers and it requires configuration.</t>
+        routers to secure routing protocols such as BGP. In that case, TCP-AO
+        configuration is required on routers.</t>
 
         <t>Given an installed base, the model also allows enabling of the legacy
         <xref target="RFC2385">TCP MD5</xref> signature option. As the TCP MD5 
