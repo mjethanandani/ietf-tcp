@@ -8,7 +8,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" docName="draft-scharf-tcpm-yang-tcp-05" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-tcpm-yang-tcp-00" ipr="trust200902">
   <front>
     <title abbrev="TCP Configuration">YANG Model for Transmission Control
     Protocol (TCP) Configuration</title>
@@ -53,7 +53,7 @@
       </address>
     </author>
 
-    <date day="7" month="July" year="2020"/>
+    <date day="29" month="October" year="2020"/>
 
     <area>Transport</area>
 
@@ -87,8 +87,8 @@
       compliant. This module defines a container for TCP connection, and
       includes definitions from <xref
       target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
-      Clients and TCP Servers</xref>. The model has a narrow scope and
-      focuses on fundamental TCP functions and basic statistics. The model can be
+      Clients and TCP Servers</xref>. The model has a narrow scope and focuses
+      on fundamental TCP functions and basic statistics. The model can be
       augmented or updated to address more advanced or implementation-specific
       TCP features in the future.</t>
 
@@ -101,35 +101,34 @@
       means to configure the parameters listed in this document, which are
       outside the scope of this document.</t>
 
-      <t>This specification is orthogonal to the <xref target="RFC4022">Management
-      Information Base (MIB) for the Transmission Control Protocol
-      (TCP)</xref>. The basic statistics defined in this document follow
-      the model of the TCP MIB. An <xref target="RFC4898">TCP Extended Statistics
-      MIB</xref> is also available, but this document does not cover such extended
-      statistics. It is possible also to translate a MIB into a
-      YANG model, for instance using <xref target="RFC6643">Translation of
-      Structure of Management Information Version 2 (SMIv2) MIB Modules to
-      YANG Modules</xref>. However, this approach is not used in this
-      document, as such a translated model would not be up-to-date.</t>
+      <t>This specification is orthogonal to the <xref
+      target="RFC4022">Management Information Base (MIB) for the Transmission
+      Control Protocol (TCP)</xref>. The basic statistics defined in this
+      document follow the model of the TCP MIB. An <xref target="RFC4898">TCP
+      Extended Statistics MIB</xref> is also available, but this document does
+      not cover such extended statistics. It is possible also to translate a
+      MIB into a YANG model, for instance using <xref
+      target="RFC6643">Translation of Structure of Management Information
+      Version 2 (SMIv2) MIB Modules to YANG Modules</xref>. However, this
+      approach is not used in this document, as such a translated model would
+      not be up-to-date.</t>
 
-      <t>There are other existing TCP-related YANG models, which are
-      othogonal to this specification. Examples are:</t>
+      <t>There are other existing TCP-related YANG models, which are othogonal
+      to this specification. Examples are:</t>
 
       <t><list style="symbols">
-          <t>TCP header attributes are modeled in other models, such as
-            <xref target="RFC8519">YANG Data Model for Network Access Control
-            Lists (ACLs) </xref> and <xref
-            target="I-D.ietf-dots-data-channel">Distributed Denial-of-Service
-            Open Thread Signaling (DOTS) Data Channel
-            Specification</xref>.</t>
+          <t>TCP header attributes are modeled in other models, such as <xref
+          target="RFC8519">YANG Data Model for Network Access Control Lists
+          (ACLs) </xref> and <xref
+          target="I-D.ietf-dots-data-channel">Distributed Denial-of-Service
+          Open Thread Signaling (DOTS) Data Channel Specification</xref>.</t>
 
           <t>TCP-related configuration of a NAT (e.g., NAT44, NAT64,
-            Destination NAT, ...) is defined in <xref target="RFC8512">A YANG
-            Module for Network Address Translation (NAT) and Network Prefix
-            Translation (NPT) </xref> and <xref target="RFC8513">A YANG Data
-            Model for Dual-Stack Lite (DS-Lite) </xref>.</t>
-      </list></t>
-
+          Destination NAT, ...) is defined in <xref target="RFC8512">A YANG
+          Module for Network Address Translation (NAT) and Network Prefix
+          Translation (NPT) </xref> and <xref target="RFC8513">A YANG Data
+          Model for Dual-Stack Lite (DS-Lite) </xref>.</t>
+        </list></t>
     </section>
 
     <section title="Requirements Language">
@@ -184,9 +183,9 @@
 
             <t>Policies: Setting of TCP parameters can also be part of system
             policies, templates, or profiles. An example would be the
-            preferences defined in <xref
-            target="I-D.ietf-taps-interface">An Abstract Application Layer
-            Interface to Transport Services</xref>.</t>
+            preferences defined in <xref target="I-D.ietf-taps-interface">An
+            Abstract Application Layer Interface to Transport
+            Services</xref>.</t>
           </list></t>
 
         <t>As a result, there is no ground truth for setting certain TCP
@@ -211,14 +210,14 @@
         routers to secure routing protocols such as BGP. In that case, TCP-AO
         configuration is required on routers.</t>
 
-        <t>Given an installed base, the model also allows enabling of the legacy
-        <xref target="RFC2385">TCP MD5</xref> signature option. As the TCP MD5 
-        signature option is obsoleted by TCP-AO, it is strongly RECOMMENDED to
-        use TCP-AO.</t>
+        <t>Given an installed base, the model also allows enabling of the
+        legacy <xref target="RFC2385">TCP MD5</xref> signature option. As the
+        TCP MD5 signature option is obsoleted by TCP-AO, it is strongly
+        RECOMMENDED to use TCP-AO.</t>
 
         <t>Similar to the <xref target="RFC4022">TCP MIB</xref>, this document
         also specifies basic statistics and a TCP connection table.</t>
-   
+
         <t><list style="symbols">
             <t>Statistics: Counters for the number of active/passive opens,
             sent and received segments, errors, and possibly other detailed
@@ -226,14 +225,14 @@
 
             <t>TCP connection table: Access to status information for all TCP
             connections</t>
-        </list></t>
+          </list></t>
 
-        <t>This allows implementations of <xref target="RFC4022">TCP MIB</xref>
-        to migrate to the YANG model defined in this memo.</t>
+        <t>This allows implementations of <xref target="RFC4022">TCP
+        MIB</xref> to migrate to the YANG model defined in this memo.</t>
       </section>
 
       <section title="Model Design">
-         <t>The YANG model defined in this document includes definitions from
+        <t>The YANG model defined in this document includes definitions from
         the <xref target="I-D.ietf-netconf-tcp-client-server">YANG Groupings
         for TCP Clients and TCP Servers</xref>. Similar to that model, this
         specification defines YANG groupings. This allows reuse of these
