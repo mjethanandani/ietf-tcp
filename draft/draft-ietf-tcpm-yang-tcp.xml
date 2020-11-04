@@ -391,6 +391,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       <?rfc include='reference.I-D.ietf-idr-bgp-model'?>
 
       <?rfc include='reference.I-D.ietf-taps-interface'?>
+
+      <?rfc include='reference.I-D.touch-tcpm-ao-test-vectors'?>
     </references>
 
     <section anchor="app_ack" title="Acknowledgements">
@@ -454,7 +456,21 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
         <t><figure>
             <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml)
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml,69)
+
+]]></artwork>
+          </figure></t>
+      </section>
+
+      <section title="TCP-AO Configuration">
+        <t>The following example demonstrates how to model a <xref
+        target="RFC5925">TCP-AO</xref> configuration for the example in <xref
+        target="I-D.touch-tcpm-ao-test-vectors">TCP-AO Test Vectors</xref>,
+        Section 5.1.1.</t>
+
+        <t><figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.2.xml,69)
 
 ]]></artwork>
           </figure></t>
