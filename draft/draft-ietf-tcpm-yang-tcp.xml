@@ -8,7 +8,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" docName="draft-ietf-tcpm-yang-tcp-00" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-tcpm-yang-tcp-01" ipr="trust200902">
   <front>
     <title abbrev="TCP Configuration">YANG Model for Transmission Control
     Protocol (TCP) Configuration</title>
@@ -53,7 +53,7 @@
       </address>
     </author>
 
-    <date day="29" month="October" year="2020"/>
+    <date day="16" month="November" year="2020"/>
 
     <area>Transport</area>
 
@@ -119,9 +119,9 @@
       <t><list style="symbols">
           <t>TCP header attributes are modeled in other models, such as <xref
           target="RFC8519">YANG Data Model for Network Access Control Lists
-          (ACLs) </xref> and <xref
-          target="I-D.ietf-dots-data-channel">Distributed Denial-of-Service
-          Open Thread Signaling (DOTS) Data Channel Specification</xref>.</t>
+          (ACLs) </xref> and <xref target="RFC8783">Distributed
+          Denial-of-Service Open Thread Signaling (DOTS) Data Channel
+          Specification</xref>.</t>
 
           <t>TCP-related configuration of a NAT (e.g., NAT44, NAT64,
           Destination NAT, ...) is defined in <xref target="RFC8512">A YANG
@@ -386,11 +386,13 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.RFC.8519'?>
 
-      <?rfc include='reference.I-D.ietf-dots-data-channel'?>
+      <?rfc include='reference.RFC.8783'?>
 
       <?rfc include='reference.I-D.ietf-idr-bgp-model'?>
 
       <?rfc include='reference.I-D.ietf-taps-interface'?>
+
+      <?rfc include='reference.I-D.touch-tcpm-ao-test-vectors'?>
     </references>
 
     <section anchor="app_ack" title="Acknowledgements">
@@ -454,10 +456,36 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
         <t><figure>
             <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml)
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml,69)
+
 ]]></artwork>
           </figure></t>
       </section>
+
+      <section title="TCP-AO Configuration">
+        <t>The following example demonstrates how to model a <xref
+        target="RFC5925">TCP-AO</xref> configuration for the example in <xref
+        target="I-D.touch-tcpm-ao-test-vectors">TCP-AO Test Vectors</xref>,
+        Section 5.1.1.</t>
+
+        <t><figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.2.xml,69)
+
+]]></artwork>
+          </figure></t>
+      </section>
+    </section>
+
+    <section title="Complete Tree Diagram">
+      <t>Here is the complete tree diagram for the TCP YANG model.</t>
+
+      <figure>
+        <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD-tree.txt)
+
+]]></artwork>
+      </figure>
     </section>
   </back>
 </rfc>

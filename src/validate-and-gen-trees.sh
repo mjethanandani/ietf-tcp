@@ -49,7 +49,7 @@ for i in yang/example-tcp-configuration-*.xml
 do
     name=$(echo $i | cut -f 1-4 -d '.')
     echo "Validating $name"
-    response=`yanglint -s -i -t auto -p dependencies yang/ietf-tcp\@$(date +%Y-%m-%d).yang $name`
+    response=`yanglint -s -i -t auto -p dependencies dependencies/ietf-key-chain@2017-06-15.yang yang/ietf-tcp\@$(date +%Y-%m-%d).yang $name`
     if [ $? -ne 0 ]; then
        printf "failed (error code: $?)\n"
        printf "$response\n\n"
