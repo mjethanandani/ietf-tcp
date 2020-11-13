@@ -204,11 +204,15 @@
 
         <t>An important use case is the TCP configuration on network elements
         such as routers, which often use YANG data models. The model therefore
-        specifies TCP parameters that are important on such TCP stacks. A
-        typical example is the support of <xref
+        specifies TCP parameters that are important on such TCP stacks.</t>
+
+        <t>A typical example is the support of <xref
         target="RFC5925">TCP-AO</xref>. TCP-AO is increasingly supported on
         routers to secure routing protocols such as BGP. In that case, TCP-AO
-        configuration is required on routers.</t>
+        configuration is required on routers. The model includes the required
+        TCP parameters for TCP-AO configuration. The key chain for TCP-AO can be
+        modeled by the <xref target="RFC8177">YANG Data Model for Key
+        Chains</xref>.</t>
 
         <t>Given an installed base, the model also allows enabling of the
         legacy <xref target="RFC2385">TCP MD5</xref> signature option. As the
@@ -361,6 +365,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       <?rfc include='reference.RFC.8040'?>
 
       <?rfc include='reference.RFC.8174'?>
+
+      <?rfc include='reference.RFC.8177'?>
 
       <?rfc include='reference.RFC.8340'?>
 
