@@ -113,8 +113,8 @@
       approach is not used in this document, as such a translated model would
       not be up-to-date.</t>
 
-      <t>There are other existing TCP-related YANG models, which are othogonal
-      to this specification. Examples are:</t>
+      <t>There are other existing TCP-related YANG models, which are
+      orthogonal to this specification. Examples are:</t>
 
       <t><list style="symbols">
           <t>TCP header attributes are modeled in other models, such as <xref
@@ -328,13 +328,13 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       network operations. These are the subtrees and data nodes and their
       sensitivity/vulnerability:</t>
 
-      <t><list>
-          <t>server configuration. Unrestricted access to all the nodes under
+      <t><list style="symbols">
+          <t>Server configuration. Unrestricted access to all the nodes under
           server configuration, e.g. local-address or keepalive idle-timer,
           can cause connections to the server to fail or to timeout
           prematurely.</t>
 
-          <t>client configuration. Similar to server configuration,
+          <t>Client configuration. Similar to server configuration,
           unrestricted access to the nodes under client configuration can
           cause connections from the client to fail, or connections to the
           server to be redirected, and in case of keepalive, cause connections
@@ -347,7 +347,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       notification) to these data nodes. These are the subtrees and data nodes
       and their sensitivity/vulnerability:</t>
 
-      <t><list>
+      <t><list style="symbols">
           <t>Unrestricted access to connection information of the client or
           server can be used by a malicious user to launch an attack, e.g.
           MITM.</t>
@@ -362,10 +362,10 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       important to control access to these operations. These are the
       operations and their sensitivity/vulnerability:</t>
 
-      <t><list>
+      <t><list style="symbols">
           <t>The YANG module allows for the statistics to be cleared by
-          executing the reset action. This action should therefore be
-          restricted to users with the right permission.</t>
+          executing the reset action. This action should be restricted to
+          users with the right permission.</t>
         </list></t>
     </section>
   </middle>
