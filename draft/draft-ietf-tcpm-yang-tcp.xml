@@ -113,8 +113,8 @@
       approach is not used in this document, as such a translated model would
       not be up-to-date.</t>
 
-      <t>There are other existing TCP-related YANG models, which are othogonal
-      to this specification. Examples are:</t>
+      <t>There are other existing TCP-related YANG models, which are
+      orthogonal to this specification. Examples are:</t>
 
       <t><list style="symbols">
           <t>TCP header attributes are modeled in other models, such as <xref
@@ -210,8 +210,8 @@
         target="RFC5925">TCP-AO</xref>. TCP-AO is increasingly supported on
         routers to secure routing protocols such as BGP. In that case, TCP-AO
         configuration is required on routers. The model includes the required
-        TCP parameters for TCP-AO configuration. The key chain for TCP-AO can be
-        modeled by the <xref target="RFC8177">YANG Data Model for Key
+        TCP parameters for TCP-AO configuration. The key chain for TCP-AO can
+        be modeled by the <xref target="RFC8177">YANG Data Model for Key
         Chains</xref>.</t>
 
         <t>Given an installed base, the model also allows enabling of the
@@ -320,25 +320,53 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       NETCONF or RESTCONF users to a preconfigured subset of all available
       NETCONF or RESTCONF protocol operations and content.</t>
 
-      <!--
-    - if you have any writeable data nodes (those are all the - "config true" nodes, and remember, that is the default) - describe their specific sensitivity or vulnerability. 
+      <t>There are a number of data nodes defined in this YANG module that are
+      writable/creatable/deletable (i.e., "config true", which is the
+      default). These data nodes may be considered sensitive or vulnerable in
+      some network environments. Write operations (e.g., edit-config) to these
+      data nodes without proper protection can have a negative effect on
+      network operations. These are the subtrees and data nodes and their
+      sensitivity/vulnerability:</t>
 
-    There are a number of data nodes defined in this YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability: 
+      <t><list style="symbols">
+          <t>Server configuration. Unrestricted access to all the nodes under
+          server configuration, e.g. local-address or keepalive idle-timer,
+          can cause connections to the server to fail or to timeout
+          prematurely.</t>
 
-    <list subtrees and data nodes and state why they are sensitive> 
+          <t>Client configuration. Similar to server configuration,
+          unrestricted access to the nodes under client configuration can
+          cause connections from the client to fail, or connections to the
+          server to be redirected, and in case of keepalive, cause connections
+          to timeout prematurely etc.</t>
+        </list></t>
 
-    - for all YANG modules you must evaluate whether any readable data - nodes (those are all the "config false" nodes, but also all other - nodes, because they can also be read via operations like get or - get-config) are sensitive or vulnerable (for instance, if they - might reveal customer information or violate personal privacy - laws such as those of the European Union if exposed to - unauthorized parties) 
+      <t>Some of the readable data nodes in this YANG module may be considered
+      sensitive or vulnerable in some network environments. It is thus
+      important to control read access (e.g., via get, get-config, or
+      notification) to these data nodes. These are the subtrees and data nodes
+      and their sensitivity/vulnerability:</t>
 
-    Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability: 
+      <t><list style="symbols">
+          <t>Unrestricted access to connection information of the client or
+          server can be used by a malicious user to launch an attack, e.g.
+          MITM.</t>
 
-    <list subtrees and data nodes and state why they are sensitive> 
+          <t>Similarly, unrestricted access to statistics of the client or
+          server can be used by a malicious user to exploit any
+          vulnerabilities of the system.</t>
+        </list></t>
 
-    - if your YANG module has defined any rpc operations - describe their specific sensitivity or vulnerability. 
+      <t>Some of the RPC operations in this YANG module may be considered
+      sensitive or vulnerable in some network environments. It is thus
+      important to control access to these operations. These are the
+      operations and their sensitivity/vulnerability:</t>
 
-    Some of the RPC operations in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control access to these operations. These are the operations and their sensitivity/vulnerability: 
-
-    <list RPC operations and state why they are sensitive> 
-    -->
+      <t><list style="symbols">
+          <t>The YANG module allows for the statistics to be cleared by
+          executing the reset action. This action should be restricted to
+          users with the right permission.</t>
+        </list></t>
     </section>
   </middle>
 
