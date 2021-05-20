@@ -228,7 +228,10 @@
           </list></t>
 
         <t>This allows implementations of <xref target="RFC4022">TCP
-        MIB</xref> to migrate to the YANG model defined in this memo.</t>
+        MIB</xref> to migrate to the YANG model defined in this memo. Note that
+        the TCP MIB does not include means to reset statistics, which are defined
+        in this document. This is not a major addition, as a reset can simply be
+        implemented by storing offset values for the counters.</t>
       </section>
 
       <section title="Model Design">
