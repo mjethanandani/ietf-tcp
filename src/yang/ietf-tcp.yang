@@ -8,12 +8,12 @@ module ietf-tcp {
     reference
       "RFC 6991: Common YANG Data Types.";
   }
-  import ietf-tcp-client {
-    prefix "tcpc";
-  }
-  import ietf-tcp-server {
-    prefix "tcps";
-  }
+  // import ietf-tcp-client {
+  //   prefix "tcpc";
+  // }
+  // import ietf-tcp-server {
+  //   prefix "tcps";
+  // }
   import ietf-tcp-common {
     prefix "tcpcmn";
   }
@@ -206,10 +206,11 @@ module ietf-tcp {
         description
           "List of TCP connections with their parameters. The list
            is modelled as writeable, but implementations may not allow
-           creation of new TCP connections by adding entries to the list.
-           Furthermore, the behavior upon removal is implementation-specific.
-           Implementations may support closing or reseting a TCP connection
-           upon an operation that removes the entry from the list.";
+           creation of new TCP connections by adding entries to the
+           list. Furthermore, the behavior upon removal is
+           implementation-specific. Implementations may support
+           closing or reseting a TCP connection upon an operation that
+           removes the entry from the list.";
       }
       description
         "A container of all TCP connections.";
