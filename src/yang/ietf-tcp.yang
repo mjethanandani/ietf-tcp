@@ -8,12 +8,6 @@ module ietf-tcp {
     reference
       "RFC 6991: Common YANG Data Types.";
   }
-  // import ietf-tcp-client {
-  //   prefix "tcpc";
-  // }
-  // import ietf-tcp-server {
-  //   prefix "tcps";
-  // }
   import ietf-tcp-common {
     prefix "tcpcmn";
   }
