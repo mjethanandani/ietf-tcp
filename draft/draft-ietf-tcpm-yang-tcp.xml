@@ -232,7 +232,10 @@
           </list></t>
 
         <t>This allows implementations of <xref target="RFC4022">TCP
-        MIB</xref> to migrate to the YANG model defined in this memo.</t>
+        MIB</xref> to migrate to the YANG model defined in this memo.
+        Note that the TCP MIB does not include means to reset statistics, which
+        are defined in this document. This is not a major addition, as a reset
+        can simply be implemented by storing offset values for the counters.</t>
       </section>
 
       <section title="Model Design">
@@ -328,6 +331,9 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       network operations. These are the subtrees and data nodes and their
       sensitivity/vulnerability:</t>
 
+      <t>TODO</t>
+
+      <!--
       <t><list style="symbols">
           <t>Server configuration. Unrestricted access to all the nodes under
           server configuration, e.g. local-address or keepalive idle-timer,
@@ -340,6 +346,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
           server to be redirected, and in case of keepalive, cause connections
           to timeout prematurely etc.</t>
         </list></t>
+     -->
 
       <t>Some of the readable data nodes in this YANG module may be considered
       sensitive or vulnerable in some network environments. It is thus

@@ -8,12 +8,6 @@ module ietf-tcp {
     reference
       "RFC 6991: Common YANG Data Types.";
   }
-  import ietf-tcp-client {
-    prefix "tcpc";
-  }
-  import ietf-tcp-server {
-    prefix "tcps";
-  }
   import ietf-tcp-common {
     prefix "tcpcmn";
   }
@@ -65,16 +59,6 @@ module ietf-tcp {
   }
 
   // Features
-  feature server {
-    description
-      "TCP Server configuration supported.";
-  }
-
-  feature client {
-    description
-      "TCP Client configuration supported.";
-  }
-
   feature statistics {
     description
       "This implementation supports statistics reporting.";
@@ -97,7 +81,8 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       description
         "The SendID is inserted as the KeyID of the TCP-AO option
-         of outgoing segments.";
+         of outgoing segments. The SendID must match the RecvID
+         at the other endpoint.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
@@ -109,7 +94,8 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       description
         "The RecvID is matched against the TCP-AO KeyID of incoming
-         segments.";
+         segments. The RecvID must match the SendID at the other
+         endpoint.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
@@ -212,24 +198,16 @@ module ietf-tcp {
              that can be part of either the client or server.";
         }
         description
-          "Connection related parameters.";
+          "List of TCP connections with their parameters. The list
+           is modelled as writeable, but implementations may not allow
+           creation of new TCP connections by adding entries to the
+           list. Furthermore, the behavior upon removal is
+           implementation-specific. Implementations may support
+           closing or reseting a TCP connection upon an operation that
+           removes the entry from the list.";
       }
       description
         "A container of all TCP connections.";
-    }
-
-    container server {
-      if-feature server;
-      uses tcps:tcp-server-grouping;
-      description
-        "Definitions of TCP server configuration.";
-    }
-
-    container client {
-      if-feature client;
-      uses tcpc:tcp-client-grouping;
-      description
-        "Definitions of TCP client configuration.";
     }
 
     container statistics {
