@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- This example sets TCP-AO configuration parameters as
- demonstrated by examples in draft-touch-tcpm-ao-test-vectors.
+This example sets TCP-AO configuration parameters as
+demonstrated by examples in draft-touch-tcpm-ao-test-vectors.
 -->
-<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-  <key-chains
-      xmlns="urn:ietf:params:xml:ns:yang:ietf-key-chain">
-    <key-chain>
-      <name>ao-config</name>
-      <description>"An example for TCP-AO configuration."</description>
-      <key>
-	<key-id>61</key-id>
-	<crypto-algorithm>hmac-sha-1-12</crypto-algorithm>
-	<key-string>
-	  <hexadecimal-string>01:23:a5:93:b9:db:70:62:9b:be:2c:a6:77:cd:fd:ea:6f:e0:ac:ad</hexadecimal-string> 
-	</key-string>
-      </key>
-    </key-chain>
-  </key-chains>
-  <tcp
-      xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
-    <!--
-	The example in draft-touch-tcpm-ao-test-vectors uses
-	IP addresses that are not valid for examples. Changing
-	them here to valid addresses.
-    -->
-    <server>
+
+<tcp
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
+  <connections>
+    <connection>
       <local-address>192.168.1.1</local-address>
-    </server>
-    <client>
       <remote-address>192.168.1.2</remote-address>
-    </client>
-  </tcp>
-</config>
+      <local-port>1025</local-port>
+      <remote-port>80</remote-port>
+      <common>
+	<enable-ao>true</enable-ao>
+      </common>
+    </connection>
+  </connections>
+</tcp>
+
+<key-chains
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-key-chain">
+  <key-chain>
+    <name>ao-config</name>
+    <description>"An example for TCP-AO configuration."</description>
+    <key>
+      <key-id>61</key-id>
+      <crypto-algorithm>hmac-sha-1</crypto-algorithm>
+      <key-string>
+	<hexadecimal-string>01:23:a5:93:b9:db:70:62:9b:be:2c:a6:77:cd:fd:ea:6f:e0:ac:ad</hexadecimal-string>
+      </key-string>
+    </key>
+  </key-chain>
+</key-chains>
