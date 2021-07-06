@@ -1,38 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- This example shows how TCP keepalive can be configured for
- a given connection. An idle connection is dropped after
- idle-time + (max-probes * probe-interval).
+This example shows how TCP keepalive can be configured for
+a given connection. An idle connection is dropped after
+idle-time + (max-probes * probe-interval).
 -->
-<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-  <tcp
-      xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
-    <connections>
-      <connection>
-	<local-address>192.168.1.1</local-address>
-	<remote-address>192.168.1.2</remote-address>
-	<local-port>1025</local-port>
-	<remote-port>80</remote-port>
-	<common>
-	  <keepalives>
-	    <idle-time>5</idle-time>
-	    <max-probes>5</max-probes>
-	    <probe-interval>10</probe-interval>
-	  </keepalives>
-	</common>
-      </connection>
-    </connections>
-    <!--
-     It is not clear why a server and client configuration is
-     needed here even as they under a feature statement and
-     therefore are required only if the feature is declared.
-     Adding it so that yanglint allows this validation to run.
-    -->
-    <server>
+<tcp
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
+  <connections>
+    <connection>
       <local-address>192.168.1.1</local-address>
-    </server>
-    <client>
       <remote-address>192.168.1.2</remote-address>
-    </client>
-  </tcp>
-</config>
+      <local-port>1025</local-port>
+      <remote-port>80</remote-port>
+      <common>
+	<keepalives>
+	  <idle-time>5</idle-time>
+	  <max-probes>5</max-probes>
+	  <probe-interval>10</probe-interval>
+	</keepalives>
+      </common>
+    </connection>
+  </connections>
+</tcp>
