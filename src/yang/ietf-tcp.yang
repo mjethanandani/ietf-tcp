@@ -23,15 +23,15 @@ module ietf-tcp {
      WG List:  <tcpm@ietf.org>
 
      Authors: Michael Scharf (michael.scharf at hs-esslingen dot de)
-              Vishal Murgai (vmurgai at gmail dot com)
-              Mahesh Jethanandani (mjethanandani at gmail dot com)";
+              Mahesh Jethanandani (mjethanandani at gmail dot com)
+              Vishal Murgai (vmurgai at gmail dot com)";
 
   description
-    "This module focuses on fundamental and standard TCP functions
-     that widely implemented. The model can be augmented to address
-     more advanced or implementation specific TCP features.
+    "This module focuses on fundamental TCP functions and basic
+     statistics. The model can be augmented to address more advanced
+     or implementation specific TCP features.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -203,7 +203,7 @@ module ietf-tcp {
            creation of new TCP connections by adding entries to the
            list. Furthermore, the behavior upon removal is
            implementation-specific. Implementations may support
-           closing or reseting a TCP connection upon an operation that
+           closing or resetting a TCP connection upon an operation that
            removes the entry from the list.";
       }
       description

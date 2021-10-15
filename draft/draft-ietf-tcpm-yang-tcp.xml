@@ -36,14 +36,6 @@
       </address>
     </author>
 
-    <author fullname="Vishal Murgai" initials="V." surname="Murgai">
-      <organization>Samsung</organization>
-
-      <address>
-        <email>vmurgai@gmail.com</email>
-      </address>
-    </author>
-
     <author fullname="Mahesh Jethanandani" initials="M."
             surname="Jethanandani">
       <organization>Kloud Services</organization>
@@ -53,7 +45,15 @@
       </address>
     </author>
 
-    <date day="8" month="July" year="2021"/>
+    <author fullname="Vishal Murgai" initials="V." surname="Murgai">
+      <organization>Samsung</organization>
+
+      <address>
+        <email>vmurgai@gmail.com</email>
+      </address>
+    </author>
+
+    <date day="15" month="Oct" year="2021"/>
 
     <area>Transport</area>
 
@@ -62,13 +62,12 @@
     <keyword>YANG</keyword>
 
     <abstract>
-      <t>This document specifies a YANG model for TCP on devices that are
+      <t>This document specifies a minimal YANG model for TCP on devices that are
       configured by network management protocols. The YANG model defines a
-      container for all TCP connections and groupings of some of the
+      container for all TCP connections and groupings of authentication
       parameters that can be imported and used in TCP implementations or by
-      other models that need to configure TCP parameters. The model includes
-      definitions from YANG Groupings for TCP Client and TCP Servers
-      (I-D.ietf-netconf-tcp-client-server). The model is NMDA (RFC 8342)
+      other models that need to configure TCP parameters. The model also
+      includes basic TCP statistics. The model is NMDA (RFC 8342)
       compliant.</t>
     </abstract>
   </front>
@@ -80,17 +79,19 @@
       and management protocols. Therefore, TCP is implemented on network
       elements that can be configured via network management protocols such as
       <xref target="RFC6241">NETCONF</xref> or <xref
-      target="RFC8040">RESTCONF</xref>. This document specifies a <xref
+      target="RFC8040">RESTCONF</xref>. This document specifies a minimal <xref
       target="RFC7950">YANG</xref> 1.1 model for configuring TCP on network
       elements that support YANG data models, and is <xref
       target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>
-      compliant. This module defines a container for TCP connection, and
-      includes definitions from <xref
+      compliant. The model has a narrow scope and focuses on a subset of
+      fundamental TCP functions and basic statistics. It defines a container
+      for TCP connection that includes definitions from <xref
       target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
-      Clients and TCP Servers</xref>. The model has a narrow scope and focuses
-      on fundamental TCP functions and basic statistics. The model can be
-      augmented or updated to address more advanced or implementation-specific
-      TCP features in the future.</t>
+      Clients and TCP Servers</xref>. The model also enables configuration
+      of <xref target="RFC5925">TCP-AO</xref>, which is a relevant TCP feature
+      on network elements such as routers. The model can be augmented or
+      updated to address more advanced or implementation-specific TCP features
+      in the future.</t>
 
       <t>Many protocol stacks on Internet hosts use other methods to configure
       TCP, such as operating system configuration or policies. Many TCP/IP
@@ -206,13 +207,14 @@
         such as routers, which often use YANG data models. The model therefore
         specifies TCP parameters that are important on such TCP stacks.</t>
 
-        <t>A typical example is the support of <xref
-        target="RFC5925">TCP-AO</xref>. TCP-AO is increasingly supported on
-        routers to secure routing protocols such as BGP. In that case, TCP-AO
-        configuration is required on routers. The model includes the required
-        TCP parameters for TCP-AO configuration. The key chain for TCP-AO can
-        be modeled by the <xref target="RFC8177">YANG Data Model for Key
-        Chains</xref>.</t>
+        <t>This in particular applies to the support of <xref
+        target="RFC5925">TCP-AO</xref>. TCP Authentication Option (TCP-AO) is
+        used on routers to secure routing protocols such as BGP. In that case,
+        a YANG model for TCP-AO configuration is required. The model defined
+        in this document includes the required parameters for TCP-AO
+        configuration, such as the values of SendID and RecvID. The
+        key chain for TCP-AO can be modeled by the <xref target="RFC8177">YANG
+        Data Model for Key Chains</xref>.</t>
 
         <t>Given an installed base, the model also allows enabling of the
         legacy <xref target="RFC2385">TCP MD5</xref> signature option. As the
@@ -331,22 +333,18 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       network operations. These are the subtrees and data nodes and their
       sensitivity/vulnerability:</t>
 
-      <t>TODO</t>
-
-      <!--
       <t><list style="symbols">
-          <t>Server configuration. Unrestricted access to all the nodes under
-          server configuration, e.g. local-address or keepalive idle-timer,
-          can cause connections to the server to fail or to timeout
-          prematurely.</t>
+        <t>Common configuration included from
+        <xref target="I-D.ietf-netconf-tcp-client-server">. Unrestricted
+        access to all the nodes, e.g., keepalive idle-timer,
+        can cause connections to fail or to timeout prematurely.</t>
 
-          <t>Client configuration. Similar to server configuration,
-          unrestricted access to the nodes under client configuration can
-          cause connections from the client to fail, or connections to the
-          server to be redirected, and in case of keepalive, cause connections
-          to timeout prematurely etc.</t>
-        </list></t>
-     -->
+        <t>Authentication configuration. Unrestricted access to the nodes under
+        authentication configuration can prevent the use of authenticated
+        communication and cause connection setups to fail. This can result
+        in massive security vulnerabities and service disruption for the
+        traffic requiring authentication.</t>
+      </list></t>
 
       <t>Some of the readable data nodes in this YANG module may be considered
       sensitive or vulnerable in some network environments. It is thus
