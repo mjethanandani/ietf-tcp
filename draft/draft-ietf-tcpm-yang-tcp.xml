@@ -8,7 +8,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" docName="draft-ietf-tcpm-yang-tcp-00" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-tcpm-yang-tcp-latest" ipr="trust200902">
   <front>
     <title abbrev="TCP Configuration">YANG Model for Transmission Control
     Protocol (TCP) Configuration</title>
@@ -36,14 +36,6 @@
       </address>
     </author>
 
-    <author fullname="Vishal Murgai" initials="V." surname="Murgai">
-      <organization/>
-
-      <address>
-        <email>vmurgai@gmail.com</email>
-      </address>
-    </author>
-
     <author fullname="Mahesh Jethanandani" initials="M."
             surname="Jethanandani">
       <organization>Kloud Services</organization>
@@ -53,7 +45,15 @@
       </address>
     </author>
 
-    <date day="29" month="October" year="2020"/>
+    <author fullname="Vishal Murgai" initials="V." surname="Murgai">
+      <organization>Samsung</organization>
+
+      <address>
+        <email>vmurgai@gmail.com</email>
+      </address>
+    </author>
+
+    <date day="15" month="Oct" year="2021"/>
 
     <area>Transport</area>
 
@@ -62,13 +62,12 @@
     <keyword>YANG</keyword>
 
     <abstract>
-      <t>This document specifies a YANG model for TCP on devices that are
+      <t>This document specifies a minimal YANG model for TCP on devices that are
       configured by network management protocols. The YANG model defines a
-      container for all TCP connections and groupings of some of the
+      container for all TCP connections and groupings of authentication
       parameters that can be imported and used in TCP implementations or by
-      other models that need to configure TCP parameters. The model includes
-      definitions from YANG Groupings for TCP Client and TCP Servers
-      (I-D.ietf-netconf-tcp-client-server). The model is NMDA (RFC 8342)
+      other models that need to configure TCP parameters. The model also
+      includes basic TCP statistics. The model is NMDA (RFC 8342)
       compliant.</t>
     </abstract>
   </front>
@@ -80,17 +79,19 @@
       and management protocols. Therefore, TCP is implemented on network
       elements that can be configured via network management protocols such as
       <xref target="RFC6241">NETCONF</xref> or <xref
-      target="RFC8040">RESTCONF</xref>. This document specifies a <xref
+      target="RFC8040">RESTCONF</xref>. This document specifies a minimal <xref
       target="RFC7950">YANG</xref> 1.1 model for configuring TCP on network
       elements that support YANG data models, and is <xref
       target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>
-      compliant. This module defines a container for TCP connection, and
-      includes definitions from <xref
+      compliant. The model has a narrow scope and focuses on a subset of
+      fundamental TCP functions and basic statistics. It defines a container
+      for TCP connection that includes definitions from <xref
       target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
-      Clients and TCP Servers</xref>. The model has a narrow scope and focuses
-      on fundamental TCP functions and basic statistics. The model can be
-      augmented or updated to address more advanced or implementation-specific
-      TCP features in the future.</t>
+      Clients and TCP Servers</xref>. The model also enables configuration
+      of <xref target="RFC5925">TCP-AO</xref>, which is a relevant TCP feature
+      on network elements such as routers. The model can be augmented or
+      updated to address more advanced or implementation-specific TCP features
+      in the future.</t>
 
       <t>Many protocol stacks on Internet hosts use other methods to configure
       TCP, such as operating system configuration or policies. Many TCP/IP
@@ -113,15 +114,15 @@
       approach is not used in this document, as such a translated model would
       not be up-to-date.</t>
 
-      <t>There are other existing TCP-related YANG models, which are othogonal
-      to this specification. Examples are:</t>
+      <t>There are other existing TCP-related YANG models, which are
+      orthogonal to this specification. Examples are:</t>
 
       <t><list style="symbols">
           <t>TCP header attributes are modeled in other models, such as <xref
           target="RFC8519">YANG Data Model for Network Access Control Lists
-          (ACLs) </xref> and <xref
-          target="I-D.ietf-dots-data-channel">Distributed Denial-of-Service
-          Open Thread Signaling (DOTS) Data Channel Specification</xref>.</t>
+          (ACLs) </xref> and <xref target="RFC8783">Distributed
+          Denial-of-Service Open Thread Signaling (DOTS) Data Channel
+          Specification</xref>.</t>
 
           <t>TCP-related configuration of a NAT (e.g., NAT44, NAT64,
           Destination NAT, ...) is defined in <xref target="RFC8512">A YANG
@@ -204,11 +205,16 @@
 
         <t>An important use case is the TCP configuration on network elements
         such as routers, which often use YANG data models. The model therefore
-        specifies TCP parameters that are important on such TCP stacks. A
-        typical example is the support of <xref
-        target="RFC5925">TCP-AO</xref>. TCP-AO is increasingly supported on
-        routers to secure routing protocols such as BGP. In that case, TCP-AO
-        configuration is required on routers.</t>
+        specifies TCP parameters that are important on such TCP stacks.</t>
+
+        <t>This in particular applies to the support of <xref
+        target="RFC5925">TCP-AO</xref>. TCP Authentication Option (TCP-AO) is
+        used on routers to secure routing protocols such as BGP. In that case,
+        a YANG model for TCP-AO configuration is required. The model defined
+        in this document includes the required parameters for TCP-AO
+        configuration, such as the values of SendID and RecvID. The
+        key chain for TCP-AO can be modeled by the <xref target="RFC8177">YANG
+        Data Model for Key Chains</xref>.</t>
 
         <t>Given an installed base, the model also allows enabling of the
         legacy <xref target="RFC2385">TCP MD5</xref> signature option. As the
@@ -228,7 +234,10 @@
           </list></t>
 
         <t>This allows implementations of <xref target="RFC4022">TCP
-        MIB</xref> to migrate to the YANG model defined in this memo.</t>
+        MIB</xref> to migrate to the YANG model defined in this memo.
+        Note that the TCP MIB does not include means to reset statistics, which
+        are defined in this document. This is not a major addition, as a reset
+        can simply be implemented by storing offset values for the counters.</t>
       </section>
 
       <section title="Model Design">
@@ -316,81 +325,113 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       NETCONF or RESTCONF users to a preconfigured subset of all available
       NETCONF or RESTCONF protocol operations and content.</t>
 
-      <!--
-    - if you have any writeable data nodes (those are all the - "config true" nodes, and remember, that is the default) - describe their specific sensitivity or vulnerability. 
+      <t>There are a number of data nodes defined in this YANG module that are
+      writable/creatable/deletable (i.e., "config true", which is the
+      default). These data nodes may be considered sensitive or vulnerable in
+      some network environments. Write operations (e.g., edit-config) to these
+      data nodes without proper protection can have a negative effect on
+      network operations. These are the subtrees and data nodes and their
+      sensitivity/vulnerability:</t>
 
-    There are a number of data nodes defined in this YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability: 
+      <t><list style="symbols">
+        <t>Common configuration included from
+        <xref target="I-D.ietf-netconf-tcp-client-server">. Unrestricted
+        access to all the nodes, e.g., keepalive idle-timer,
+        can cause connections to fail or to timeout prematurely.</t>
 
-    <list subtrees and data nodes and state why they are sensitive> 
+        <t>Authentication configuration. Unrestricted access to the nodes under
+        authentication configuration can prevent the use of authenticated
+        communication and cause connection setups to fail. This can result
+        in massive security vulnerabities and service disruption for the
+        traffic requiring authentication.</t>
+      </list></t>
 
-    - for all YANG modules you must evaluate whether any readable data - nodes (those are all the "config false" nodes, but also all other - nodes, because they can also be read via operations like get or - get-config) are sensitive or vulnerable (for instance, if they - might reveal customer information or violate personal privacy - laws such as those of the European Union if exposed to - unauthorized parties) 
+      <t>Some of the readable data nodes in this YANG module may be considered
+      sensitive or vulnerable in some network environments. It is thus
+      important to control read access (e.g., via get, get-config, or
+      notification) to these data nodes. These are the subtrees and data nodes
+      and their sensitivity/vulnerability:</t>
 
-    Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability: 
+      <t><list style="symbols">
+          <t>Unrestricted access to connection information of the client or
+          server can be used by a malicious user to launch an attack, e.g.
+          MITM.</t>
 
-    <list subtrees and data nodes and state why they are sensitive> 
+          <t>Similarly, unrestricted access to statistics of the client or
+          server can be used by a malicious user to exploit any
+          vulnerabilities of the system.</t>
+        </list></t>
 
-    - if your YANG module has defined any rpc operations - describe their specific sensitivity or vulnerability. 
+      <t>Some of the RPC operations in this YANG module may be considered
+      sensitive or vulnerable in some network environments. It is thus
+      important to control access to these operations. These are the
+      operations and their sensitivity/vulnerability:</t>
 
-    Some of the RPC operations in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control access to these operations. These are the operations and their sensitivity/vulnerability: 
-
-    <list RPC operations and state why they are sensitive> 
-    -->
+      <t><list style="symbols">
+          <t>The YANG module allows for the statistics to be cleared by
+          executing the reset action. This action should be restricted to
+          users with the right permission.</t>
+        </list></t>
     </section>
   </middle>
 
   <back>
     <references title="Normative References">
-      <?rfc include='reference.RFC.0793'?>
+      <?rfc include='reference.RFC.0793.xml'?>
 
-      <?rfc include='reference.RFC.2119'?>
+      <?rfc include='reference.RFC.2119.xml'?>
 
-      <?rfc include='reference.RFC.2385'?>
+      <?rfc include='reference.RFC.2385.xml'?>
 
-      <?rfc include='reference.RFC.3688'?>
+      <?rfc include='reference.RFC.3688.xml'?>
 
-      <?rfc include='reference.RFC.5925'?>
+      <?rfc include='reference.RFC.5925.xml'?>
 
-      <?rfc include='reference.RFC.6020'?>
+      <?rfc include='reference.RFC.6020.xml'?>
 
-      <?rfc include='reference.RFC.6241'?>
+      <?rfc include='reference.RFC.6241.xml'?>
 
-      <?rfc include='reference.RFC.6242'?>
+      <?rfc include='reference.RFC.6242.xml'?>
 
-      <?rfc include='reference.RFC.7950'?>
+      <?rfc include='reference.RFC.7950.xml'?>
 
-      <?rfc include='reference.RFC.8040'?>
+      <?rfc include='reference.RFC.8040.xml'?>
 
-      <?rfc include='reference.RFC.8174'?>
+      <?rfc include='reference.RFC.8174.xml'?>
 
-      <?rfc include='reference.RFC.8340'?>
+      <?rfc include='reference.RFC.8177.xml'?>
 
-      <?rfc include='reference.RFC.8341'?>
+      <?rfc include='reference.RFC.8340.xml'?>
 
-      <?rfc include='reference.RFC.8342'?>
+      <?rfc include='reference.RFC.8341.xml'?>
 
-      <?rfc include='reference.RFC.8446'?>
+      <?rfc include='reference.RFC.8342.xml'?>
 
-      <?rfc include='reference.I-D.ietf-netconf-tcp-client-server'?>
+      <?rfc include='reference.RFC.8446.xml'?>
+
+      <?rfc include='reference.I-D.ietf-netconf-tcp-client-server.xml'?>
     </references>
 
     <references title="Informative References">
-      <?rfc include='reference.RFC.4022'?>
+      <?rfc include='reference.RFC.4022.xml'?>
 
-      <?rfc include='reference.RFC.4898'?>
+      <?rfc include='reference.RFC.4898.xml'?>
 
-      <?rfc include='reference.RFC.6643'?>
+      <?rfc include='reference.RFC.6643.xml'?>
 
-      <?rfc include='reference.RFC.8512'?>
+      <?rfc include='reference.RFC.8512.xml'?>
 
-      <?rfc include='reference.RFC.8513'?>
+      <?rfc include='reference.RFC.8513.xml'?>
 
-      <?rfc include='reference.RFC.8519'?>
+      <?rfc include='reference.RFC.8519.xml'?>
 
-      <?rfc include='reference.I-D.ietf-dots-data-channel'?>
+      <?rfc include='reference.RFC.8783.xml'?>
 
-      <?rfc include='reference.I-D.ietf-idr-bgp-model'?>
+      <?rfc include='reference.I-D.ietf-idr-bgp-model.xml'?>
 
-      <?rfc include='reference.I-D.ietf-taps-interface'?>
+      <?rfc include='reference.I-D.ietf-taps-interface.xml'?>
+
+      <?rfc include='reference.I-D.touch-tcpm-ao-test-vectors.xml'?>
     </references>
 
     <section anchor="app_ack" title="Acknowledgements">
@@ -454,10 +495,36 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
         <t><figure>
             <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml)
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml,69)
+
 ]]></artwork>
           </figure></t>
       </section>
+
+      <section title="TCP-AO Configuration">
+        <t>The following example demonstrates how to model a <xref
+        target="RFC5925">TCP-AO</xref> configuration for the example in <xref
+        target="I-D.touch-tcpm-ao-test-vectors">TCP-AO Test Vectors</xref>,
+        Section 5.1.1.</t>
+
+        <t><figure>
+            <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.2.xml,69)
+
+]]></artwork>
+          </figure></t>
+      </section>
+    </section>
+
+    <section title="Complete Tree Diagram">
+      <t>Here is the complete tree diagram for the TCP YANG model.</t>
+
+      <figure>
+        <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD-tree.txt)
+
+]]></artwork>
+      </figure>
     </section>
   </back>
 </rfc>

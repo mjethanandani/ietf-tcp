@@ -8,12 +8,6 @@ module ietf-tcp {
     reference
       "RFC 6991: Common YANG Data Types.";
   }
-  import ietf-tcp-client {
-    prefix "tcpc";
-  }
-  import ietf-tcp-server {
-    prefix "tcps";
-  }
   import ietf-tcp-common {
     prefix "tcpcmn";
   }
@@ -29,32 +23,42 @@ module ietf-tcp {
      WG List:  <tcpm@ietf.org>
 
      Authors: Michael Scharf (michael.scharf at hs-esslingen dot de)
-              Vishal Murgai (vmurgai at gmail dot com)
-              Mahesh Jethanandani (mjethanandani at gmail dot com)";
+              Mahesh Jethanandani (mjethanandani at gmail dot com)
+              Vishal Murgai (vmurgai at gmail dot com)";
 
   description
-    "This module focuses on fundamental and standard TCP functions
-     that widely implemented. The model can be augmented to address
-     more advanced or implementation specific TCP features.";
+    "This module focuses on fundamental TCP functions and basic
+     statistics. The model can be augmented to address more advanced
+     or implementation specific TCP features.
+
+     Copyright (c) 2021 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject to
+     the license terms contained in, the Simplified BSD License set
+     forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
+
+     This version of this YANG module is part of RFC XXXX
+     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+     for full legal notices.
+
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
 
   revision "YYYY-MM-DD" {
     description
       "Initial Version";
     reference 
-      "RFC XXX, TCP Configuration.";
+      "RFC XXXX, TCP Configuration.";
   }
 
   // Features
-  feature server {
-    description
-      "TCP Server configuration supported.";
-  }
-
-  feature client {
-    description
-      "TCP Client configuration supported.";
-  }
-
   feature statistics {
     description
       "This implementation supports statistics reporting.";
@@ -77,7 +81,8 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       description
         "The SendID is inserted as the KeyID of the TCP-AO option
-         of outgoing segments.";
+         of outgoing segments. The SendID must match the RecvID
+         at the other endpoint.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
@@ -89,7 +94,8 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       description
         "The RecvID is matched against the TCP-AO KeyID of incoming
-         segments.";
+         segments. The RecvID must match the SendID at the other
+         endpoint.";
       reference
         "RFC 5925: The TCP Authentication Option.";
     }
@@ -97,15 +103,17 @@ module ietf-tcp {
     leaf include-tcp-options {
       type boolean;
       must "../enable-ao = 'true'";
+      default true;
       description
-        "Include TCP options in HMAC calculation.";
+        "Include TCP options in MAC calculation.";
     }
 
-    leaf accept-ao-mismatch {
+    leaf accept-key-mismatch {
       type boolean;
       must "../enable-ao = 'true'";
       description
-        "Accept packets with HMAC mismatch.";
+        "Accept TCP segments with a Master Key Tuple (MKT) that is not
+         configured.";
     }
     description
       "Authentication Option (AO) for TCP.";
@@ -190,24 +198,16 @@ module ietf-tcp {
              that can be part of either the client or server.";
         }
         description
-          "Connection related parameters.";
+          "List of TCP connections with their parameters. The list
+           is modelled as writeable, but implementations may not allow
+           creation of new TCP connections by adding entries to the
+           list. Furthermore, the behavior upon removal is
+           implementation-specific. Implementations may support
+           closing or resetting a TCP connection upon an operation that
+           removes the entry from the list.";
       }
       description
         "A container of all TCP connections.";
-    }
-
-    container server {
-      if-feature server;
-      uses tcps:tcp-server-grouping;
-      description
-        "Definitions of TCP server configuration.";
-    }
-
-    container client {
-      if-feature client;
-      uses tcpc:tcp-client-grouping;
-      description
-        "Definitions of TCP client configuration.";
     }
 
     container statistics {
