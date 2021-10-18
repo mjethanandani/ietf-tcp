@@ -335,7 +335,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <t><list style="symbols">
         <t>Common configuration included from
-        <xref target="I-D.ietf-netconf-tcp-client-server">. Unrestricted
+        <xref target="I-D.ietf-netconf-tcp-client-server">NETCONF Client
+	and Server Models </xref>. Unrestricted
         access to all the nodes, e.g., keepalive idle-timer,
         can cause connections to fail or to timeout prematurely.</t>
 
