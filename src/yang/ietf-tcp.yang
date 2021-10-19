@@ -112,8 +112,8 @@ module ietf-tcp {
       type boolean;
       must "../enable-ao = 'true'";
       description
-        "Accept TCP segments with a Master Key Tuple (MKT) that is not
-         configured.";
+        "Accept TCP segments with a Master Key Tuple (MKT) that is
+         not configured.";
     }
     description
       "Authentication Option (AO) for TCP.";
@@ -148,34 +148,34 @@ module ietf-tcp {
     
     container connections {
       list connection {
-	key "local-address remote-address local-port remote-port";
-	
-	leaf local-address {
-	  type inet:ip-address;
-	  description
-	    "Local address that forms the connection identifier.";
-	}
+        key "local-address remote-address local-port remote-port";
 
-	leaf remote-address {
-	  type inet:ip-address;
-	  description
-	    "Remote address that forms the connection identifier.";
-	}
+        leaf local-address {
+          type inet:ip-address;
+          description
+            "Local address that forms the connection identifier.";
+        }
 
-	leaf local-port {
-	  type inet:port-number;
-	  description
-	    "Local TCP port that forms the connection identifier.";
-	}
+        leaf remote-address {
+          type inet:ip-address;
+          description
+            "Remote address that forms the connection identifier.";
+        }
 
-	leaf remote-port {
-	  type inet:port-number;
-	  description
-	    "Remote TCP port that forms the connection identifier.";
-	}
+        leaf local-port {
+          type inet:port-number;
+          description
+            "Local TCP port that forms the connection identifier.";
+        }
 
-	container common {
-	  uses tcpcmn:tcp-common-grouping;
+        leaf remote-port {
+          type inet:port-number;
+          description
+            "Remote TCP port that forms the connection identifier.";
+        }
+
+        container common {
+          uses tcpcmn:tcp-common-grouping;
 
           choice authentication {
             case ao {
@@ -199,12 +199,12 @@ module ietf-tcp {
         }
         description
           "List of TCP connections with their parameters. The list
-           is modelled as writeable, but implementations may not allow
-           creation of new TCP connections by adding entries to the
-           list. Furthermore, the behavior upon removal is
+           is modelled as writeable, but implementations may not
+           allow creation of new TCP connections by adding entries to
+           the list. Furthermore, the behavior upon removal is
            implementation-specific. Implementations may support
-           closing or resetting a TCP connection upon an operation that
-           removes the entry from the list.";
+           closing or resetting a TCP connection upon an operation
+           that removes the entry from the list.";
       }
       description
         "A container of all TCP connections.";
@@ -217,8 +217,9 @@ module ietf-tcp {
       leaf active-opens {
         type yang:counter32;
         description
-          "The number of times that TCP connections have made a direct
-           transition to the SYN-SENT state from the CLOSED state.";
+          "The number of times that TCP connections have made a
+           direct transition to the SYN-SENT state from the CLOSED
+           state.";
       }
 
       leaf passive-opens {
@@ -231,19 +232,19 @@ module ietf-tcp {
       leaf attempt-fails {
         type yang:counter32;
         description
-          "The number of times that TCP connections have made a direct
-           transition to the CLOSED state from either the SYN-SENT
-           state or the SYN-RCVD state, plus the number of times that
-           TCP connections have made a direct transition to the
-           LISTEN state from the SYN-RCVD state.";
+          "The number of times that TCP connections have made a
+           direct transition to the CLOSED state from either the
+           SYN-SENT state or the SYN-RCVD state, plus the number of
+           times that TCP connections have made a direct transition
+           to the LISTEN state from the SYN-RCVD state.";
       }
 
       leaf establish-resets {
         type yang:counter32;
         description
-          "The number of times that TCP connections have made a direct
-           transition to the CLOSED state from either the ESTABLISHED
-           state or the CLOSE-WAIT state.";
+          "The number of times that TCP connections have made a
+           direct transition to the CLOSED state from either the
+           ESTABLISHED state or the CLOSE-WAIT state.";
       }
 
       leaf currently-established {

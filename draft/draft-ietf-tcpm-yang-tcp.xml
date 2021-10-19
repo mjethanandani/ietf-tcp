@@ -230,7 +230,10 @@
             debugging information</t>
 
             <t>TCP connection table: Access to status information for all TCP
-            connections</t>
+            connections. Note, the connection table is modeled as a list 
+	    that is read-writeable, even though a connection cannot be
+	    created by adding entries to the table. Similarly, deletion
+	    of connections from this list is implementation-specific.</t>
           </list></t>
 
         <t>This allows implementations of <xref target="RFC4022">TCP
@@ -335,7 +338,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <t><list style="symbols">
         <t>Common configuration included from
-        <xref target="I-D.ietf-netconf-tcp-client-server">. Unrestricted
+        <xref target="I-D.ietf-netconf-tcp-client-server">NETCONF Client
+	and Server Models </xref>. Unrestricted
         access to all the nodes, e.g., keepalive idle-timer,
         can cause connections to fail or to timeout prematurely.</t>
 
