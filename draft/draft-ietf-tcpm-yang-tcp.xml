@@ -53,7 +53,7 @@
       </address>
     </author>
 
-    <date day="15" month="Oct" year="2021"/>
+    <date/>
 
     <area>Transport</area>
 
@@ -281,7 +281,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
     <section anchor="IANA" title="IANA Considerations">
       <section title="The IETF XML Registry">
-        <t>This document registers two URIs in the "ns" subregistry of the
+        <t>This document registers a URIs in the "ns" subregistry of the
         <xref target="RFC3688">IETF XML Registry </xref>. Following the format
         in <xref target="RFC3688">IETF XML Registry </xref>, the following
         registrations are requested:</t>
@@ -289,7 +289,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
         <t><figure>
             <artwork><![CDATA[
    URI: urn:ietf:params:xml:ns:yang:ietf-tcp
-   Registrant Contact: The TCPM WG of the IETF.
+   Registrant Contact: The IESG.
    XML: N/A, the requested URI is an XML namespace.
 ]]></artwork>
           </figure></t>
@@ -346,7 +346,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
         <t>Authentication configuration. Unrestricted access to the nodes under
         authentication configuration can prevent the use of authenticated
         communication and cause connection setups to fail. This can result
-        in massive security vulnerabities and service disruption for the
+        in massive security vulnerabilities and service disruption for the
         traffic requiring authentication.</t>
       </list></t>
 
