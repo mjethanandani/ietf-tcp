@@ -19,7 +19,7 @@ module ietf-tcp {
     "IETF TCPM Working Group";
 
   contact
-    "WG Web:   <https://tools.ietf.org/wg/tcpm>
+    "WG Web:   <https://datatracker.ietf.org/wg/tcpm>
      WG List:  <tcpm@ietf.org>
 
      Authors: Michael Scharf (michael.scharf at hs-esslingen dot de)

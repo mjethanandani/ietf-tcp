@@ -74,14 +74,15 @@
 
   <middle>
     <section title="Introduction">
-      <t>The <xref target="RFC0793">Transmission Control Protocol (TCP)
+      <t>The <xref target="I-D.ietf-tcpm-rfc793bis">Transmission Control
+      Protocol (TCP) Specification
       </xref> is used by many applications in the Internet, including control
       and management protocols. Therefore, TCP is implemented on network
       elements that can be configured via network management protocols such as
       <xref target="RFC6241">NETCONF</xref> or <xref
-      target="RFC8040">RESTCONF</xref>. This document specifies a minimal <xref
-      target="RFC7950">YANG</xref> 1.1 model for configuring TCP on network
-      elements that support YANG data models, and is <xref
+      target="RFC8040">RESTCONF</xref>. This document specifies a minimal
+      <xref target="RFC7950">YANG</xref> 1.1 model for configuring TCP on
+      network elements that support YANG data models, and is <xref
       target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>
       compliant. The model has a narrow scope and focuses on a subset of
       fundamental TCP functions and basic statistics. It defines a container
@@ -381,8 +382,6 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
   <back>
     <references title="Normative References">
-      <?rfc include='reference.RFC.0793.xml'?>
-
       <?rfc include='reference.RFC.2119.xml'?>
 
       <?rfc include='reference.RFC.2385.xml'?>
@@ -412,6 +411,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       <?rfc include='reference.RFC.8342.xml'?>
 
       <?rfc include='reference.RFC.8446.xml'?>
+
+      <?rfc include='reference.I-D.ietf-tcpm-rfc793bis.xml'?>
 
       <?rfc include='reference.I-D.ietf-netconf-tcp-client-server.xml'?>
     </references>
