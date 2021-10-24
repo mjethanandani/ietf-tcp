@@ -19,7 +19,7 @@ module ietf-tcp {
     "IETF TCPM Working Group";
 
   contact
-    "WG Web:   <http://tools.ietf.org/wg/tcpm>
+    "WG Web:   <https://datatracker.ietf.org/wg/tcpm/about>
      WG List:  <tcpm@ietf.org>
 
      Authors: Michael Scharf (michael.scharf at hs-esslingen dot de)
@@ -55,7 +55,8 @@ module ietf-tcp {
     description
       "Initial Version";
     reference 
-      "RFC XXXX, TCP Configuration.";
+      "RFC XXXX, YANG Model for Transmission Control Protocol (TCP)
+                 Configuration.";
   }
 
   // Features
@@ -199,7 +200,7 @@ module ietf-tcp {
         }
         description
           "List of TCP connections with their parameters. The list
-           is modelled as writeable, but implementations may not
+           is modeled as writeable, but implementations may not
            allow creation of new TCP connections by adding entries to
            the list. Furthermore, the behavior upon removal is
            implementation-specific. Implementations may support
