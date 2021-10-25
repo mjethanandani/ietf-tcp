@@ -282,10 +282,10 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
     <section anchor="IANA" title="IANA Considerations">
       <section title="The IETF XML Registry">
-        <t>This document registers a URIs in the "ns" subregistry of the
+        <t>This document registers an URI in the "ns" subregistry of the
         <xref target="RFC3688">IETF XML Registry </xref>. Following the format
         in <xref target="RFC3688">IETF XML Registry </xref>, the following
-        registrations are requested:</t>
+        registration is requested:</t>
 
         <t><figure>
             <artwork><![CDATA[
@@ -297,7 +297,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       </section>
 
       <section title="The YANG Module Names Registry">
-        <t>This document registers a YANG modules in the YANG Module Names
+        <t>This document registers a YANG module in the "YANG Module Names"
         registry <xref target="RFC6020">YANG - A Data Modeling Language
         </xref>. Following the format in <xref target="RFC6020">YANG - A Data
         Modeling Language </xref>, the following registrations are
