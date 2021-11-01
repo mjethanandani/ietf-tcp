@@ -270,6 +270,16 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD-abridged-tree.txt)
     </section>
 
     <section title="TCP YANG Model">
+      <t>This YANG module references <xref target="RFC5925">
+      The TCP Authenticaiton Option</xref>, <xref target="RFC2385">
+      Protection of BGP Sessions via the TCP MD5 Signature</xref>,
+      <xref target="I-D.ietf-tcpm-rfc793bis">Transmission Control
+      Protocol (TCP) Specification</xref>,
+      and imports <xref target="RFC6991">Common YANG Data Types
+      </xref>, <xref target="RFC8341">The NETCONF Access Control
+      Model</xref>, <xref target="I-D.ietf-netconf-tcp-client-server">
+      YANG Groupings for TCP Clients and TCP Servers</xref>.
+      </t>
       <t><figure>
           <artwork><![CDATA[
 <CODE BEGINS> file "ietf-tcp@YYYY-MM-DD.yang"
@@ -395,6 +405,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       <?rfc include='reference.RFC.6241.xml'?>
 
       <?rfc include='reference.RFC.6242.xml'?>
+
+      <?rfc include='reference.RFC.6991.xml'?>
 
       <?rfc include='reference.RFC.7950.xml'?>
 
