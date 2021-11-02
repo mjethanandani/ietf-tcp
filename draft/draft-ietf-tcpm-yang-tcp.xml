@@ -88,11 +88,13 @@
       fundamental TCP functions and basic statistics. It defines a container
       for TCP connection that includes definitions from <xref
       target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
-      Clients and TCP Servers</xref>. The model also enables configuration
-      of <xref target="RFC5925">TCP-AO</xref>, which is a relevant TCP feature
-      on network elements such as routers. The model can be augmented or
-      updated to address more advanced or implementation-specific TCP features
-      in the future.</t>
+      Clients and TCP Servers</xref>. This model adheres to the
+      recommendation in <xref target="RFC4364">BGP/MPLS IP Virtual
+      Private Networks</xref> as it allows enabling of
+      <xref target="RFC5925">TCP-AO</xref>, and accomodates the
+      installed base that makes use of MD5. The model can be
+      augmented or updated to address more advanced or
+      implementation-specific TCP features in the future.</t>
 
       <t>Many protocol stacks on Internet hosts use other methods to configure
       TCP, such as operating system configuration or policies. Many TCP/IP
@@ -432,6 +434,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
     <references title="Informative References">
       <?rfc include='reference.RFC.4022.xml'?>
 
+      <?rfc include='reference.RFC.4364.xml'?>
+
       <?rfc include='reference.RFC.4898.xml'?>
 
       <?rfc include='reference.RFC.6643.xml'?>
@@ -455,8 +459,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       <t>Michael Scharf was supported by the StandICT.eu project, which is
       funded by the European Commission under the Horizon 2020 Programme.</t>
 
-      <t>The following persons have contributed to this document by reviews:
-      Mohamed Boucadair</t>
+      <t>The following persons have contributed to this document by
+      reviews: Mohamed Boucadair, and Tom Petch.</t>
     </section>
 
     <section anchor="app_changes"
