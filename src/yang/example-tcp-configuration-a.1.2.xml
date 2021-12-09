@@ -8,8 +8,8 @@ demonstrated by examples in draft-touch-tcpm-ao-test-vectors.
     xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
   <connections>
     <connection>
-      <local-address>192.168.1.1</local-address>
-      <remote-address>192.168.1.2</remote-address>
+      <local-address>2001:db8::1</local-address>
+      <remote-address>2001:db8::2</remote-address>
       <local-port>1025</local-port>
       <remote-port>80</remote-port>
       <common>
