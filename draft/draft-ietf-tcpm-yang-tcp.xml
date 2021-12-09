@@ -84,7 +84,9 @@
       <xref target="RFC7950">YANG</xref> 1.1 model for configuring TCP on
       network elements that support YANG data models, and is <xref
       target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>
-      compliant. The model has a narrow scope and focuses on a subset of
+      compliant.</t>
+
+      <t>The model has a narrow scope and focuses on a subset of
       fundamental TCP functions and basic statistics. It defines a container
       for TCP connection that includes definitions from <xref
       target="I-D.ietf-netconf-tcp-client-server">YANG Groupings for TCP
@@ -110,7 +112,11 @@
       Control Protocol (TCP)</xref>. The basic statistics defined in this
       document follow the model of the TCP MIB. An <xref target="RFC4898">TCP
       Extended Statistics MIB</xref> is also available, but this document does
-      not cover such extended statistics. It is possible also to translate a
+      not cover such extended statistics. The YANG module also omits some
+      selected parameters included in TCP MIB, most notably the configured
+      Retransmission Timeout (RTO) algorithm. This is conscious decision as
+      these parameters hardly matter in a state-of-the-art TCP implementation.
+      It would also be possible also to translate a
       MIB into a YANG model, for instance using <xref
       target="RFC6643">Translation of Structure of Management Information
       Version 2 (SMIv2) MIB Modules to YANG Modules</xref>. However, this
@@ -121,17 +127,25 @@
       orthogonal to this specification. Examples are:</t>
 
       <t><list style="symbols">
-          <t>TCP header attributes are modeled in other models, such as <xref
-          target="RFC8519">YANG Data Model for Network Access Control Lists
-          (ACLs) </xref> and <xref target="RFC8783">Distributed
+          <t>TCP header attributes are modeled in other security-related
+          models, such as <xref target="RFC8519">YANG Data Model for Network
+          Access Control Lists (ACLs) </xref>, <xref target="RFC8783">Distributed
           Denial-of-Service Open Thread Signaling (DOTS) Data Channel
-          Specification</xref>.</t>
+          Specification</xref>, or
+          <xref target="I-D.ietf-i2nsf-capability-data-model">I2NSF Capability
+          YANG Data Model/xref>.</t>
 
           <t>TCP-related configuration of a NAT (e.g., NAT44, NAT64,
           Destination NAT, ...) is defined in <xref target="RFC8512">A YANG
           Module for Network Address Translation (NAT) and Network Prefix
           Translation (NPT) </xref> and <xref target="RFC8513">A YANG Data
           Model for Dual-Stack Lite (DS-Lite) </xref>.</t>
+
+          <t>TCP-AO and TCP MD5 configuration for Layer 3 VPNs is modeled in
+          <xref target="I-D.ietf-opsawg-l3sm-l3nm">A Layer 3 VPN Network YANG
+          Model</xref>. This model assumes that TCP-AO specific parameters
+          are preconfigured as part of the key-chain. This issue is further
+          discussed below.</t>
         </list></t>
     </section>
 
@@ -217,7 +231,11 @@
         in this document includes the required parameters for TCP-AO
         configuration, such as the values of SendID and RecvID. The
         key chain for TCP-AO can be modeled by the <xref target="RFC8177">YANG
-        Data Model for Key Chains</xref>.</t>
+        Data Model for Key Chains</xref>. An alternative would be to
+        preconfigure SendID and RecvID in a key-chain. This would require
+        extensions to the key-chain beyond <xref target="RFC8177">YANG  Data
+        Model for Key Chains</xref>. The groupings defined in this document
+        could be used as part of such a preconfiguration.</t>
 
         <t>Given an installed base, the model also allows enabling of the
         legacy <xref target="RFC2385">TCP MD5</xref> signature option. As the
@@ -389,6 +407,11 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
           executing the reset action. This action should be restricted to
           users with the right permission.</t>
         </list></t>
+
+      <t>The module specified in this document supports MD5 to basically
+      accommodate the installed BGP base.  MD5 suffers from the security
+      weaknesses discussed in Section 2 of <xref target="RFC6151">RFC 6151</xref>
+      or Section 2.1 of <xref target="RFC6952">RFC 6952</xref>.</t>
     </section>
   </middle>
 
@@ -438,7 +461,11 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.RFC.4898.xml'?>
 
+      <?rfc include='reference.RFC.6151.xml'?>
+
       <?rfc include='reference.RFC.6643.xml'?>
+
+      <?rfc include='reference.RFC.6952.xml'?>
 
       <?rfc include='reference.RFC.8512.xml'?>
 
@@ -452,7 +479,11 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.I-D.ietf-taps-interface.xml'?>
 
-      <?rfc include='reference.I-D.touch-tcpm-ao-test-vectors.xml'?>
+      <?rfc include='reference.I-D.ietf-i2nsf-capability-data-model'?>
+
+      <?rfc include='reference.I-D.ietf-opsawg-l3sm-l3nm'?>
+
+      <?rfc include='reference.I-D.ietf-tcpm-ao-test-vectors.xml'?>
     </references>
 
     <section anchor="app_ack" title="Acknowledgements">
@@ -461,52 +492,6 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <t>The following persons have contributed to this document by
       reviews: Mohamed Boucadair, and Tom Petch.</t>
-    </section>
-
-    <section anchor="app_changes"
-             title="Changes compared to previous versions">
-      <t>Changes compared to draft-scharf-tcpm-yang-tcp-04</t>
-
-      <t><list style="symbols">
-          <t>Removed congestion control</t>
-
-          <t>Removed global stack parameters</t>
-        </list>Changes compared to draft-scharf-tcpm-yang-tcp-03</t>
-
-      <t><list style="symbols">
-          <t>Updated TCP-AO grouping</t>
-
-          <t>Added congestion control</t>
-        </list></t>
-
-      <t>Changes compared to draft-scharf-tcpm-yang-tcp-02</t>
-
-      <t><list style="symbols">
-          <t>Initial proposal of a YANG model including base configuration
-          parameters, TCP-AO configuration, and a connection list</t>
-
-          <t>Editorial bugfixes and outdated references reported by Mohamed
-          Boucadair</t>
-
-          <t>Additional co-author Mahesh Jethanandani</t>
-        </list></t>
-
-      <t>Changes compared to draft-scharf-tcpm-yang-tcp-01</t>
-
-      <t><list style="symbols">
-          <t>Alignment with <xref
-          target="I-D.ietf-netconf-tcp-client-server"/></t>
-
-          <t>Removing backward-compatibility to the TCP MIB</t>
-
-          <t>Additional co-author Vishal Murgai</t>
-        </list></t>
-
-      <t>Changes compared to draft-scharf-tcpm-yang-tcp-00</t>
-
-      <t><list style="symbols">
-          <t>Editorial improvements</t>
-        </list></t>
     </section>
 
     <section title="Examples">
@@ -525,8 +510,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml,69)
       <section title="TCP-AO Configuration">
         <t>The following example demonstrates how to model a <xref
         target="RFC5925">TCP-AO</xref> configuration for the example in <xref
-        target="I-D.touch-tcpm-ao-test-vectors">TCP-AO Test Vectors</xref>,
-        Section 5.1.1.</t>
+        target="I-D.ietf-tcpm-ao-test-vectors">TCP-AO Test Vectors</xref>.</t>
 
         <t><figure>
             <artwork><![CDATA[
