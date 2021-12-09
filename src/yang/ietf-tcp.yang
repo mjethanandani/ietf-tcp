@@ -95,7 +95,7 @@ module ietf-tcp {
          of outgoing segments. The SendID must match the RecvID
          at the other endpoint.";
       reference
-        "RFC 5925: The TCP Authentication Option.";
+        "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
 
     leaf recv-id {
@@ -108,7 +108,7 @@ module ietf-tcp {
          segments. The RecvID must match the SendID at the other
          endpoint.";
       reference
-        "RFC 5925: The TCP Authentication Option.";
+        "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
 
     leaf include-tcp-options {
@@ -117,6 +117,8 @@ module ietf-tcp {
       default true;
       description
         "Include TCP options in MAC calculation.";
+      reference
+        "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
 
     leaf accept-key-mismatch {
@@ -125,6 +127,8 @@ module ietf-tcp {
       description
         "Accept TCP segments with a Master Key Tuple (MKT) that is
          not configured.";
+      reference
+        "RFC 5925: The TCP Authentication Option, Section 7.3.";
     }
     description
       "Authentication Option (AO) for TCP.";
@@ -145,9 +149,9 @@ module ietf-tcp {
       type boolean;
       default "false";
       description
-        "Enable support of MD5 to authenticate a TCP session. As the
-        TCP MD5 signature option is obsoleted by TCP-AO, it is strongly
-        RECOMMENDED to use TCP-AO instead.";
+        "Enables, when set to true, support of MD5 to authenticate a
+        TCP session. As the TCP MD5 signature option is obsoleted by
+        TCP-AO, it is strongly RECOMMENDED to use TCP-AO instead.";
     }
   }
 
@@ -203,7 +207,7 @@ module ietf-tcp {
                 "Use TCP-MD5 to secure the connection.";
             }
             description
-              "Choice of how to secure the TCP connection.";
+              "Choice of TCP authentication.";
           }
           description
             "Common definitions of TCP configuration. This includes
