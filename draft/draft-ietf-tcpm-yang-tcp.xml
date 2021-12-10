@@ -280,7 +280,7 @@ target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
       </section>
 
       <section title="Tree Diagram">
-        <t>This section provides a tree diagram for the YANG module
+        <t>This section provides an abridged tree diagram for the YANG module
         defined in this document. Annotations used in the diagram are defined
         in <xref target="RFC8340">YANG Tree Diagrams </xref>.</t>
 
