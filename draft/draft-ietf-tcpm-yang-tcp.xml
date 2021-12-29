@@ -8,7 +8,7 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" docName="draft-ietf-tcpm-yang-tcp-latest" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-tcpm-yang-tcp-latest" ipr="trust200902" consensus="true">
   <front>
     <title abbrev="YANG Model for TCP">A YANG Model for Transmission Control
     Protocol (TCP) Configuration</title>
@@ -67,8 +67,8 @@
       container for all TCP connections and groupings of authentication
       parameters that can be imported and used in TCP implementations or by
       other models that need to configure TCP parameters. The model also
-      includes basic TCP statistics. The model is Network Management Datastore
-      Architecture (NMDA) compliant.</t>
+      includes basic TCP statistics. The model is compliant with Network Management Datastore
+      Architecture (NMDA) (RFC 8342).</t>
     </abstract>
   </front>
 
@@ -81,7 +81,7 @@
       <xref target="RFC6241">NETCONF</xref> or <xref
       target="RFC8040">RESTCONF</xref>.</t>
 
-      <t>This document specifies a minimal <xref target="RFC7950">YANG</xref>
+      <t>This document specifies a minimal <xref target="RFC7950">YANG 1.1</xref>
       model for configuring TCP on
       network elements that support YANG. This YANG module is compliant with <xref
 target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
@@ -484,9 +484,9 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.I-D.ietf-taps-interface.xml'?>
 
-      <?rfc include='reference.I-D.ietf-i2nsf-capability-data-model'?>
+      <?rfc include='reference.I-D.ietf-i2nsf-capability-data-model.xml'?>
 
-      <?rfc include='reference.I-D.ietf-opsawg-l3sm-l3nm'?>
+      <?rfc include='reference.I-D.ietf-opsawg-l3sm-l3nm.xml'?>
 
       <?rfc include='reference.I-D.ietf-tcpm-ao-test-vectors.xml'?>
     </references>
