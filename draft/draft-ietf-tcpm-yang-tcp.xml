@@ -93,7 +93,7 @@ target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
       Clients and TCP Servers</xref>. This model adheres to the
       recommendation in <xref target="RFC4364">BGP/MPLS IP Virtual
       Private Networks</xref> as it allows enabling of
-      <xref target="RFC5925">TCP-AO</xref>, and accomodates the
+      <xref target="RFC5925">TCP-AO</xref>, and accommodates the
       installed base that makes use of MD5. The module can be
       augmented or updated to address more advanced or
       implementation-specific TCP features in the future.</t>
@@ -144,7 +144,7 @@ target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
           <t>TCP-AO and TCP MD5 configuration for Layer 3 VPNs is modeled in
           <xref target="I-D.ietf-opsawg-l3sm-l3nm">A Layer 3 VPN Network YANG
           Model</xref>. This model assumes that TCP-AO specific parameters
-          are preconfigured as part of the key-chain. This issue is further
+          are preconfigured in addition to the keychain parameters. This issue is further
           discussed below.</t>
         </list></t>
     </section>
@@ -230,12 +230,8 @@ target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
         a YANG model for TCP-AO configuration is required. The model defined
         in this document includes the required parameters for TCP-AO
         configuration, such as the values of SendID and RecvID. The
-        key chain for TCP-AO can be modeled by the <xref target="RFC8177">YANG
-        Data Model for Key Chains</xref>. An alternative would be to
-        preconfigure SendID and RecvID in a key-chain. This would require
-        extensions to the key-chain beyond <xref target="RFC8177">YANG  Data
-        Model for Key Chains</xref>. The groupings defined in this document
-        could be used as part of such a preconfiguration.</t>
+        keychain for TCP-AO can be modeled by the <xref target="RFC8177">YANG
+        Data Model for Key Chains</xref>. The groupings defined in this document can be imported and used as part of such a preconfiguration.</t>
 
         <t>Given an installed base, the model also allows enabling of the
         legacy <xref target="RFC2385">TCP MD5</xref> signature option. As the
