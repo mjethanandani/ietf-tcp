@@ -65,7 +65,7 @@ module ietf-tcp {
     description
       "Initial Version";
     reference 
-      "RFC XXXX, YANG Model for Transmission Control Protocol (TCP)
+      "RFC XXXX, A YANG Model for Transmission Control Protocol (TCP)
                  Configuration.";
   }
 
@@ -82,7 +82,8 @@ module ietf-tcp {
       type boolean;
       default "false";
       description
-        "Enable support of TCP-Authentication Option (TCP-AO).";
+        "Enable support of TCP-Authentication Option (TCP-AO) when set
+         to true.";
     }
 
     leaf send-id {
@@ -116,7 +117,7 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       default true;
       description
-        "Include TCP options in MAC calculation.";
+        "Include TCP options in MAC calculation when set to true.";
       reference
         "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
@@ -125,8 +126,8 @@ module ietf-tcp {
       type boolean;
       must "../enable-ao = 'true'";
       description
-        "Accept TCP segments with a Master Key Tuple (MKT) that is
-         not configured.";
+        "Accept, when set to true, TCP segments with a Master Key
+         Tuple (MKT) that is not configured.";
       reference
         "RFC 5925: The TCP Authentication Option, Section 7.3.";
     }
@@ -170,25 +171,27 @@ module ietf-tcp {
         leaf local-address {
           type inet:ip-address;
           description
-            "Local address that forms the connection identifier.";
+            "Identifies the address that is used by the local
+             endpoint for the connection.";
         }
 
         leaf remote-address {
           type inet:ip-address;
           description
-            "Remote address that forms the connection identifier.";
+            "Identifies the address that is used by the remote
+             endpoint for the connection.";
         }
 
         leaf local-port {
           type inet:port-number;
           description
-            "Local TCP port that forms the connection identifier.";
+            "Local TCP port used for the connection.";
         }
 
         leaf remote-port {
           type inet:port-number;
           description
-            "Remote TCP port that forms the connection identifier.";
+            "Remote TCP port used for the connection.";
         }
 
         container common {
