@@ -82,8 +82,8 @@ module ietf-tcp {
       type boolean;
       default "false";
       description
-        "Enable support of TCP-Authentication Option (TCP-AO) when set
-         to true.";
+        "When set to true, TCP-Authentication Option (TCP-AO) is
+         enabled."
     }
 
     leaf send-id {
@@ -117,7 +117,8 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       default true;
       description
-        "Include TCP options in MAC calculation when set to true.";
+        "When set to true, TCP options are included in MAC
+         calculation.";
       reference
         "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
@@ -171,27 +172,33 @@ module ietf-tcp {
         leaf local-address {
           type inet:ip-address;
           description
-            "Identifies the address that is used by the local
-             endpoint for the connection.";
+            "Identifies the address that is used by the local endpoint
+             for the connection, and is one of the four elements that
+             form the connection identifier."
         }
 
         leaf remote-address {
           type inet:ip-address;
           description
-            "Identifies the address that is used by the remote
-             endpoint for the connection.";
+            "Identifies the address that is used by the remote endpoint
+             for the connection, and is one of the four elements that
+             form the connection identifier."
         }
 
         leaf local-port {
           type inet:port-number;
           description
-            "Local TCP port used for the connection.";
+            "Identifies the local TCP port used for the connection, and
+             is one of the four elements that form the connection
+             identifier."
         }
 
         leaf remote-port {
           type inet:port-number;
           description
-            "Remote TCP port used for the connection.";
+            "Identifies the remote TCP port used for the connection, and
+             is one of the four elements that form the connection
+             identifier."
         }
 
         container common {
