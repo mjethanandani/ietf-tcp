@@ -329,7 +329,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
         <t>This document registers a YANG module in the "YANG Module Names"
         registry <xref target="RFC6020">YANG - A Data Modeling Language
         </xref>. Following the format in <xref target="RFC6020">YANG - A Data
-        Modeling Language </xref>, the following registrations are
+        Modeling Language </xref>, the following registration is
         requested:</t>
 
         <t><figure>
@@ -340,6 +340,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
    reference:    RFC XXXX
 ]]></artwork>
           </figure></t>
+        <t>The registration is not maintained by IANA.</t>
       </section>
     </section>
 
