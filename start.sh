@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cd /app/draft
+cd /git/ietf-tcp/draft
 make clean
 make
