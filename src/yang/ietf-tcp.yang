@@ -24,6 +24,11 @@ module ietf-tcp {
     reference
       "RFC 8341: Network Configuration Access Control Model";
   }
+  import ietf-key-chain {
+    prefix key-chain;
+    reference
+      "RFC 8177: YANG Key Chain.";
+  }
 
   organization
     "IETF TCPM Working Group";
@@ -132,6 +137,18 @@ module ietf-tcp {
       reference
         "RFC 5925: The TCP Authentication Option, Section 7.3.";
     }
+
+    leaf r-next-key-id {
+      type uint8;
+      config false;
+      description
+        "A field indicating the Master Key Tuple (MKT) that is ready
+         at the sender to be used to authenticate received segments,
+         i.e., the desired 'receive next' key ID.";
+      reference
+        "RFC 5925: The TCP Authentication Option.";
+    }
+
     description
       "Authentication Option (AO) for TCP.";
     reference
@@ -201,8 +218,18 @@ module ietf-tcp {
              connection identifier.";
         }
 
-        container common {
-          uses tcpcmn:tcp-common-grouping;
+        uses tcpcmn:tcp-common-grouping;
+
+        container authentication {
+          leaf keychain {
+            type key-chain:key-chain-ref;
+            description
+              "Reference to the key chain that will be used by
+               this model. Applicable for TCP-AO and TCP-MD5
+               only";
+            reference
+              "RFC 8177: YANG Key Chain.";
+          }
 
           choice authentication {
             case ao {
@@ -220,9 +247,10 @@ module ietf-tcp {
               "Choice of TCP authentication.";
           }
           description
-            "Common definitions of TCP configuration. This includes
-             parameters such as how to secure the connection,
-             that can be part of either the client or server.";
+            "Authentication definitions for TCP configuration.
+             This includes parameters such as how to secure the
+             connection, that can be part of either the client
+             or server.";
         }
         description
           "List of TCP connections with their parameters. The list
