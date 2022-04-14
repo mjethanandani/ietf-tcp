@@ -299,8 +299,8 @@ module ietf-tcp {
       leaf in-segments {
         type yang:counter64;
         description
-          "The total number of segments received, including those
-           received in error.  This count includes segments received
+          "The total number of TCP segments received, including those
+           received in error.  This count includes TCP segments received
            on currently established connections.";
         reference
           "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
@@ -310,7 +310,7 @@ module ietf-tcp {
       leaf out-segments {
         type yang:counter64;
         description
-          "The total number of segments sent, including those on
+          "The total number of TCP segments sent, including those on
            current connections but excluding those containing only
            retransmitted octets.";
         reference
@@ -321,7 +321,7 @@ module ietf-tcp {
       leaf retransmitted-segments {
         type yang:counter32;
         description
-          "The total number of segments retransmitted; that is, the
+          "The total number of TCP segments retransmitted; that is, the
            number of TCP segments transmitted containing one or more
            previously transmitted octets.";
         reference
@@ -332,7 +332,7 @@ module ietf-tcp {
       leaf in-errors {
         type yang:counter32;
         description
-          "The total number of segments received in error (e.g., bad
+          "The total number of TCP segments received in error (e.g., bad
            TCP checksums).";
         reference
           "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
