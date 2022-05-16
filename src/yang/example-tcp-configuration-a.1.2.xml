@@ -4,23 +4,6 @@ This example sets TCP-AO configuration parameters as
 demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
 -->
 
-<tcp
-    xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
-  <connections>
-    <connection>
-      <local-address>fd00::1</local-address>
-      <remote-address>fd00::2</remote-address>
-      <local-port>1025</local-port>
-      <remote-port>179</remote-port>
-      <common>
-	<enable-ao>true</enable-ao>
-        <send-id>61</send-id>
-        <recv-id>84</recv-id>
-      </common>
-    </connection>
-  </connections>
-</tcp>
-
 <key-chains
     xmlns="urn:ietf:params:xml:ns:yang:ietf-key-chain">
   <key-chain>
@@ -42,3 +25,21 @@ demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
     </key>
   </key-chain>
 </key-chains>
+
+<tcp
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
+  <connections>
+    <connection>
+      <local-address>fd00::1</local-address>
+      <remote-address>fd00::2</remote-address>
+      <local-port>1025</local-port>
+      <remote-port>179</remote-port>
+      <authentication>
+	<keychain>ao-config</keychain>
+	<enable-ao>true</enable-ao>
+        <send-id>61</send-id>
+        <recv-id>84</recv-id>
+      </authentication>
+    </connection>
+  </connections>
+</tcp>

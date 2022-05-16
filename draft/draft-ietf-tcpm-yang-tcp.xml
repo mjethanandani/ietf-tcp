@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc strict="yes" ?>
 <?rfc toc="yes"?>
@@ -8,7 +7,13 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" docName="draft-ietf-tcpm-yang-tcp-latest" ipr="trust200902" consensus="true">
+<rfc
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    category="std"
+    docName="draft-ietf-tcpm-yang-tcp-latest"
+    ipr="trust200902"
+    submissionType="IETF"
+    consensus="true">
   <front>
     <title abbrev="YANG Model for TCP">A YANG Model for Transmission Control
     Protocol (TCP) Configuration</title>

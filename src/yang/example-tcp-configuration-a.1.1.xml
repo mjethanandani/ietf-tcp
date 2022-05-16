@@ -12,13 +12,11 @@ idle-time + (max-probes * probe-interval).
       <remote-address>192.0.2.2</remote-address>
       <local-port>1025</local-port>
       <remote-port>80</remote-port>
-      <common>
-	<keepalives>
-	  <idle-time>5</idle-time>
-	  <max-probes>5</max-probes>
-	  <probe-interval>10</probe-interval>
-	</keepalives>
-      </common>
+      <keepalives>
+	<idle-time>5</idle-time>
+	<max-probes>5</max-probes>
+	<probe-interval>10</probe-interval>
+      </keepalives>
     </connection>
   </connections>
 </tcp>
