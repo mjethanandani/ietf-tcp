@@ -136,9 +136,11 @@ target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
           models, such as <xref target="RFC8519">YANG Data Model for Network
           Access Control Lists (ACLs)</xref>, <xref target="RFC8783">Distributed
           Denial-of-Service Open Thread Signaling (DOTS) Data Channel
-          Specification</xref>, or
+          Specification</xref>,
           <xref target="I-D.ietf-i2nsf-capability-data-model">I2NSF Capability
-          YANG Data Model</xref>.</t>
+          YANG Data Model</xref>, or
+          <xref target="I-D.ietf-i2nsf-nsf-facing-interface-dm">I2NSF Network 
+          Security Function-Facing Interface YANG Data Model</xref>.</t>
 
           <t>TCP-related configuration of a NAT (e.g., NAT44, NAT64,
           Destination NAT) is defined in <xref target="RFC8512">A YANG
@@ -484,15 +486,17 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.RFC.8783.xml'?>
 
+      <?rfc include='reference.RFC.9235.xml'?>
+
       <?rfc include='reference.I-D.ietf-idr-bgp-model.xml'?>
 
       <?rfc include='reference.I-D.ietf-taps-interface.xml'?>
 
       <?rfc include='reference.I-D.ietf-i2nsf-capability-data-model.xml'?>
 
-      <?rfc include='reference.I-D.ietf-opsawg-l3sm-l3nm.xml'?>
+      <?rfc include='reference.I-D.ietf-i2nsf-nsf-facing-interface-dm'?>
 
-      <?rfc include='reference.I-D.ietf-tcpm-ao-test-vectors.xml'?>
+      <?rfc include='reference.I-D.ietf-opsawg-l3sm-l3nm.xml'?>
     </references>
 
     <section anchor="app_ack" title="Acknowledgements">
@@ -519,7 +523,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/example-tcp-configuration-a.1.1.xml,69)
       <section title="TCP-AO Configuration">
         <t>The following example demonstrates how to model a <xref
         target="RFC5925">TCP-AO</xref> configuration for the example in <xref
-        target="I-D.ietf-tcpm-ao-test-vectors">TCP-AO Test Vectors</xref>.</t>
+        target="RFC9235">TCP-AO Test Vectors</xref>. The
+        IP addresses and other parameters are taken from the test vectors.</t>
 
         <t><figure>
             <artwork><![CDATA[
