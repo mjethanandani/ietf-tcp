@@ -149,7 +149,7 @@ target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
           Model for Dual-Stack Lite (DS-Lite)</xref>.</t>
 
           <t>TCP-AO and TCP MD5 configuration for Layer 3 VPNs is modeled in
-          <xref target="I-D.ietf-opsawg-l3sm-l3nm">A Layer 3 VPN Network YANG
+          <xref target="RFC9182">A Layer 3 VPN Network YANG
           Model</xref>. This model assumes that TCP-AO specific parameters
           are preconfigured in addition to the keychain parameters.</t>
         </list></t>
@@ -178,39 +178,43 @@ target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
     <section title="YANG Module Overview">
       <section title="Scope">
         <t>TCP is implemented on different system architectures. As a
-        result, there are many different and often implementation-specific ways
-        to configure parameters of the TCP engine. In addition, in
-        many TCP/IP stacks configuration exists for different scopes:</t>
+        result, there are many different and often
+        implementation-specific ways to configure parameters of the
+        TCP engine. In addition, in many TCP/IP stacks configuration
+        exists for different scopes:</t>
 
         <t><list style="symbols">
             <t>Global configuration: Many TCP implementations have
-            configuration parameters that affect all TCP connections. Typical
-            examples include enabling or disabling optional protocol
-            features.</t>
+            configuration parameters that affect all TCP
+            connections. Typical examples include enabling or
+            disabling optional protocol features.</t>
 
-            <t>Interface configuration: It can be useful to use different TCP
-            parameters on different interfaces, e.g., different device ports
-            or IP interfaces. In that case, TCP parameters can be part of the
-            interface configuration. Typical examples are the Maximum Segment
-            Size (MSS) or configuration related to hardware offloading.</t>
+            <t>Interface configuration: It can be useful to use
+            different TCP parameters on different interfaces, e.g.,
+            different device ports or IP interfaces. In that case, TCP
+            parameters can be part of the interface
+            configuration. Typical examples are the Maximum Segment
+            Size (MSS) or configuration related to hardware
+            offloading.</t>
 
-            <t>Connection parameters: Many implementations have means to
-            influence the behavior of each TCP connection, e.g., on the
-            programming interface used by applications. Typical examples are
-            socket options in the socket API, such as disabling the Nagle
-            algorithm <xref target="I-D.ietf-tcpm-rfc793bis"> by TCP_NODELAY.
-            If an application uses such an
-            interface, it is possible that the configuration of the
-            application or application protocol includes TCP-related
-            parameters. An example is the <xref
-            target="I-D.ietf-idr-bgp-model">BGP YANG Model for Service
-            Provider Networks </xref>.</t>
+            <t>Connection parameters: Many implementations have means
+            to influence the behavior of each TCP connection, e.g., on
+            the programming interface used by applications. Typical
+            examples are socket options in the socket API, such as
+            disabling the Nagle algorithm <xref
+            target="I-D.ietf-tcpm-rfc793bis"></xref> by TCP_NODELAY.
+            If an application uses such an interface, it is possible
+            that the configuration of the application or application
+            protocol includes TCP-related parameters. An example is
+            the <xref target="I-D.ietf-idr-bgp-model">BGP YANG Model
+            for Service Provider Networks </xref>.
+	  </t>
 
-            <t>Policies: Setting of TCP parameters can also be part of system
-            policies, templates, or profiles. An example would be the
-            preferences defined in <xref target="I-D.ietf-taps-interface">An
-            Abstract Application Layer Interface to Transport
-            Services</xref>.</t>
+            <t>Policies: Setting of TCP parameters can also be part of
+            system policies, templates, or profiles. An example would
+            be the preferences defined in <xref
+            target="I-D.ietf-taps-interface">An Abstract Application
+            Layer Interface to Transport Services</xref>.</t>
           </list></t>
 
         <t>As a result, there is no ground truth for setting certain TCP
@@ -486,6 +490,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.RFC.8783.xml'?>
 
+      <?rfc include='reference.RFC.9182.xml'?>
+
       <?rfc include='reference.RFC.9235.xml'?>
 
       <?rfc include='reference.I-D.ietf-idr-bgp-model.xml'?>
@@ -494,9 +500,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.I-D.ietf-i2nsf-capability-data-model.xml'?>
 
-      <?rfc include='reference.I-D.ietf-i2nsf-nsf-facing-interface-dm'?>
-
-      <?rfc include='reference.I-D.ietf-opsawg-l3sm-l3nm.xml'?>
+      <?rfc include='reference.I-D.ietf-i2nsf-nsf-facing-interface-dm.xml'?>
     </references>
 
     <section anchor="app_ack" title="Acknowledgements">
