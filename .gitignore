@@ -9,4 +9,6 @@ draft/draft-ietf-tcpm-yang-tcp-*.*
 src/yang/ietf-tcp@*-tree.txt
 src/yang/ietf-tcp@*.yang
 
+src/yang/TCP-MIB.*
+
 .DS_Store
