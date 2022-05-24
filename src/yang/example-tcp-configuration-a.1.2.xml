@@ -10,36 +10,52 @@ demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
     <name>ao-config</name>
     <description>"An example for TCP-AO configuration."</description>
     <key>
-      <key-id>61</key-id>
-      <crypto-algorithm>hmac-sha-1</crypto-algorithm>
+      <key-id>55</key-id>
+      <lifetime>
+        <send-lifetime>
+          <start-date-time>2017-01-01T00:00:00Z</start-date-time>
+          <end-date-time>2017-02-01T00:00:00Z</end-date-time>
+        </send-lifetime>
+        <accept-lifetime>
+          <start-date-time>2016-12-31T23:59:55Z</start-date-time>
+          <end-date-time>2017-02-01T00:00:05Z</end-date-time>
+        </accept-lifetime>
+      </lifetime>
+      <crypto-algorithm>hmac-sha-256</crypto-algorithm>
       <key-string>
 	<keystring>testvector</keystring>
       </key-string>
+      <authentication
+	  xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
+	<keychain>ao-config</keychain>
+	<enable-ao>true</enable-ao>
+	<send-id>65</send-id>
+	<recv-id>87</recv-id>
+      </authentication>
     </key>
     <key>
-      <key-id>84</key-id>
-      <crypto-algorithm>hmac-sha-1</crypto-algorithm>
+      <key-id>56</key-id>
+      <lifetime>
+        <send-lifetime>
+          <start-date-time>2017-01-01T00:00:00Z</start-date-time>
+          <end-date-time>2017-02-01T00:00:00Z</end-date-time>
+        </send-lifetime>
+        <accept-lifetime>
+          <start-date-time>2016-12-31T23:59:55Z</start-date-time>
+          <end-date-time>2017-02-01T00:00:05Z</end-date-time>
+        </accept-lifetime>
+      </lifetime>
+      <crypto-algorithm>hmac-sha-256</crypto-algorithm>
       <key-string>
 	<keystring>testvector</keystring>
       </key-string>
+      <authentication
+	  xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
+	<keychain>ao-config</keychain>
+	<enable-ao>true</enable-ao>
+	<send-id>65</send-id>
+	<recv-id>87</recv-id>
+      </authentication>
     </key>
   </key-chain>
 </key-chains>
-
-<tcp
-    xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
-  <connections>
-    <connection>
-      <local-address>fd00::1</local-address>
-      <remote-address>fd00::2</remote-address>
-      <local-port>1025</local-port>
-      <remote-port>179</remote-port>
-      <authentication>
-	<keychain>ao-config</keychain>
-	<enable-ao>true</enable-ao>
-        <send-id>61</send-id>
-        <recv-id>84</recv-id>
-      </authentication>
-    </connection>
-  </connections>
-</tcp>

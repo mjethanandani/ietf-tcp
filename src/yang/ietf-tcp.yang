@@ -220,38 +220,6 @@ module ietf-tcp {
 
         uses tcpcmn:tcp-common-grouping;
 
-        container authentication {
-          leaf keychain {
-            type key-chain:key-chain-ref;
-            description
-              "Reference to the key chain that will be used by
-               this model. Applicable for TCP-AO and TCP-MD5
-               only";
-            reference
-              "RFC 8177: YANG Key Chain.";
-          }
-
-          choice authentication {
-            case ao {
-              uses ao;
-              description
-                "Use TCP-AO to secure the connection.";
-            }
-
-            case md5 {
-              uses md5;
-              description
-                "Use TCP-MD5 to secure the connection.";
-            }
-            description
-              "Choice of TCP authentication.";
-          }
-          description
-            "Authentication definitions for TCP configuration.
-             This includes parameters such as how to secure the
-             connection, that can be part of either the client
-             or server.";
-        }
         description
           "List of TCP connections with their parameters. The list
            is modeled as writeable, but implementations may not
@@ -398,6 +366,45 @@ module ietf-tcp {
       }
       description
         "Statistics across all connections.";
+    }
+  }
+
+  augment "/key-chain:key-chains/key-chain:key-chain/key-chain:key" {
+    description
+      "Augmentation of the key-chain model to add TCP-AO and TCP-MD5
+       authentication.";
+
+    container authentication {
+      leaf keychain {
+        type key-chain:key-chain-ref;
+        description
+          "Reference to the key chain that will be used by
+           this model. Applicable for TCP-AO and TCP-MD5
+           only";
+        reference
+          "RFC 8177: YANG Key Chain.";
+      }
+
+      choice authentication {
+        case ao {
+          uses ao;
+          description
+            "Use TCP-AO to secure the connection.";
+        }
+
+        case md5 {
+          uses md5;
+          description
+            "Use TCP-MD5 to secure the connection.";
+        }
+        description
+          "Choice of TCP authentication.";
+      }
+      description
+        "Authentication definitions for TCP configuration.
+         This includes parameters such as how to secure the
+         connection, that can be part of either the client
+         or server.";
     }
   }
 }
