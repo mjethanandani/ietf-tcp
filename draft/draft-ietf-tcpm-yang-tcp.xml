@@ -118,9 +118,10 @@ target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
       document follow the model of the TCP MIB. An <xref target="RFC4898">TCP
       Extended Statistics MIB</xref> is also available, but this document does
       not cover such extended statistics. The YANG module also omits some
-      selected parameters included in TCP MIB, most notably the configured
-      Retransmission Timeout (RTO) algorithm. This is conscious decision as
-      these parameters hardly matter in a state-of-the-art TCP implementation.
+      selected parameters included in TCP MIB, most notably Retransmission
+      Timeout (RTO) configuration and a maximum connection limit. This is
+      conscious decision as these parameters hardly matter in a
+      state-of-the-art TCP implementation.
       It would also be possible also to translate a
       MIB into a YANG module, for instance using <xref
       target="RFC6643">Translation of Structure of Management Information
