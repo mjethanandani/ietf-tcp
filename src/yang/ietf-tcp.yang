@@ -342,7 +342,7 @@ module ietf-tcp {
           }
         }
         description
-          "The address type of address.  The value
+          "The type of address.  The value
            should be unknown (0) if connection initiations
            to all local IP addresses are accepted.";
       }
