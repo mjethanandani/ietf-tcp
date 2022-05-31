@@ -11,7 +11,7 @@ idle-time + (max-probes * probe-interval).
       <local-address>192.0.2.1</local-address>
       <remote-address>192.0.2.2</remote-address>
       <local-port>1025</local-port>
-      <remote-port>80</remote-port>
+      <remote-port>22</remote-port>
       <keepalives>
 	<idle-time>5</idle-time>
 	<max-probes>5</max-probes>
