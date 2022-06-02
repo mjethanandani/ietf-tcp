@@ -231,99 +231,77 @@ module ietf-tcp {
             enum listen {
               value 2;
               description
-                "Waiting for a connection from the remote
-                 end-point.";
+                "Represents waiting for a connection request from any
+                 remote TCP peer and port.";
             }
             enum syn-sent {
               value 3;
               description
-                "Waiting for a matching connection request after
-                 having sent a connection request.";
+                "Represents waiting for a matching connection request
+                 after having sent a connection request.";
             }
             enum syn-received {
               value 4;
               description
-                "Waiting for a confirming connection request
-                 acknowledgment after having both received and
-                 sent a connection request.";
+                "Represents waiting for a confirming connection
+                 request acknowledgment after having both received
+                 and sent a connection request.";
             }
             enum established {
               value 5;
               description
-                "An open connection, data received can be delivered
-                 to the user. The normal state for the data transfer
-                 phase of the connection.";
+                "Represents an open connection, data received can be
+                 delivered to the user. The normal state for the data
+                 transfer phase of the connection.";
             }
             enum fin-wait-1 {
               value 6;
               description
-                "Waiting for a connection termination request from
-                 the remote TCP, or an acknowledgment of the
-                 connection termination request previously sent.";
+                "Represents waiting for a connection termination
+                 request from the remote TCP peer, or an
+                 acknowledgment of the connection termination request
+                 previously sent.";
             }
             enum fin-wait-2 {
               value 7;
               description
-                "Waiting for a connection termination request from
-                 the remote TCP.";
+                "Represents waiting for a connection termination
+                 request from the remote TCP peer.";
             }
             enum close-wait {
               value 8;
               description
-                "Waiting for a connection termination request from
-                 the local user.";
+                "Represents waiting for a connection termination
+                 request from the local user.";
             }
             enum last-ack {
               value 9;
               description
-                "Waiting for an acknowledgment of the connection
-                 termination request previously sent to the remote
-                 TCP, which includes an acknowledgment of its
-                 connection termination request).";
+                "Represents waiting for an acknowledgment of the
+                 connection termination request previously sent to
+                 the remote TCP peer (this termination request sent
+                 to the remote TCP peer already included an
+                 acknowledgment of the termination request sent from
+                 the remote TCP peer)";
             }
             enum closing {
               value 10;
               description
-                "Waiting for a connection termination request
-                 acknowledgment from the remote TCP.";
+                "Represents waiting for a connection termination
+                 request acknowledgment from the remote TCP peer.";
             }
             enum time-wait {
               value 11;
               description
-              "Waiting for enough time to pass to be sure that all
-               remaining packets on the connection have expired.";
-            }
-            enum delete {
-              value 12;
-              description
-                "This value is set when the connection needs to be
-                 deleted.";
+                "Represents waiting for enough time to pass to be
+                 sure the remote TCP peer received the acknowledgment
+                 of its connection termination request, and to avoid
+                 new connections being impacted by delayed segments
+                 from previous connections.";
             }
           }
           description
-            "The state of this TCP connection.
-
-             The value listen(2) is included only for parallelism
-             to the old tcpConnTable and should not be used. A
-             connection in 'listen' state should be present in the
-             tcpListenerTable.
-
-             The only value that may be set by a management station
-             is delete(12). Accordingly, it is appropriate for an
-             agent to return a `invalid-value' response if a
-             management station attempts to set this object to any
-             other value.
-
-             If a management station sets this object to the value
-             delete(12), then the TCB (as defined in [RFC793]) of
-             the corresponding connection on the managed node is
-             deleted, resulting in immediate termination of the
-             connection.
-
-             As an implementation-specific option, a RST segment
-             may be sent from the managed node to the other TCP
-             endpoint (note, however, that RST segments are not
-             sent reliably).";
+            "The state of this TCP connection.";
         }
         description
           "List of TCP connections with their parameters. The list
@@ -334,60 +312,60 @@ module ietf-tcp {
            closing or resetting a TCP connection upon an operation
            that removes the entry from the list.";
       }
-
-      list tcp-listeners {
-        key "type address port";
-        config false;
-
-        description
-          "A table containing information about a particular
-           TCP listener.";
-
-        leaf type {
-          type inet:ip-version;
-          description
-            "The address type of address.  The value
-             should be unknown (0) if connection initiations
-             to all local IP addresses are accepted.";
-        }
-
-        leaf address {
-          type union {
-            type string;
-            type inet:ip-address;
-          }
-          description
-            "The local IP address for this TCP connection.
-
-               The value of this object can be represented in three
-               possible ways, depending on the characteristics of the
-               listening application:
-
-               1. For an application willing to accept both IPv4 and
-                  IPv6 datagrams, the value of this object must be
-                  ''h (a zero-length octet-string), with the value
-                  of the corresponding 'type' object being
-                  unknown (0).
-
-               2. For an application willing to accept only IPv4 or
-                  IPv6 datagrams, the value of this object must be
-                  '0.0.0.0' or '::' respectively, with
-                  'type' representing the appropriate address type.
-
-               3. For an application which is listening for data
-                  destined only to a specific IP address, the value
-                  of this object is the specific local address, with
-                  'type' representing the appropriate address type.";
-        }
-
-        leaf port {
-          type inet:port-number;
-          description
-            "The local port number for this TCP connection.";
-        }
-      }
       description
         "A container of all TCP connections.";
+    }
+
+    list tcp-listeners {
+      key "type address port";
+      config false;
+
+      description
+        "A table containing information about a particular
+         TCP listener.";
+
+      leaf type {
+        type inet:ip-version;
+        description
+          "The address type of address.  The value
+           should be unknown (0) if connection initiations
+           to all local IP addresses are accepted.";
+      }
+
+      leaf address {
+        type union {
+          type string;
+          type inet:ip-address;
+        }
+        description
+          "The local IP address for this TCP connection.
+
+           The value of this object can be represented in three
+           possible ways, depending on the characteristics of the
+           listening application:
+
+           1. For an application willing to accept both IPv4 and
+              IPv6 datagrams, the value of this object must be
+              ''h (a zero-length octet-string), with the value
+              of the corresponding 'type' object being
+              unknown (0).
+
+           2. For an application willing to accept only IPv4 or
+              IPv6 datagrams, the value of this object must be
+              '0.0.0.0' or '::' respectively, with
+              'type' representing the appropriate address type.
+
+           3. For an application which is listening for data
+              destined only to a specific IP address, the value
+              of this object is the specific local address, with
+              'type' representing the appropriate address type.";
+      }
+
+      leaf port {
+        type inet:port-number;
+        description
+          "The local port number for this TCP connection.";
+      }
     }
 
     container statistics {
