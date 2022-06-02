@@ -225,7 +225,8 @@ module ietf-tcp {
             enum closed {
               value 1;
               description
-                "Connection is closed.";
+                "Connection is closed. Connections in this state
+                 may not appear in this list.";
             }
             enum listen {
               value 2;
@@ -334,32 +335,16 @@ module ietf-tcp {
            that removes the entry from the list.";
       }
 
-      list tcp-listener-entry {
+      list tcp-listeners {
         key "type address port";
         config false;
 
         description
-          "A conceptual row of the tcpListenerTable containing
-           information about a particular TCP listener.";
+          "A table containing information about a particular
+           TCP listener.";
 
         leaf type {
-          type enumeration {
-            enum unknown {
-              value 0;
-              description
-                "The type of address is unknown.";
-            }
-            enum ipv4 {
-              value 1;
-              description
-                "The address is of type IPv4.";
-            }
-            enum ipv6 {
-              value 2;
-              description
-                "The address is of type IPv6.";
-            }
-          }
+          type inet:ip-version;
           description
             "The address type of address.  The value
              should be unknown (0) if connection initiations
