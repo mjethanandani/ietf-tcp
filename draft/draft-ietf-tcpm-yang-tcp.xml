@@ -24,9 +24,9 @@
 
       <address>
         <postal>
-          <street>Flandernstr. 101</street>
+          <street>Kanalstr. 33</street>
 
-          <code>73732</code>
+          <code>73728</code>
 
           <city>Esslingen</city>
 
@@ -90,7 +90,8 @@
 
       <t>This document specifies a minimal <xref target="RFC7950">YANG
       1.1</xref> model for configuring and managing TCP on network
-      elements that support YANG. a TCP Listner Table containing
+      elements that support YANG, a TCP connection table,
+      a TCP listner table containing
       information about a particular TCP listner, and an augmentation
       of the <xref target="RFC8177">YANG Data Model for Key
       Chains</xref> to support authentication. This YANG module is
@@ -214,8 +215,7 @@
             that the configuration of the application or application
             protocol includes TCP-related parameters. An example is
             the <xref target="I-D.ietf-idr-bgp-model">BGP YANG Model
-            for Service Provider Networks </xref>.
-	  </t>
+            for Service Provider Networks </xref>.</t>
 
             <t>Policies: Setting of TCP parameters can also be part of
             system policies, templates, or profiles. An example would
@@ -249,7 +249,8 @@
         in this document includes the required parameters for TCP-AO
         configuration, such as the values of SendID and RecvID. The
         keychain for TCP-AO can be modeled by the <xref target="RFC8177">YANG
-        Data Model for Key Chains</xref>. The groupings defined in this document can be imported and used as part of such a preconfiguration.</t>
+        Data Model for Key Chains</xref>. The groupings defined in this document
+        can be imported and used as part of such a preconfiguration.</t>
 
         <t>Given an installed base, the model also allows enabling of the
         legacy <xref target="RFC2385">TCP MD5</xref> signature option.
@@ -258,18 +259,22 @@
         <xref target="RFC5925">TCP-AO</xref>.</t>
 
         <t>Similar to the <xref target="RFC4022">TCP MIB</xref>, this document
-        also specifies basic statistics and a TCP connection table.</t>
+        also specifies basic statistics, a TCP connection list, and a TCP listener
+        list.</t>
 
         <t><list style="symbols">
             <t>Statistics: Counters for the number of active/passive opens,
             sent and received TCP segments, errors, and possibly other detailed
             debugging information</t>
 
-            <t>TCP connection table: Access to status information for all TCP
+            <t>TCP connection list: Access to status information for all TCP
             connections. Note, the connection table is modeled as a list 
 	    that is read-writeable, even though a connection cannot be
 	    created by adding entries to the table. Similarly, deletion
 	    of connections from this list is implementation-specific.</t>
+
+            <t>TCP listener list: A list containing information about
+            TCP listeners, i.e., applications willing to accept connections.</t>
           </list></t>
 
         <t>This allows implementations of <xref target="RFC4022">TCP
@@ -319,8 +324,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD-abridged-tree.txt)
       and imports <xref target="RFC6991">Common YANG Data Types
       </xref>, <xref target="RFC8341">The NETCONF Access Control
       Model</xref>, and <xref target="I-D.ietf-netconf-tcp-client-server">
-      YANG Groupings for TCP Clients and TCP Servers</xref>.
-      </t>
+      YANG Groupings for TCP Clients and TCP Servers</xref>.</t>
+
       <t><figure>
           <artwork><![CDATA[
 <CODE BEGINS> file "ietf-tcp@YYYY-MM-DD.yang"
@@ -517,7 +522,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       funded by the European Commission under the Horizon 2020 Programme.</t>
 
       <t>The following persons have contributed to this document by
-      reviews: Mohamed Boucadair, and Tom Petch.</t>
+      reviews: Mohamed Boucadair, Tom Petch, and Gorry Fairhurst.</t>
     </section>
 
     <section title="Examples">
