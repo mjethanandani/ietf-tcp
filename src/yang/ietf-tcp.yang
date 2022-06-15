@@ -71,7 +71,7 @@ module ietf-tcp {
       "Initial Version";
     reference
       "RFC XXXX, A YANG Model for Transmission Control Protocol (TCP)
-                 Configuration.";
+                 Configuration and State.";
   }
 
   // Features
