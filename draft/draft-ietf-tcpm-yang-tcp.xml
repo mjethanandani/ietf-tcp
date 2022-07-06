@@ -129,11 +129,10 @@
       Extended Statistics MIB</xref> is also available, but this document does
       not cover such extended statistics. The YANG module also omits some
       selected parameters included in TCP MIB, most notably Retransmission
-      Timeout (RTO) configuration and a maximum connection limit. This is
+      Timeout (RTO) configuration and a maximum connection limit. This is a
       conscious decision as these parameters hardly matter in a
-      state-of-the-art TCP implementation.
-      It would also be possible also to translate a
-      MIB into a YANG module, for instance using <xref
+      state-of-the-art TCP implementation. It would also be possible to
+      translate a MIB into a YANG module, for instance using <xref
       target="RFC6643">Translation of Structure of Management Information
       Version 2 (SMIv2) MIB Modules to YANG Modules</xref>. However, this
       approach is not used in this document, because a translated model would
@@ -183,6 +182,9 @@
 
         <t>YYYY-MM-DD with the actual date of the publication of this
         document.</t>
+
+        <t>The placeholder "ID.ietf-tcpm-rfc793bis" in the YANG module will
+        need to be replaced by its final RFC number.</t>
       </section>
     </section>
 
@@ -356,11 +358,9 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       </section>
 
       <section title="The YANG Module Names Registry">
-        <t>This document registers a YANG module in the "YANG Module Names"
-        registry <xref target="RFC6020">YANG - A Data Modeling Language
-        </xref>. Following the format in <xref target="RFC6020">YANG - A Data
-        Modeling Language </xref>, the following registration is
-        requested:</t>
+        <t>The following entry is requested to be added to the
+        "YANG Module Names" registry created by
+        <xref target="RFC6020">RFC6022</xref>:</t>
 
         <t><figure>
             <artwork><![CDATA[
