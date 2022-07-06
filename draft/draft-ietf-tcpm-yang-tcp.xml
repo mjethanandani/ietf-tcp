@@ -101,7 +101,7 @@
 
       <t>The YANG module has a narrow scope and focuses on a subset of
       fundamental TCP functions and basic statistics. It defines a
-      container for TCP connection that includes definitions from
+      container for a TCP connection that includes definitions from
       <xref target="I-D.ietf-netconf-tcp-client-server">YANG Groupings
       for TCP Clients and TCP Servers</xref>. This model adheres to
       the recommendation in <xref target="RFC4364">BGP/MPLS IP Virtual
