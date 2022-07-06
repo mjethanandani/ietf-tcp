@@ -197,7 +197,7 @@
         exists for different scopes:</t>
 
         <t><list style="symbols">
-            <t>Global configuration: Many TCP implementations have
+            <t>System-wide configuration: Many TCP implementations have
             configuration parameters that affect all TCP
             connections. Typical examples include enabling or
             disabling optional protocol features.</t>
@@ -222,11 +222,11 @@
             the <xref target="I-D.ietf-idr-bgp-model">BGP YANG Model
             for Service Provider Networks </xref>.</t>
 
-            <t>Policies: Setting of TCP parameters can also be part of
-            system policies, templates, or profiles. An example would
-            be the preferences defined in <xref
-            target="I-D.ietf-taps-interface">An Abstract Application
-            Layer Interface to Transport Services</xref>.</t>
+            <t>Application preferences: Setting of TCP parameters
+            can also be part of application preferences, templates,
+            or profiles. An example would be the preferences defined
+            in <xref target="I-D.ietf-taps-interface">An Abstract
+            Application Layer Interface to Transport Services</xref>.</t>
           </list></t>
 
         <t>As a result, there is no ground truth for setting certain TCP
@@ -241,11 +241,10 @@
 
         <t>Nonetheless, a number of TCP stack parameters require configuration
         by YANG models. This document therefore defines a minimal YANG model
-        with fundamental parameters directly following from TCP standards.</t>
-
-        <t>An important use case is the TCP configuration on network elements
-        such as routers, which often use YANG data models. The model therefore
-        specifies TCP parameters that are important on such TCP stacks.</t>
+        with fundamental parameters. An important use case is the TCP
+        configuration on network elements such as routers, which often use YANG
+        data models. The model therefore specifies TCP parameters that are
+        important on such TCP stacks.</t>
 
         <t>This in particular applies to the support of <xref
         target="RFC5925">TCP-AO</xref>. TCP Authentication Option (TCP-AO) is
