@@ -328,7 +328,7 @@ module ietf-tcp {
         type inet:ip-version;
         description
           "The address type of address.  The value
-           should be unknown (0) if connection initiations
+           should be unspecified (0) if connection initiations
            to all local IP addresses are accepted.";
       }
 
@@ -348,7 +348,7 @@ module ietf-tcp {
               IPv6 datagrams, the value of this object must be
               ''h (a zero-length octet-string), with the value
               of the corresponding 'type' object being
-              unknown (0).
+              unspecified (0).
 
            2. For an application willing to accept only IPv4 or
               IPv6 datagrams, the value of this object must be
