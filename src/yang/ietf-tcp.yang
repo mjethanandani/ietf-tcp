@@ -98,8 +98,8 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       description
         "The SendID is inserted as the KeyID of the TCP-AO option
-         of outgoing segments. The SendID must match the RecvID
-         at the other endpoint.";
+         of outgoing segments. In a consistent configuration, the SendID
+        matches the RecvID at the other endpoint.";
       reference
         "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
@@ -111,8 +111,8 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       description
         "The RecvID is matched against the TCP-AO KeyID of incoming
-         segments. The RecvID must match the SendID at the other
-         endpoint.";
+         segments. In a consistent configuration, the RecvID matches
+         the SendID at the other endpoint.";
       reference
         "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
@@ -170,7 +170,7 @@ module ietf-tcp {
       description
         "Enables, when set to true, support of MD5 to authenticate a
         TCP session. As the TCP MD5 signature option is obsoleted by
-        TCP-AO, it is strongly RECOMMENDED to use TCP-AO instead.";
+        TCP-AO, it is RECOMMENDED to use TCP-AO instead.";
     }
   }
 
