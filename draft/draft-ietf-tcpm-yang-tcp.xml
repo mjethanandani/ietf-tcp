@@ -522,7 +522,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       funded by the European Commission under the Horizon 2020 Programme.</t>
 
       <t>The following persons have contributed to this document by
-      reviews: Mohamed Boucadair, Tom Petch, and Gorry Fairhurst.</t>
+      reviews (in alphabetical order): Mohamed Boucadair, Gorry Fairhurst,
+      Jeffrey Haas, and Tom Petch.</t>
     </section>
 
     <section title="Examples">
