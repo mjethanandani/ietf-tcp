@@ -99,7 +99,7 @@ module ietf-tcp {
       description
         "The SendID is inserted as the KeyID of the TCP-AO option
          of outgoing segments. In a consistent configuration, the SendID
-        matches the RecvID at the other endpoint.";
+         matches the RecvID at the other endpoint.";
       reference
         "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
