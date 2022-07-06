@@ -82,17 +82,18 @@
   <middle>
     <section title="Introduction">
       <t>The <xref target="I-D.ietf-tcpm-rfc793bis">Transmission Control
-      Protocol (TCP)</xref> is used by many applications in the Internet, including control
-      and management protocols. As such, TCP is implemented on network
-      elements that can be configured via network management protocols such as
+      Protocol (TCP)</xref> is used by many applications in the Internet,
+      including controland management protocols. As such, TCP is
+      implemented on network elements that can be configured and managed
+      via network management protocols such as
       <xref target="RFC6241">NETCONF</xref> or <xref
       target="RFC8040">RESTCONF</xref>.</t>
 
       <t>This document specifies a minimal <xref target="RFC7950">YANG
       1.1</xref> model for configuring and managing TCP on network
       elements that support YANG, a TCP connection table,
-      a TCP listner table containing
-      information about a particular TCP listner, and an augmentation
+      a TCP listener table containing
+      information about a particular TCP listener, and an augmentation
       of the <xref target="RFC8177">YANG Data Model for Key
       Chains</xref> to support authentication. This YANG module is
       compliant with <xref target="RFC8342">Network Management
@@ -110,6 +111,7 @@
       updated to address more advanced or implementation-specific TCP
       features in the future.</t>
 
+      <!--
       <t>Many protocol stacks on IP hosts use other methods to configure
       TCP, such as operating system configuration or policies. Many TCP/IP
       stacks cannot be configured by network management protocols such as
@@ -118,8 +120,9 @@
       do not use YANG data models. Such TCP implementations often have other
       means to configure the parameters listed in this document. Such other
       means are outside the scope of this document.</t>
+      -->
 
-      <t>This specification is orthogonal to the <xref
+      <t>This specification does not deprecate the <xref
       target="RFC4022">Management Information Base (MIB) for the Transmission
       Control Protocol (TCP)</xref>. The basic statistics defined in this
       document follow the model of the TCP MIB. An <xref target="RFC4898">TCP
@@ -255,7 +258,7 @@
         <t>Given an installed base, the model also allows enabling of the
         legacy <xref target="RFC2385">TCP MD5</xref> signature option.
         The TCP MD5 signature option was obsoleted by TCP-AO in 2010. If current
-        implementations require TCP authentication, it is RECOMMENDED to use TCP-AO
+        implementations require TCP authentication, it is RECOMMENDED to use 
         <xref target="RFC5925">TCP-AO</xref>.</t>
 
         <t>Similar to the <xref target="RFC4022">TCP MIB</xref>, this document
