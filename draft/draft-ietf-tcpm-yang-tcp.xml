@@ -95,7 +95,7 @@
       a TCP listener table containing
       information about a particular TCP listener, and an augmentation
       of the <xref target="RFC8177">YANG Data Model for Key
-      Chains</xref> to support authentication. This YANG module is
+      Chains</xref> to support authentication. That YANG module is
       compliant with <xref target="RFC8342">Network Management
       Datastore Architecture (NMDA)</xref>.</t>
 
@@ -419,8 +419,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <t><list style="symbols">
           <t>Unrestricted access to connection information of the client or
-          server can be used by a malicious user to launch an attack, e.g.
-          MITM.</t>
+          server can be used by a malicious user to launch an attack.</t>
 
           <t>Similarly, unrestricted access to statistics of the client or
           server can be used by a malicious user to exploit any
