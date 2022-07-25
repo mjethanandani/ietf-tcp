@@ -83,7 +83,7 @@
     <section title="Introduction">
       <t>The <xref target="I-D.ietf-tcpm-rfc793bis">Transmission Control
       Protocol (TCP)</xref> is used by many applications in the Internet,
-      including controland management protocols. As such, TCP is
+      including control and management protocols. As such, TCP is
       implemented on network elements that can be configured and managed
       via network management protocols such as
       <xref target="RFC6241">NETCONF</xref> or <xref
@@ -95,15 +95,15 @@
       a TCP listener table containing
       information about a particular TCP listener, and an augmentation
       of the <xref target="RFC8177">YANG Data Model for Key
-      Chains</xref> to support authentication. That YANG module is
-      compliant with <xref target="RFC8342">Network Management
-      Datastore Architecture (NMDA)</xref>.</t>
+      Chains</xref> to support authentication. The YANG module specified
+      in this document is compliant with
+      <xref target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
 
       <t>The YANG module has a narrow scope and focuses on a subset of
       fundamental TCP functions and basic statistics. It defines a
-      container for a TCP connection that includes definitions from
+      container for a list of TCP connections that includes definitions from
       <xref target="I-D.ietf-netconf-tcp-client-server">YANG Groupings
-      for TCP Clients and TCP Servers</xref>. This model adheres to
+      for TCP Clients and TCP Servers</xref>. The model adheres to
       the recommendation in <xref target="RFC4364">BGP/MPLS IP Virtual
       Private Networks</xref>. Therefore it allows enabling of <xref
       target="RFC5925">TCP-AO</xref>, and accommodates the installed
@@ -359,7 +359,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       <section title="The YANG Module Names Registry">
         <t>The following entry is requested to be added to the
         "YANG Module Names" registry created by
-        <xref target="RFC6020">RFC6022</xref>:</t>
+        <xref target="RFC6020">YANG - A Data Modeling Language for
+        the Network Configuration Protocol (NETCONF)</xref>:</t>
 
         <t><figure>
             <artwork><![CDATA[
