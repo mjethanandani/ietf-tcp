@@ -82,27 +82,28 @@
   <middle>
     <section title="Introduction">
       <t>The <xref target="I-D.ietf-tcpm-rfc793bis">Transmission Control
-      Protocol (TCP)</xref> is used by many applications in the Internet, including control
-      and management protocols. As such, TCP is implemented on network
-      elements that can be configured via network management protocols such as
+      Protocol (TCP)</xref> is used by many applications in the Internet,
+      including control and management protocols. As such, TCP is
+      implemented on network elements that can be configured and managed
+      via network management protocols such as
       <xref target="RFC6241">NETCONF</xref> or <xref
       target="RFC8040">RESTCONF</xref>.</t>
 
       <t>This document specifies a minimal <xref target="RFC7950">YANG
       1.1</xref> model for configuring and managing TCP on network
       elements that support YANG, a TCP connection table,
-      a TCP listner table containing
-      information about a particular TCP listner, and an augmentation
+      a TCP listener table containing
+      information about a particular TCP listener, and an augmentation
       of the <xref target="RFC8177">YANG Data Model for Key
-      Chains</xref> to support authentication. This YANG module is
-      compliant with <xref target="RFC8342">Network Management
-      Datastore Architecture (NMDA)</xref>.</t>
+      Chains</xref> to support authentication. The YANG module specified
+      in this document is compliant with
+      <xref target="RFC8342">Network Management Datastore Architecture (NMDA)</xref>.</t>
 
       <t>The YANG module has a narrow scope and focuses on a subset of
       fundamental TCP functions and basic statistics. It defines a
-      container for TCP connection that includes definitions from
+      container for a list of TCP connections that includes definitions from
       <xref target="I-D.ietf-netconf-tcp-client-server">YANG Groupings
-      for TCP Clients and TCP Servers</xref>. This model adheres to
+      for TCP Clients and TCP Servers</xref>. The model adheres to
       the recommendation in <xref target="RFC4364">BGP/MPLS IP Virtual
       Private Networks</xref>. Therefore it allows enabling of <xref
       target="RFC5925">TCP-AO</xref>, and accommodates the installed
@@ -110,6 +111,7 @@
       updated to address more advanced or implementation-specific TCP
       features in the future.</t>
 
+      <!--
       <t>Many protocol stacks on IP hosts use other methods to configure
       TCP, such as operating system configuration or policies. Many TCP/IP
       stacks cannot be configured by network management protocols such as
@@ -118,19 +120,19 @@
       do not use YANG data models. Such TCP implementations often have other
       means to configure the parameters listed in this document. Such other
       means are outside the scope of this document.</t>
+      -->
 
-      <t>This specification is orthogonal to the <xref
+      <t>This specification does not deprecate the <xref
       target="RFC4022">Management Information Base (MIB) for the Transmission
       Control Protocol (TCP)</xref>. The basic statistics defined in this
       document follow the model of the TCP MIB. An <xref target="RFC4898">TCP
       Extended Statistics MIB</xref> is also available, but this document does
       not cover such extended statistics. The YANG module also omits some
       selected parameters included in TCP MIB, most notably Retransmission
-      Timeout (RTO) configuration and a maximum connection limit. This is
+      Timeout (RTO) configuration and a maximum connection limit. This is a
       conscious decision as these parameters hardly matter in a
-      state-of-the-art TCP implementation.
-      It would also be possible also to translate a
-      MIB into a YANG module, for instance using <xref
+      state-of-the-art TCP implementation. It would also be possible to
+      translate a MIB into a YANG module, for instance using <xref
       target="RFC6643">Translation of Structure of Management Information
       Version 2 (SMIv2) MIB Modules to YANG Modules</xref>. However, this
       approach is not used in this document, because a translated model would
@@ -180,6 +182,9 @@
 
         <t>YYYY-MM-DD with the actual date of the publication of this
         document.</t>
+
+        <t>The placeholder "ID.ietf-tcpm-rfc793bis" in the YANG module will
+        need to be replaced by its final RFC number.</t>
       </section>
     </section>
 
@@ -192,7 +197,7 @@
         exists for different scopes:</t>
 
         <t><list style="symbols">
-            <t>Global configuration: Many TCP implementations have
+            <t>System-wide configuration: Many TCP implementations have
             configuration parameters that affect all TCP
             connections. Typical examples include enabling or
             disabling optional protocol features.</t>
@@ -217,11 +222,11 @@
             the <xref target="I-D.ietf-idr-bgp-model">BGP YANG Model
             for Service Provider Networks </xref>.</t>
 
-            <t>Policies: Setting of TCP parameters can also be part of
-            system policies, templates, or profiles. An example would
-            be the preferences defined in <xref
-            target="I-D.ietf-taps-interface">An Abstract Application
-            Layer Interface to Transport Services</xref>.</t>
+            <t>Application preferences: Setting of TCP parameters
+            can also be part of application preferences, templates,
+            or profiles. An example would be the preferences defined
+            in <xref target="I-D.ietf-taps-interface">An Abstract
+            Application Layer Interface to Transport Services</xref>.</t>
           </list></t>
 
         <t>As a result, there is no ground truth for setting certain TCP
@@ -236,11 +241,10 @@
 
         <t>Nonetheless, a number of TCP stack parameters require configuration
         by YANG models. This document therefore defines a minimal YANG model
-        with fundamental parameters directly following from TCP standards.</t>
-
-        <t>An important use case is the TCP configuration on network elements
-        such as routers, which often use YANG data models. The model therefore
-        specifies TCP parameters that are important on such TCP stacks.</t>
+        with fundamental parameters. An important use case is the TCP
+        configuration on network elements such as routers, which often use YANG
+        data models. The model therefore specifies TCP parameters that are
+        important on such TCP stacks.</t>
 
         <t>This in particular applies to the support of <xref
         target="RFC5925">TCP-AO</xref>. TCP Authentication Option (TCP-AO) is
@@ -255,7 +259,7 @@
         <t>Given an installed base, the model also allows enabling of the
         legacy <xref target="RFC2385">TCP MD5</xref> signature option.
         The TCP MD5 signature option was obsoleted by TCP-AO in 2010. If current
-        implementations require TCP authentication, it is RECOMMENDED to use TCP-AO
+        implementations require TCP authentication, it is RECOMMENDED to use 
         <xref target="RFC5925">TCP-AO</xref>.</t>
 
         <t>Similar to the <xref target="RFC4022">TCP MIB</xref>, this document
@@ -353,11 +357,10 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       </section>
 
       <section title="The YANG Module Names Registry">
-        <t>This document registers a YANG module in the "YANG Module Names"
-        registry <xref target="RFC6020">YANG - A Data Modeling Language
-        </xref>. Following the format in <xref target="RFC6020">YANG - A Data
-        Modeling Language </xref>, the following registration is
-        requested:</t>
+        <t>The following entry is requested to be added to the
+        "YANG Module Names" registry created by
+        <xref target="RFC6020">YANG - A Data Modeling Language for
+        the Network Configuration Protocol (NETCONF)</xref>:</t>
 
         <t><figure>
             <artwork><![CDATA[
@@ -416,8 +419,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <t><list style="symbols">
           <t>Unrestricted access to connection information of the client or
-          server can be used by a malicious user to launch an attack, e.g.
-          MITM.</t>
+          server can be used by a malicious user to launch an attack.</t>
 
           <t>Similarly, unrestricted access to statistics of the client or
           server can be used by a malicious user to exploit any
@@ -522,7 +524,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       funded by the European Commission under the Horizon 2020 Programme.</t>
 
       <t>The following persons have contributed to this document by
-      reviews: Mohamed Boucadair, Tom Petch, and Gorry Fairhurst.</t>
+      reviews (in alphabetical order): Mohamed Boucadair, Gorry Fairhurst,
+      Jeffrey Haas, and Tom Petch.</t>
     </section>
 
     <section title="Examples">
