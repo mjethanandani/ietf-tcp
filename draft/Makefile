@@ -39,6 +39,7 @@ idnits: $(next).txt
 	$(idnits) $<
 
 clean:
+	-rm -rf ../bin/
 	-rm -f $(draft).txt $(draft).html index.html
 	-rm -f $(draft)-[0-9][0-9].txt
 	-rm -f $(draft)-[0-9][0-9].html
@@ -55,9 +56,10 @@ ifeq (org,$(draft_type))
 endif
 
 $(next).xml: $(draft).xml ../src/yang/ietf-tcp.yang
+	-mkdir -p ../bin/imported-modules
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-tcp.yang > ../src/yang/ietf-tcp\@$(shell date +%Y-%m-%d).yang
-	cd ../src; ./validate-and-gen-trees.sh; cd ..;
+	cd ../src; python ./download-dependent-models.py; ./validate-and-gen-trees.sh; cd ..;
 	../src/insert-figures.sh $@ > tmp; mv tmp $@
 
 .INTERMEDIATE: $(draft).xml

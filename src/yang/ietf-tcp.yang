@@ -98,8 +98,8 @@ module ietf-tcp {
       must "../enable-ao = 'true'";
       description
         "The SendID is inserted as the KeyID of the TCP-AO option
-         of outgoing segments. In a consistent configuration, the SendID
-         matches the RecvID at the other endpoint.";
+         of outgoing segments. In a consistent configuration, the
+         SendID matches the RecvID at the other endpoint.";
       reference
         "RFC 5925: The TCP Authentication Option, Section 3.1.";
     }
@@ -477,6 +477,13 @@ module ietf-tcp {
         reference
           "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
            (TCP) Specification.";
+      }
+
+      leaf auth-failures {
+        type yang:counter32;
+        description
+          "The number of times that authentication has failed either
+           with TCP-AO or MD5.";
       }
 
       action reset {
