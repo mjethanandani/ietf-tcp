@@ -80,22 +80,20 @@ module ietf-tcp {
       "This implementation supports statistics reporting.";
   }
 
+  // Identities
+  identity aes-128 {
+    base key-chain:crypto-algorithm;
+    description
+      "AES128 authentication algorithm.";
+  }
+
   // TCP-AO Groupings
 
   grouping ao {
-    leaf enable-ao {
-      type boolean;
-      default "false";
-      description
-        "When set to true, TCP-Authentication Option (TCP-AO) is
-         enabled.";
-    }
-
     leaf send-id {
       type uint8 {
         range "0..max";
       }
-      must "../enable-ao = 'true'";
       description
         "The SendID is inserted as the KeyID of the TCP-AO option
          of outgoing segments. In a consistent configuration, the
@@ -108,7 +106,6 @@ module ietf-tcp {
       type uint8 {
         range "0..max";
       }
-      must "../enable-ao = 'true'";
       description
         "The RecvID is matched against the TCP-AO KeyID of incoming
          segments. In a consistent configuration, the RecvID matches
@@ -119,7 +116,6 @@ module ietf-tcp {
 
     leaf include-tcp-options {
       type boolean;
-      must "../enable-ao = 'true'";
       default true;
       description
         "When set to true, TCP options are included in MAC
@@ -130,7 +126,6 @@ module ietf-tcp {
 
     leaf accept-key-mismatch {
       type boolean;
-      must "../enable-ao = 'true'";
       description
         "Accept, when set to true, TCP segments with a Master Key
          Tuple (MKT) that is not configured.";
@@ -153,25 +148,6 @@ module ietf-tcp {
       "Authentication Option (AO) for TCP.";
     reference
       "RFC 5925: The TCP Authentication Option.";
-  }
-
-  // MD5 grouping
-
-  grouping md5 {
-    description
-      "Grouping for use in authenticating TCP sessions using MD5.";
-    reference
-      "RFC 2385: Protection of BGP Sessions via the TCP MD5
-       Signature.";
-
-    leaf enable-md5 {
-      type boolean;
-      default "false";
-      description
-        "Enables, when set to true, support of MD5 to authenticate a
-        TCP session. As the TCP MD5 signature option is obsoleted by
-        TCP-AO, it is RECOMMENDED to use TCP-AO instead.";
-    }
   }
 
   // TCP configuration
@@ -300,17 +276,27 @@ module ietf-tcp {
                  from previous connections.";
             }
           }
+          config false;
           description
             "The state of this TCP connection.";
         }
         description
-          "List of TCP connections with their parameters. The list
-           is modeled as writeable, but implementations may not
-           allow creation of new TCP connections by adding entries to
-           the list. Furthermore, the behavior upon removal is
-           implementation-specific. Implementations may support
-           closing or resetting a TCP connection upon an operation
-           that removes the entry from the list.";
+          "List of TCP connections with their parameters.
+
+           The list is modeled as writeable even though only some of
+           the nodes are configurable, e.g. keepalive. Connections
+           that are created and match this list SHOULD apply the
+           configurable parameters. At the same time, implementations
+           MAY NOT allow creation of new TCP connections simply by
+           adding entries to the list. Furthermore, the behavior
+           upon removal is implementation-specific. Implementations
+           MAY NOT support closing or resetting a TCP connection
+           upon an operation that removes the entry from the list.
+
+           The operational state of this list SHOULD reflect
+           connections that have configured, but not created, and
+           connections that have been created. Connections in
+           CLOSED state are not reflected on this list.";
       }
       description
         "A container of all TCP connections.";
@@ -334,8 +320,8 @@ module ietf-tcp {
 
       leaf address {
         type union {
-          type string;
           type inet:ip-address;
+          type string;
         }
         description
           "The local IP address for this TCP connection.
@@ -373,7 +359,7 @@ module ietf-tcp {
       config false;
 
       leaf active-opens {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The number of times that TCP connections have made a
            direct transition to the SYN-SENT state from the CLOSED
@@ -384,7 +370,7 @@ module ietf-tcp {
       }
 
       leaf passive-opens {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The number of times TCP connections have made a direct
            transition to the SYN-RCVD state from the LISTEN state.";
@@ -394,7 +380,7 @@ module ietf-tcp {
       }
 
       leaf attempt-fails {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The number of times that TCP connections have made a
            direct transition to the CLOSED state from either the
@@ -407,7 +393,7 @@ module ietf-tcp {
       }
 
       leaf establish-resets {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The number of times that TCP connections have made a
            direct transition to the CLOSED state from either the
@@ -450,7 +436,7 @@ module ietf-tcp {
       }
 
       leaf retransmitted-segments {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The total number of TCP segments retransmitted; that is,
            the number of TCP segments transmitted containing one or
@@ -461,7 +447,7 @@ module ietf-tcp {
       }
 
       leaf in-errors {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The total number of TCP segments received in error
            (e.g., bad TCP checksums).";
@@ -471,7 +457,7 @@ module ietf-tcp {
       }
 
       leaf out-resets {
-        type yang:counter32;
+        type yang:counter64;
         description
           "The number of TCP segments sent containing the RST flag.";
         reference
@@ -528,16 +514,24 @@ module ietf-tcp {
       }
 
       choice authentication {
-        case ao {
+        container ao {
+          presence "Presence container for all TCP-AO related" +
+                   " configuration";
           uses ao;
           description
             "Use TCP-AO to secure the connection.";
         }
 
-        case md5 {
-          uses md5;
+        container md5 {
+          presence "Presence container for all MD5 related" +
+                   " configuration";
           description
-            "Use TCP-MD5 to secure the connection.";
+            "Use TCP-MD5 to secure the connection. As the TCP MD5
+             signature option is obsoleted by TCP-AO, it is
+             RECOMMENDED to use TCP-AO instead.";
+          reference
+            "RFC 2385: Protection of BGP Sessions via the TCP MD5
+                       Signature.";
         }
         description
           "Choice of TCP authentication.";
