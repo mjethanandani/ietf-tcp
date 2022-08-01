@@ -80,6 +80,11 @@ module ietf-tcp {
       "This implementation supports statistics reporting.";
   }
 
+  feature authentication {
+    description
+      "This implementation supports authentication.";
+  }
+
   // Identities
   identity aes-128 {
     base key-chain:crypto-algorithm;
@@ -284,13 +289,13 @@ module ietf-tcp {
           "List of TCP connections with their parameters.
 
            The list is modeled as writeable even though only some of
-           the nodes are configurable, e.g. keepalive. Connections
+           the nodes are writeable, e.g. keepalive. Connections
            that are created and match this list SHOULD apply the
-           configurable parameters. At the same time, implementations
-           MAY NOT allow creation of new TCP connections simply by
+           writeable parameters. At the same time, implementations
+           may not allow creation of new TCP connections simply by
            adding entries to the list. Furthermore, the behavior
            upon removal is implementation-specific. Implementations
-           MAY NOT support closing or resetting a TCP connection
+           may not support closing or resetting a TCP connection
            upon an operation that removes the entry from the list.
 
            The operational state of this list SHOULD reflect
@@ -466,7 +471,8 @@ module ietf-tcp {
       }
 
       leaf auth-failures {
-        type yang:counter32;
+        if-feature authentication;
+        type yang:counter64;
         description
           "The number of times that authentication has failed either
            with TCP-AO or MD5.";
@@ -503,6 +509,7 @@ module ietf-tcp {
        authentication.";
 
     container authentication {
+      if-feature authentication;
       leaf keychain {
         type key-chain:key-chain-ref;
         description

@@ -45,8 +45,8 @@ clean:
 	-rm -f $(draft)-[0-9][0-9].html
 	-rm -f $(draft)-[0-9][0-9].xml
 	-rm -f $(draft)-[0-9][0-9].xml[~]
-	-rm ../src/yang/*\@$(shell date +%Y)-*-*-tree.txt
-	-rm ../src/yang/*\@$(shell date +%Y)-*-*.yang
+	-rm ../src/yang/ietf-tcp@202*-*-*-tree.txt
+	-rm ../src/yang/ietf-tcp@202*-*-*.yang
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
 
