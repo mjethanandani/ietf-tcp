@@ -21,7 +21,9 @@ demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
           <end-date-time>2017-02-01T00:00:05Z</end-date-time>
         </accept-lifetime>
       </lifetime>
-      <crypto-algorithm>hmac-sha-256</crypto-algorithm>
+      <crypto-algorithm
+	  xmlns:tcp=
+	  "urn:ietf:params:xml:ns:yang:ietf-tcp">tcp:aes-128</crypto-algorithm>
       <key-string>
 	<keystring>testvector</keystring>
       </key-string>
@@ -46,7 +48,9 @@ demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
           <end-date-time>2017-02-01T00:00:05Z</end-date-time>
         </accept-lifetime>
       </lifetime>
-      <crypto-algorithm>hmac-sha-256</crypto-algorithm>
+      <crypto-algorithm
+	  xmlns:tcp=
+	  "urn:ietf:params:xml:ns:yang:ietf-tcp">tcp:aes-128</crypto-algorithm>
       <key-string>
 	<keystring>testvector</keystring>
       </key-string>

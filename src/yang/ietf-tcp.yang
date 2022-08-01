@@ -80,6 +80,13 @@ module ietf-tcp {
       "This implementation supports statistics reporting.";
   }
 
+  // Identities
+  identity aes-128 {
+    base key-chain:crypto-algorithm;
+    description
+      "AES128 authentication algorithm.";
+  }
+
   // TCP-AO Groupings
 
   grouping ao {
