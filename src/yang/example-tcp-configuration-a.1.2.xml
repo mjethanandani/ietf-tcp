@@ -30,9 +30,10 @@ demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
       <authentication
 	  xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
 	<keychain>ao-config</keychain>
-	<enable-ao>true</enable-ao>
-	<send-id>61</send-id>
-	<recv-id>84</recv-id>
+	<ao>
+	  <send-id>65</send-id>
+	  <recv-id>87</recv-id>
+	</ao>
       </authentication>
     </key>
     <key>
@@ -56,9 +57,10 @@ demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
       <authentication
 	  xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
 	<keychain>ao-config</keychain>
-	<enable-ao>true</enable-ao>
-	<send-id>61</send-id>
-	<recv-id>84</recv-id>
+	<ao>
+	  <send-id>65</send-id>
+	  <recv-id>87</recv-id>
+	</ao>
       </authentication>
     </key>
   </key-chain>
