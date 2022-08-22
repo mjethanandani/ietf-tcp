@@ -39,13 +39,14 @@ idnits: $(next).txt
 	$(idnits) $<
 
 clean:
+	-rm -rf ../bin/
 	-rm -f $(draft).txt $(draft).html index.html
 	-rm -f $(draft)-[0-9][0-9].txt
 	-rm -f $(draft)-[0-9][0-9].html
 	-rm -f $(draft)-[0-9][0-9].xml
 	-rm -f $(draft)-[0-9][0-9].xml[~]
-	-rm ../src/yang/*\@$(shell date +%Y)-*-*-tree.txt
-	-rm ../src/yang/*\@$(shell date +%Y)-*-*.yang
+	-rm ../src/yang/ietf-tcp@202*-*-*-tree.txt
+	-rm ../src/yang/ietf-tcp@202*-*-*.yang
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
 
@@ -55,9 +56,10 @@ ifeq (org,$(draft_type))
 endif
 
 $(next).xml: $(draft).xml ../src/yang/ietf-tcp.yang
+	-mkdir -p ../bin/imported-modules
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-tcp.yang > ../src/yang/ietf-tcp\@$(shell date +%Y-%m-%d).yang
-	cd ../src; ./validate-and-gen-trees.sh; cd ..;
+	cd ../src; python ./download-dependent-models.py; ./validate-and-gen-trees.sh; cd ..;
 	../src/insert-figures.sh $@ > tmp; mv tmp $@
 
 .INTERMEDIATE: $(draft).xml
