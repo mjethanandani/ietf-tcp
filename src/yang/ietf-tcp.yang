@@ -74,6 +74,13 @@ module ietf-tcp {
                  Configuration and State.";
   }
 
+  // Typedefs
+  typedef mss {
+    type uint16;
+    description
+      "Type definition for Maximum Segment Size.";
+  }
+
   // Features
   feature statistics {
     description
@@ -197,6 +204,28 @@ module ietf-tcp {
             "Identifies the remote TCP port used for the connection,
              and is one of the four elements that form the
              connection identifier.";
+        }
+
+        leaf mss {
+          type mss;
+          description
+            "Maximum Segment Size (MSS) desired on this connection.
+             Note, the 'effective send MSS' will be smaller than
+             what is configured here.";
+          reference
+            "RFC 9293: Transmission Control Protocol (TCP)
+                       Specification.";
+        }
+
+        leaf pmtu {
+          type boolean;
+          default false;
+          description
+            "Turns Path Maximum Transmission Unit (PMTU) on (true)
+             or off (false).";
+          reference
+            "RFC 9293: Transmission Control Protocol (TCP)
+                       Specification.";
         }
 
         uses tcpcmn:tcp-common-grouping;
@@ -370,8 +399,8 @@ module ietf-tcp {
            direct transition to the SYN-SENT state from the CLOSED
            state.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf passive-opens {
@@ -380,8 +409,8 @@ module ietf-tcp {
           "The number of times TCP connections have made a direct
            transition to the SYN-RCVD state from the LISTEN state.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf attempt-fails {
@@ -393,8 +422,8 @@ module ietf-tcp {
            times that TCP connections have made a direct transition
            to the LISTEN state from the SYN-RCVD state.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf establish-resets {
@@ -404,8 +433,8 @@ module ietf-tcp {
            direct transition to the CLOSED state from either the
            ESTABLISHED state or the CLOSE-WAIT state.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf currently-established {
@@ -414,8 +443,8 @@ module ietf-tcp {
           "The number of TCP connections for which the current state
            is either ESTABLISHED or CLOSE-WAIT.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf in-segments {
@@ -425,8 +454,8 @@ module ietf-tcp {
            received in error. This count includes TCP segments
            received on currently established connections.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf out-segments {
@@ -436,8 +465,8 @@ module ietf-tcp {
            current connections but excluding those containing only
            retransmitted octets.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf retransmitted-segments {
@@ -447,8 +476,8 @@ module ietf-tcp {
            the number of TCP segments transmitted containing one or
            more previously transmitted octets.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf in-errors {
@@ -457,8 +486,8 @@ module ietf-tcp {
           "The total number of TCP segments received in error
            (e.g., bad TCP checksums).";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf out-resets {
@@ -466,8 +495,8 @@ module ietf-tcp {
         description
           "The number of TCP segments sent containing the RST flag.";
         reference
-          "I-D.ietf-tcpm-rfc793bis: Transmission Control Protocol
-           (TCP) Specification.";
+          "RFC 9293: Transmission Control Protocol (TCP)
+                     Specification.";
       }
 
       leaf auth-failures {
