@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-This example shows how TCP keepalive can be configured for
-a given connection. An idle connection is dropped after
+This example shows how TCP keepalive, MSS and PMTU can be configured 
+for a given connection. An idle connection is dropped after
 idle-time + (max-probes * probe-interval).
 -->
 <tcp
@@ -12,6 +12,8 @@ idle-time + (max-probes * probe-interval).
       <remote-address>192.0.2.2</remote-address>
       <local-port>1025</local-port>
       <remote-port>22</remote-port>
+      <mss>1400</mss>
+      <pmtu>true</pmtu>
       <keepalives>
 	<idle-time>5</idle-time>
 	<max-probes>5</max-probes>
