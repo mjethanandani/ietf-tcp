@@ -331,24 +331,24 @@ module ietf-tcp {
         description
           "The local IP address for this TCP connection.
 
-           The value of this object can be represented in three
+           The value of this node can be represented in three
            possible ways, depending on the characteristics of the
            listening application:
 
            1. For an application willing to accept both IPv4 and
-              IPv6 datagrams, the value of this object must be
+              IPv6 datagrams, the value of this node must be
               ''h (a zero-length octet-string), with the value
               of the corresponding 'type' object being
               unspecified (0).
 
            2. For an application willing to accept only IPv4 or
-              IPv6 datagrams, the value of this object must be
+              IPv6 datagrams, the value of this node must be
               '0.0.0.0' or '::' respectively, with
               'type' representing the appropriate address type.
 
            3. For an application which is listening for data
               destined only to a specific IP address, the value
-              of this object is the specific local address, with
+              of this node is the specific local address, with
               'type' representing the appropriate address type.";
       }
 
