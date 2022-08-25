@@ -210,19 +210,19 @@ module ietf-tcp {
           type mss;
           description
             "Maximum Segment Size (MSS) desired on this connection.
-             Note, the 'effective send MSS' will be smaller than
+             Note, the 'effective send MSS' can be smaller than
              what is configured here.";
           reference
             "RFC 9293: Transmission Control Protocol (TCP)
                        Specification.";
         }
 
-        leaf pmtu {
+        leaf pmtud {
           type boolean;
           default false;
           description
-            "Turns Path Maximum Transmission Unit (PMTU) on (true)
-             or off (false).";
+            "Turns Path Maximum Transmission Unit Discovery (PMTUD)
+             on (true) or off (false).";
           reference
             "RFC 9293: Transmission Control Protocol (TCP)
                        Specification.";

@@ -13,7 +13,7 @@ idle-time + (max-probes * probe-interval).
       <local-port>1025</local-port>
       <remote-port>22</remote-port>
       <mss>1400</mss>
-      <pmtu>true</pmtu>
+      <pmtud>true</pmtud>
       <keepalives>
 	<idle-time>5</idle-time>
 	<max-probes>5</max-probes>
