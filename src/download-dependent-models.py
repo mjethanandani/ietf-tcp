@@ -10,7 +10,7 @@ def fetch_and_extract(draft, module, version):
     print("Fetching file " + draft + " with version " + version)
     draft_version = draft + "-" + version
     print(draft_version)
-    os.system('curl -sO https://tools.ietf.org/id/%s.txt' %draft_version)
+    os.system('curl -sO https://www.ietf.org/archive/id/%s.txt' %draft_version)
     print("Extracting Module from " + draft_version)
     os.system('xym %s.txt' %draft_version)
     print("Moving module " + module + " to ../bin/imported-modules/")

@@ -81,7 +81,7 @@
 
   <middle>
     <section title="Introduction">
-      <t>The <xref target="I-D.ietf-tcpm-rfc793bis">Transmission Control
+      <t>The <xref target="RFC9293">Transmission Control
       Protocol (TCP)</xref> is used by many applications in the Internet,
       including control and management protocols. As such, TCP is
       implemented on network elements that can be configured and managed
@@ -182,9 +182,6 @@
 
         <t>YYYY-MM-DD with the actual date of the publication of this
         document.</t>
-
-        <t>The placeholder "ID.ietf-tcpm-rfc793bis" in the YANG module will
-        need to be replaced by its final RFC number.</t>
       </section>
     </section>
 
@@ -215,12 +212,13 @@
             the programming interface used by applications. Typical
             examples are socket options in the socket API, such as
             disabling the Nagle algorithm <xref
-            target="I-D.ietf-tcpm-rfc793bis"></xref> by TCP_NODELAY.
-            If an application uses such an interface, it is possible
-            that the configuration of the application or application
-            protocol includes TCP-related parameters. An example is
-            the <xref target="I-D.ietf-idr-bgp-model">BGP YANG Model
-            for Service Provider Networks </xref>.</t>
+            target="RFC9293">Transmission Control Protocol (TCP)
+            Specification</xref> by TCP_NODELAY.  If an application
+            uses such an interface, it is possible that the
+            configuration of the application or application protocol
+            includes TCP-related parameters. An example is the <xref
+            target="I-D.ietf-idr-bgp-model">BGP YANG Model for Service
+            Provider Networks </xref>.</t>
 
             <t>Application preferences: Setting of TCP parameters
             can also be part of application preferences, templates,
@@ -323,7 +321,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD-abridged-tree.txt)
       <t>This YANG module references <xref target="RFC5925">
       The TCP Authentication Option</xref>, <xref target="RFC2385">
       Protection of BGP Sessions via the TCP MD5 Signature</xref>,
-      <xref target="I-D.ietf-tcpm-rfc793bis">Transmission Control
+      <xref target="RFC9293">Transmission Control
       Protocol (TCP) Specification</xref>,
       and imports <xref target="RFC6991">Common YANG Data Types
       </xref>, <xref target="RFC8341">The NETCONF Access Control
@@ -478,7 +476,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
 
       <?rfc include='reference.RFC.8446.xml'?>
 
-      <?rfc include='reference.I-D.ietf-tcpm-rfc793bis.xml'?>
+      <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9293.xml"/>
 
       <?rfc include='reference.I-D.ietf-netconf-tcp-client-server.xml'?>
     </references>
