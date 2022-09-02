@@ -96,7 +96,10 @@ module ietf-tcp {
   identity aes-128 {
     base key-chain:crypto-algorithm;
     description
-      "AES128 authentication algorithm.";
+      "AES128 authentication algorithm used by TCP-AO.";
+    reference
+       "RFC 5926: Cryptographic Algorithms for the TCP
+        Authentication Option (TCP-AO).";
   }
 
   // TCP-AO Groupings

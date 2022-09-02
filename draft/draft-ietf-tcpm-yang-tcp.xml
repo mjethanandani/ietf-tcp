@@ -245,7 +245,9 @@
         important on such TCP stacks.</t>
 
         <t>This in particular applies to the support of <xref
-        target="RFC5925">TCP-AO</xref>. TCP Authentication Option (TCP-AO) is
+        target="RFC5925">TCP-AO</xref> and the corresponding
+        <target="RFC5926">cryptographic algorithms</xref>.
+        TCP Authentication Option (TCP-AO) is
         used on routers to secure routing protocols such as BGP. In that case,
         a YANG model for TCP-AO configuration is required. The model defined
         in this document includes the required parameters for TCP-AO
@@ -451,6 +453,8 @@ INSERT_TEXT_FROM_FILE(../src/yang/ietf-tcp@YYYY-MM-DD.yang)
       <?rfc include='reference.RFC.3688.xml'?>
 
       <?rfc include='reference.RFC.5925.xml'?>
+
+      <?rfc include='reference.RFC.5926.xml'?>
 
       <?rfc include='reference.RFC.6020.xml'?>
 

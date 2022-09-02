@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-This example sets TCP-AO configuration parameters as
-demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
+This example sets TCP-AO configuration parameters similar to
+the examples in RFC 9235.
 -->
 
 <key-chains
@@ -31,35 +31,8 @@ demonstrated by examples in draft-ietf-tcpm-ao-test-vectors.
 	  xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
 	<keychain>ao-config</keychain>
 	<ao>
-	  <send-id>65</send-id>
-	  <recv-id>87</recv-id>
-	</ao>
-      </authentication>
-    </key>
-    <key>
-      <key-id>56</key-id>
-      <lifetime>
-        <send-lifetime>
-          <start-date-time>2017-01-01T00:00:00Z</start-date-time>
-          <end-date-time>2017-02-01T00:00:00Z</end-date-time>
-        </send-lifetime>
-        <accept-lifetime>
-          <start-date-time>2016-12-31T23:59:55Z</start-date-time>
-          <end-date-time>2017-02-01T00:00:05Z</end-date-time>
-        </accept-lifetime>
-      </lifetime>
-      <crypto-algorithm
-	  xmlns:tcp=
-	  "urn:ietf:params:xml:ns:yang:ietf-tcp">tcp:aes-128</crypto-algorithm>
-      <key-string>
-	<keystring>testvector</keystring>
-      </key-string>
-      <authentication
-	  xmlns="urn:ietf:params:xml:ns:yang:ietf-tcp">
-	<keychain>ao-config</keychain>
-	<ao>
-	  <send-id>65</send-id>
-	  <recv-id>87</recv-id>
+	  <send-id>61</send-id>
+	  <recv-id>84</recv-id>
 	</ao>
       </authentication>
     </key>
