@@ -196,8 +196,11 @@
         <t><list style="symbols">
             <t>System-wide configuration: Many TCP implementations have
             configuration parameters that affect all TCP
-            connections. Typical examples include enabling or
-            disabling optional protocol features.</t>
+            connections from or to this TCP stack. Typical examples include
+            enabling or disabling optional protocol features. For instance,
+            many implementations can turn on or off use of window scaling
+            <xref target="RFC9293">Transmission Control Protocol (TCP)
+            Specification</xref> for all TCP connections.</t>
 
             <t>Interface configuration: It can be useful to use
             different TCP parameters on different interfaces, e.g.,
