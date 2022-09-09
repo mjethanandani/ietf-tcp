@@ -358,7 +358,9 @@ module ietf-tcp {
       leaf address {
         type union {
           type inet:ip-address;
-          type string;
+          type string {
+            length 0;
+          }
         }
         description
           "The local IP address for this TCP connection.

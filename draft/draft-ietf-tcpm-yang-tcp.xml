@@ -249,7 +249,7 @@
 
         <t>This in particular applies to the support of <xref
         target="RFC5925">TCP-AO</xref> and the corresponding
-        <target="RFC5926">cryptographic algorithms</xref>.
+        <xref target="RFC5926">cryptographic algorithms</xref>.
         TCP Authentication Option (TCP-AO) is
         used on routers to secure routing protocols such as BGP. In that case,
         a YANG model for TCP-AO configuration is required. The model defined
